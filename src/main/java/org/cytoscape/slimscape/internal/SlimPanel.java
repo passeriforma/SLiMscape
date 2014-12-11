@@ -4,6 +4,8 @@ import org.cytoscape.app.swing.CySwingAppAdapter;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
+import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyNode;
 import org.osgi.framework.BundleContext;
 
 import java.awt.*;
@@ -29,7 +31,6 @@ public class SlimPanel extends JPanel implements CytoPanelComponent {
     public void setPreferredSize(Dimension preferredSize) {
         super.setPreferredSize(preferredSize);
     }
-
 
     public SlimPanel(CyApplicationManager manager, CySwingAppAdapter adapter, BundleContext context) {
         super();

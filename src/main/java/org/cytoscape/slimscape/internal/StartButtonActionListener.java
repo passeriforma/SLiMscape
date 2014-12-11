@@ -15,7 +15,6 @@ import java.util.List;
 public class StartButtonActionListener implements ActionListener {
     private SlimPanel panel;
     private CyApplicationManager manager;
-    private CyNetwork network;
     private BundleContext context;
 
     public StartButtonActionListener(SlimPanel panel, CyApplicationManager manager,
@@ -31,7 +30,13 @@ public class StartButtonActionListener implements ActionListener {
             return;
         }
 
-        List<CyNode> nodes = CyTableUtil.getNodesInState(manager.getCurrentNetwork(), "selected", true);
-        JOptionPane.showMessageDialog(null, "Number of selected nodes are" + nodes.size());
+        CyNetwork network = manager.getCurrentNetwork();
+        // Get a list of all selected nodes
+        List<CyNode> nodes = CyTableUtil.getNodesInState(network, "selected", true);
+
+        for (CyNode node : nodes) {
+            JOptionPane.showMessageDialog(null, "Node name: " + network.getRow(node).get(CyNetwork.NAME, String.class));
+        }
+        JOptionPane.showMessageDialog(null, "Number of selected nodes: " + nodes.size());
     }
 }
