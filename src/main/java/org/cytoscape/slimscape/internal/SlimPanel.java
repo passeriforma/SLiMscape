@@ -6,6 +6,7 @@ import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
+import org.cytoscape.util.swing.OpenBrowser;
 import org.osgi.framework.BundleContext;
 
 import java.awt.*;
@@ -16,8 +17,7 @@ import javax.swing.*;
 public class SlimPanel extends JPanel implements CytoPanelComponent {
     private CyApplicationManager manager;
     private final CySwingAppAdapter adapter;
-    private final BundleContext context;
-
+    private OpenBrowser openBrowser;
     // Panel height
     private static final int DIM_HEIGHT = 800;
 
@@ -32,11 +32,11 @@ public class SlimPanel extends JPanel implements CytoPanelComponent {
         super.setPreferredSize(preferredSize);
     }
 
-    public SlimPanel(CyApplicationManager manager, CySwingAppAdapter adapter, BundleContext context) {
+    public SlimPanel(CyApplicationManager manager, CySwingAppAdapter adapter, OpenBrowser openBrowser) {
         super();
         this.adapter = adapter;
         this.manager = manager;
-        this.context = context;
+        this.openBrowser = openBrowser;
 
         makeJComponents();
 
@@ -56,7 +56,7 @@ public class SlimPanel extends JPanel implements CytoPanelComponent {
     public void makeJComponents() {
         startButton = new JButton("GO");
         start_button = new JLabel("Press to return UNIPROT IDs:");
-        startButton.addActionListener(new StartButtonActionListener(this, manager, context));
+        startButton.addActionListener(new StartButtonActionListener(this, manager, openBrowser));
 
     }
 

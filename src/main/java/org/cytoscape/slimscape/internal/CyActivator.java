@@ -9,6 +9,8 @@ import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.service.util.AbstractCyActivator;
 import org.osgi.framework.BundleContext;
+import org.cytoscape.util.swing.OpenBrowser;
+
 
 public class CyActivator extends AbstractCyActivator {
 	@Override
@@ -16,9 +18,11 @@ public class CyActivator extends AbstractCyActivator {
 		CyApplicationManager manager = getService(context, CyApplicationManager.class);
 		CySwingAppAdapter adapter = getService(context, CySwingAppAdapter.class);
 		CySwingApplication desktopApp = adapter.getCySwingApplication();
+		OpenBrowser openBrowser = getService(context,OpenBrowser.class);
+
 		Properties properties = new Properties();
 
-		SlimPanel slimPanel = new SlimPanel(manager, adapter, context);
+		SlimPanel slimPanel = new SlimPanel(manager, adapter, openBrowser);
 		registerService(context, slimPanel, CytoPanelComponent.class, properties);
 
 		SlimscapePluginAction slimscapePluginAction = new SlimscapePluginAction(manager, adapter, desktopApp, slimPanel);
