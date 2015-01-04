@@ -101,23 +101,12 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
         motifTextArea = new JTextArea(1, 15);
 		slimSearchOptionsPanel.add(motifTextArea);
 
-        // Adds the results table (null at this stage)
-        // TODO: This kills the program. Make it stop
-        String[] header = {"", "ID", "Status", "# of Nodes", "Min P Occ"};
-        JTable table = new JTable(null, header);
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setPreferredSize(new Dimension(500, 300));
-        scrollPane.setMaximumSize(new Dimension(400, 400));
-
         // TODO: Add adjustment listener for when boxes are ticked on and off
 
         /* Example of how to add objects to the table
          * table.addRow(new Object[] { Boolean.valueOf(true), String."" etcetc});)
          */
-
-        slimSearchOptionsPanel.add(scrollPane);
-
+        
         return runSLiMFinderPanel;
     }
 
