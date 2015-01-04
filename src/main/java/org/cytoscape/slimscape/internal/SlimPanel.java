@@ -5,11 +5,13 @@ import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.model.CyNetwork;
+import org.cytoscape.slimscape.internal.ui.SlimfinderOptionsPanel;
+import org.cytoscape.slimscape.internal.ui.SlimfinderRunPanel;
+import org.cytoscape.slimscape.internal.ui.SlimsearchOptionsPanel;
+import org.cytoscape.slimscape.internal.ui.SlimsearchRunPanel;
 import org.cytoscape.util.swing.OpenBrowser;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 
@@ -17,11 +19,6 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
     private CyApplicationManager manager;
     private final CySwingAppAdapter adapter;
     private OpenBrowser openBrowser;
-
-    private JTextField probabililtyCutoffTextField;
-    private JCheckBox disorderMakingCheckBox;
-    private JTextArea customParametersTextArea;
-    private JCheckBox conservationCheckBox;
 
     private JTextArea motifTextArea;
 
@@ -32,25 +29,49 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
         this.openBrowser = openBrowser;
 
         CyNetwork network = manager.getCurrentNetwork();
+        this.setBounds(100, 100, 725, 471);
 
+<<<<<<< HEAD
         setPreferredSize(new Dimension(700,400));
         setOpaque(false);
 
         JTabbedPane pane = new JTabbedPane();
         pane.setPreferredSize(new Dimension(400, 700));
+=======
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
+        gbc_tabbedPane.fill = GridBagConstraints.BOTH;
+        gbc_tabbedPane.gridx = 0;
+        gbc_tabbedPane.gridy = 0;
+        add(tabbedPane, gbc_tabbedPane);
+>>>>>>> modularise
 
         JTabbedPane slimsearch = new JTabbedPane();
-        slimsearch.addTab("Run SLiMSearch", RunSLiMSearch());
-        slimsearch.addTab("Options", SLiMSearchOptionsPanel());
+        slimsearch.addTab("Run SLiMSearch", new SlimsearchRunPanel());
+        slimsearch.addTab("Options", new SlimsearchOptionsPanel());
 
+<<<<<<< HEAD
         // Add the slimsearch tab to the overarching tabbed pane
         pane.addTab("SLiMSearch", slimsearch);
         pane.addTab("SLiMFinder", new JPanel());
         pane.addTab("Domain", new JPanel());
+=======
+        JTabbedPane slimfinder = new JTabbedPane();
+        slimfinder.addTab("Run SLiMFinder", new SlimfinderRunPanel());
+        slimfinder.addTab("Options", new SlimfinderOptionsPanel());
 
-        this.add(pane);
+        // Add the slimsearch tab to tabbedPane
+        tabbedPane.addTab("SLiMSearch", slimsearch);
+        tabbedPane.addTab("SLiMFinder", slimfinder);
+        tabbedPane.addTab("Domain", new JPanel());
+>>>>>>> modularise
+
+        this.add(tabbedPane);
     }
 
+<<<<<<< HEAD
     /*
      * Subpanel of slimsearchRunPanel.
      * Creates components for motif input, and running of SLiMSearch
@@ -161,6 +182,8 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
     }
 
 
+=======
+>>>>>>> modularise
     public Component getComponent() {
         return this;
     }
