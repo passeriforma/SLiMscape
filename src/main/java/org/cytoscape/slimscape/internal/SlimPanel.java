@@ -18,11 +18,6 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
     private final CySwingAppAdapter adapter;
     private OpenBrowser openBrowser;
 
-    private JTextField probabililtyCutoffTextField;
-    private JCheckBox disorderMakingCheckBox;
-    private JTextArea customParametersTextArea;
-    private JCheckBox conservationCheckBox;
-
     private JTextArea motifTextArea;
 
     public SlimPanel(CyApplicationManager manager, CySwingAppAdapter adapter, OpenBrowser openBrowser) {
@@ -33,7 +28,7 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
 
         CyNetwork network = manager.getCurrentNetwork();
 
-        setPreferredSize(new Dimension(700,400));
+        setPreferredSize(new Dimension(400,700));
         setOpaque(false);
 
         // Creates all SLiMSearch panel components
@@ -48,12 +43,8 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
         JTabbedPane slimsearch = new JTabbedPane();
         slimsearch.addTab("Run SLiMSearch", RunSLiMSearch());
 
-        JPanel options = new JPanel();
+        slimsearch.addTab("Options", new SlimsearchOptionsPanel());
 
-        slimsearch.addTab("Options", new SlimsearchOptionsPanel(options));
-
-        //slimsearch.addTab("Run", slimsearchRunPanel);
-        //slimsearch.addTab("Options", optionsPanel);
 
         // Add the slimsearch tab to the overarching tabbed pane
         pane.addTab("SLiMSearch", slimsearch);
@@ -109,7 +100,7 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
         /* Example of how to add objects to the table
          * table.addRow(new Object[] { Boolean.valueOf(true), String."" etcetc});)
          */
-        
+
         return runSLiMFinderPanel;
     }
 

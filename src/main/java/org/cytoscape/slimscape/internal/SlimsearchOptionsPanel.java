@@ -12,11 +12,9 @@ public class SlimsearchOptionsPanel extends JPanel {
     private JCheckBox disorderMakingCheckBox;
     private JTextArea customParametersTextArea;
     private JCheckBox conservationCheckBox;
-    private JPanel options;
 
-    public SlimsearchOptionsPanel (JPanel options) {
-        this.options = options;
-        options.setLayout(new BoxLayout(options, BoxLayout.Y_AXIS));
+    public SlimsearchOptionsPanel () {
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         JPanel maskingPanel = new JPanel();
         maskingPanel.setBorder(new TitledBorder(null, "Masking", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -39,7 +37,7 @@ public class SlimsearchOptionsPanel extends JPanel {
         conservationCheckBox.setAlignmentX(Component.CENTER_ALIGNMENT);
         maskingPanel.add(conservationCheckBox);
 
-        options.add(maskingPanel);
+        this.add(maskingPanel);
 
         JPanel SLiMChance = new JPanel();
         SLiMChance.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "SLiM Chance", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
@@ -58,7 +56,7 @@ public class SlimsearchOptionsPanel extends JPanel {
         SLiMChance.add(probabililtyCutoffTextField);
         probabililtyCutoffTextField.setColumns(10);
 
-        options.add(SLiMChance);
+        this.add(SLiMChance);
 
         JPanel customPanel = new JPanel();
         customPanel.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Custom Parameters", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
@@ -70,6 +68,6 @@ public class SlimsearchOptionsPanel extends JPanel {
         customParametersTextArea = new JTextArea(4, 34);
         customPanel.add(customParametersTextArea);
 
-        options.add(customPanel);
+        this.add(customPanel);
     }
 }
