@@ -36,21 +36,12 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
         setPreferredSize(new Dimension(700,400));
         setOpaque(false);
 
-        // Creates all SLiMSearch panel components
-        //JPanel resultCards = ResultCards();
-
-        //JPanel slimsearchRunPanel = SlimsearchRunPanel(runSLiMSearch, resultCards);
-        //JPanel optionsPanel = SLiMSearchOptionsPanel();
-
         JTabbedPane pane = new JTabbedPane();
         pane.setPreferredSize(new Dimension(400, 700));
 
         JTabbedPane slimsearch = new JTabbedPane();
         slimsearch.addTab("Run SLiMSearch", RunSLiMSearch());
         slimsearch.addTab("Options", SLiMSearchOptionsPanel());
-
-        //slimsearch.addTab("Run", slimsearchRunPanel);
-        //slimsearch.addTab("Options", optionsPanel);
 
         // Add the slimsearch tab to the overarching tabbed pane
         pane.addTab("SLiMSearch", slimsearch);
@@ -88,8 +79,8 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
 		slimSearchOptionsPanel.setBorder(new TitledBorder(new LineBorder(
 				new Color(184, 207, 229)), "Parameters", TitledBorder.LEADING,
 				TitledBorder.TOP, null, new Color(51, 51, 51)));
-        slimSearchOptionsPanel.setPreferredSize(new Dimension(400, 100));
-        slimSearchOptionsPanel.setMaximumSize(new Dimension(400, 100));
+        slimSearchOptionsPanel.setPreferredSize(new Dimension(350, 100));
+        slimSearchOptionsPanel.setMaximumSize(new Dimension(350, 100));
 		runSLiMFinderPanel.add(slimSearchOptionsPanel);
 
         JPanel panel = new JPanel();
@@ -98,15 +89,9 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
         JLabel motifLabel = new JLabel("Motifs:");
 		slimSearchOptionsPanel.add(motifLabel);
 
-        motifTextArea = new JTextArea(1, 15);
+        motifTextArea = new JTextArea(1, 20);
 		slimSearchOptionsPanel.add(motifTextArea);
 
-        // TODO: Add adjustment listener for when boxes are ticked on and off
-
-        /* Example of how to add objects to the table
-         * table.addRow(new Object[] { Boolean.valueOf(true), String."" etcetc});)
-         */
-        
         return runSLiMFinderPanel;
     }
 
