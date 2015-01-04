@@ -25,14 +25,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SlimPanel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SlimPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/cytoscape/slimscape/internal/SlimPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.78175896" vertical-offset="1140" max-vertical-offset="2010">
-              <caret line="108" column="8" selection-start-line="108" selection-start-column="8" selection-end-line="108" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="554" max-vertical-offset="1425">
+              <caret line="52" column="70" selection-start-line="52" selection-start-column="70" selection-end-line="52" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+                <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+                <element signature="e#4342#4343#0" expanded="true" />
+                <element signature="e#4369#4370#0" expanded="true" />
+                <element signature="e#4416#4417#0" expanded="true" />
+                <element signature="e#4457#4458#0" expanded="true" />
+                <element signature="e#4489#4490#0" expanded="true" />
+                <element signature="e#4523#4524#0" expanded="true" />
+                <element signature="e#4552#4553#0" expanded="true" />
+                <element signature="e#4579#4580#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SlimsearchOptionsPanel.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/cytoscape/slimscape/internal/SlimsearchOptionsPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.5973378" vertical-offset="614" max-vertical-offset="1215">
+              <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -42,7 +62,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/org/cytoscape/slimscape/internal/CyActivator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
-              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+              <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -116,6 +136,7 @@
         <option value="$PROJECT_DIR$/src/main/java/org/cytoscape/slimscape/internal/CyActivator.java" />
         <option value="$PROJECT_DIR$/src/main/java/ui/TabsPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/cytoscape/slimscape/internal/SlimscapePluginAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/cytoscape/slimscape/internal/SlimsearchOptionsPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/cytoscape/slimscape/internal/SlimPanel.java" />
       </list>
     </option>
@@ -491,7 +512,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="12" />
+      <option name="time" value="14" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -506,7 +527,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+            <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="true" />
+            <element signature="e#4369#4370#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4457#4458#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4523#4524#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -541,7 +570,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+            <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="true" />
+            <element signature="e#4369#4370#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4457#4458#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4523#4524#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -560,7 +597,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+            <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="true" />
+            <element signature="e#4369#4370#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4457#4458#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4523#4524#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -579,7 +624,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+            <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="true" />
+            <element signature="e#4369#4370#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4457#4458#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4523#4524#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -598,7 +651,15 @@
           <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+            <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="true" />
+            <element signature="e#4369#4370#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4457#4458#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4523#4524#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -639,7 +700,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+            <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="true" />
+            <element signature="e#4369#4370#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4457#4458#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4523#4524#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -666,7 +735,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+            <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="true" />
+            <element signature="e#4369#4370#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4457#4458#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4523#4524#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -693,7 +770,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+            <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="true" />
+            <element signature="e#4369#4370#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4457#4458#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4523#4524#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -728,7 +813,15 @@
           <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="33" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+            <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="true" />
+            <element signature="e#4369#4370#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4457#4458#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4523#4524#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -747,7 +840,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+            <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="true" />
+            <element signature="e#4369#4370#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4457#4458#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4523#4524#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -766,7 +867,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+            <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="true" />
+            <element signature="e#4369#4370#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4457#4458#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4523#4524#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -785,7 +894,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+            <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="true" />
+            <element signature="e#4369#4370#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4457#4458#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4523#4524#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -812,7 +929,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+            <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="true" />
+            <element signature="e#4369#4370#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4457#4458#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4523#4524#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -854,6 +979,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/cytoscape/slimscape/internal/StartButtonActionListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/cytoscape/slimscape/internal/SlimscapePluginAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="61" max-vertical-offset="675">
@@ -865,26 +998,36 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/org/cytoscape/slimscape/internal/CyActivator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/cytoscape/slimscape/internal/StartButtonActionListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
-          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+          <caret line="24" column="31" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/cytoscape/slimscape/internal/SlimPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.78175896" vertical-offset="1140" max-vertical-offset="2010">
-          <caret line="108" column="8" selection-start-line="108" selection-start-column="8" selection-end-line="108" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="554" max-vertical-offset="1425">
+          <caret line="52" column="70" selection-start-line="52" selection-start-column="70" selection-end-line="52" selection-end-column="70" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#SLiMSearchOptionsPanel#0;class#SlimPanel#0" expanded="false" />
+            <element signature="method#RunSLiMSearch#0;class#SlimPanel#0" expanded="false" />
+            <element signature="e#4342#4343#0" expanded="true" />
+            <element signature="e#4369#4370#0" expanded="true" />
+            <element signature="e#4416#4417#0" expanded="true" />
+            <element signature="e#4457#4458#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4523#4524#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4579#4580#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/cytoscape/slimscape/internal/SlimsearchOptionsPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.5973378" vertical-offset="614" max-vertical-offset="1215">
+          <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
