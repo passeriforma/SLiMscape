@@ -1,15 +1,15 @@
 package org.cytoscape.slimscape.internal;
 
-import java.util.Properties;
-
 import org.cytoscape.app.swing.CySwingAppAdapter;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.swing.CyAction;
 import org.cytoscape.application.swing.CySwingApplication;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.service.util.AbstractCyActivator;
-import org.osgi.framework.BundleContext;
 import org.cytoscape.util.swing.OpenBrowser;
+import org.osgi.framework.BundleContext;
+
+import java.util.Properties;
 
 
 public class CyActivator extends AbstractCyActivator {

@@ -5,7 +5,6 @@ import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
 import org.cytoscape.util.swing.OpenBrowser;
-import org.osgi.framework.BundleContext;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

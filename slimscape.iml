@@ -36,5 +36,7 @@
     <orderEntry type="library" name="Maven: org.cytoscape:presentation-api:3.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.cytoscape:viewmodel-api:3.0.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.ops4j.pax.logging:pax-logging-api:1.5.2" level="project" />
+    <orderEntry type="library" name="org.apache.commons:com.springsource.org.apache.commons.attributes:2.2.0" level="project" />
+    <orderEntry type="library" name="org.apache.axis:com.springsource.org.apache.axis:1.4.0" level="project" />
   </component>
 </module>
