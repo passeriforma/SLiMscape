@@ -5,6 +5,8 @@ import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.model.CyNetwork;
+import org.cytoscape.slimscape.internal.ui.SlimfinderOptionsPanel;
+import org.cytoscape.slimscape.internal.ui.SlimfinderRunPanel;
 import org.cytoscape.slimscape.internal.ui.SlimsearchOptionsPanel;
 import org.cytoscape.slimscape.internal.ui.SlimsearchRunPanel;
 import org.cytoscape.util.swing.OpenBrowser;
@@ -27,32 +29,32 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
         this.openBrowser = openBrowser;
 
         CyNetwork network = manager.getCurrentNetwork();
+        this.setBounds(100, 100, 725, 471);
 
-        setPreferredSize(new Dimension(400,700));
-        setOpaque(false);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        // Creates all SLiMSearch panel components
-        //JPanel resultCards = ResultCards();
-
-        //JPanel slimsearchRunPanel = SlimsearchRunPanel(runSLiMSearch, resultCards);
-        //JPanel optionsPanel = SLiMSearchOptionsPanel();
-
-        JTabbedPane slimscapePane = new JTabbedPane();
-        slimscapePane.setPreferredSize(new Dimension(400, 700));
+        JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
+        gbc_tabbedPane.fill = GridBagConstraints.BOTH;
+        gbc_tabbedPane.gridx = 0;
+        gbc_tabbedPane.gridy = 0;
+        add(tabbedPane, gbc_tabbedPane);
 
         JTabbedPane slimsearch = new JTabbedPane();
         slimsearch.addTab("Run SLiMSearch", new SlimsearchRunPanel());
         slimsearch.addTab("Options", new SlimsearchOptionsPanel());
 
+        JTabbedPane slimfinder = new JTabbedPane();
+        slimfinder.addTab("Run SLiMFinder", new SlimfinderRunPanel());
+        slimfinder.addTab("Options", new SlimfinderOptionsPanel());
 
-        // Add the slimsearch tab to the overarching tabbed pane
-        slimscapePane.addTab("SLiMSearch", slimsearch);
-        slimscapePane.addTab("SLiMFinder", new JPanel());
-        slimscapePane.addTab("Domain", new JPanel());
+        // Add the slimsearch tab to tabbedPane
+        tabbedPane.addTab("SLiMSearch", slimsearch);
+        tabbedPane.addTab("SLiMFinder", slimfinder);
+        tabbedPane.addTab("Domain", new JPanel());
 
-        this.add(slimscapePane);
+        this.add(tabbedPane);
     }
-
 
     public Component getComponent() {
         return this;
