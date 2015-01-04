@@ -16,7 +16,6 @@ public class SlimscapePluginAction extends AbstractCyAction {
     private final SlimPanel slimPanel;
     private final CytoPanel cytoPanelWest;
 
-    // This constructor sets text to appear on the menu item
     public SlimscapePluginAction(final CyApplicationManager manager, final CySwingAppAdapter adapter,
                                  final CySwingApplication desktopApp, SlimPanel slimPanel) {
         super(MENU_NAME);
