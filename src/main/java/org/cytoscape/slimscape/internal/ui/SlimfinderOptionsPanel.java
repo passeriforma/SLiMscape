@@ -155,7 +155,7 @@ public class SlimfinderOptionsPanel extends JPanel {
         customPanel.add(customParametersTextArea, gbc_customParametersTextArea);
     }
 
-/*    public SlimfinderOptions getSLiMFinderOptions()
+    public SlimfinderOptions getSLiMFinderOptions()
     {
         SlimfinderOptions slimfinderOptions = new SlimfinderOptions();
         slimfinderOptions.setDismask(disorderMakingCheckBox.isSelected());
@@ -166,5 +166,5 @@ public class SlimfinderOptionsPanel extends JPanel {
         slimfinderOptions.setFeaturemask(featureMaskingCheckBox.isSelected());
         return slimfinderOptions;
     }
-    */
+
 }

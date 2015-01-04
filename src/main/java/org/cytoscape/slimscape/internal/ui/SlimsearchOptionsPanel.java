@@ -110,6 +110,7 @@ public class SlimsearchOptionsPanel extends JPanel {
         gbc_customParametersTextArea.gridy = 0;
         customPanel.add(customParametersTextArea, gbc_customParametersTextArea);
     }
+
     public SlimsearchOptions getSLiMFinderOptions()
     {
         SlimsearchOptions slimsearchOptions = new SlimsearchOptions();

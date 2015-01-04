@@ -11,7 +11,6 @@ public class SlimsearchOptions {
 
     public SlimsearchOptions() {
         super();
-
     }
 
     public boolean isDismask() {
@@ -37,8 +36,6 @@ public class SlimsearchOptions {
     public void setCutoff(double cutoff) {
         this.cutoff = cutoff;
     }
-
-
 
     public String getCustomParameters() {
         return customParameters;
