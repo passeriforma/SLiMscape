@@ -5,10 +5,7 @@ import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.model.CyNetwork;
-import org.cytoscape.slimscape.internal.ui.SlimfinderOptionsPanel;
-import org.cytoscape.slimscape.internal.ui.SlimfinderRunPanel;
-import org.cytoscape.slimscape.internal.ui.SlimsearchOptionsPanel;
-import org.cytoscape.slimscape.internal.ui.SlimsearchRunPanel;
+import org.cytoscape.slimscape.internal.ui.*;
 import org.cytoscape.util.swing.OpenBrowser;
 
 import javax.swing.*;
@@ -41,8 +38,9 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
         add(tabbedPane, gbc_tabbedPane);
 
         JTabbedPane slimsearch = new JTabbedPane();
+        SlimsearchOptionsPanel optionsPanel = new SlimsearchOptionsPanel();
         slimsearch.addTab("Run SLiMSearch", new SlimsearchRunPanel(manager, openBrowser));
-        slimsearch.addTab("Options", new SlimsearchOptionsPanel());
+        slimsearch.addTab("Options", optionsPanel);
 
         JTabbedPane slimfinder = new JTabbedPane();
         slimfinder.addTab("Run SLiMFinder", new SlimfinderRunPanel());

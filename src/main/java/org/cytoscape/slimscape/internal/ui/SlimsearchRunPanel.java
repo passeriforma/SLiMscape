@@ -1,11 +1,10 @@
 package org.cytoscape.slimscape.internal.ui;
 
-import org.biojava3.core.sequence.ProteinSequence;
-import org.biojava3.core.sequence.io.FastaReaderHelper;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
+import org.cytoscape.slimscape.internal.RunSlimsearch;
 import org.cytoscape.util.swing.OpenBrowser;
 
 import javax.swing.*;
@@ -14,7 +13,6 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 import java.util.List;
 
 /*
@@ -23,6 +21,7 @@ import java.util.List;
 public class SlimsearchRunPanel extends JPanel {
     CyApplicationManager manager;
     private JTextArea motifTextArea = null;
+    private JTextArea idTextArea = null;
     final CyNetwork network;
     OpenBrowser openBrowser;
 
@@ -33,7 +32,7 @@ public class SlimsearchRunPanel extends JPanel {
 
         this.openBrowser = openBrowser;
         this.manager = manager;
-        final CyNetwork network = manager.getCurrentNetwork();
+        CyNetwork network = manager.getCurrentNetwork();
         this.network = network;
 
         setBackground(new Color(238, 238, 238));
@@ -71,7 +70,7 @@ public class SlimsearchRunPanel extends JPanel {
                 if (selected.size() > 0) {
                     if (motifTextArea.getText().length() > 0) {
                         String motif = motifTextArea.getText(); // THIS IS MY PROBLEM
-                        runSlimsearch(network, selected, motif);
+                        new RunSlimsearch(network, selected, motif); // TODO: Is this okay/does this work?
                     } else {
                         JOptionPane.showMessageDialog(null, "No motif in the text area!");
                     }
@@ -138,32 +137,20 @@ public class SlimsearchRunPanel extends JPanel {
         gbc_textArea.gridy = 2;
         slimSearchOptionsPanel.add(motifTextArea, gbc_textArea);
 
-    }
+        JLabel idLabel = new JLabel("Run ID:");
+        GridBagConstraints gbc1_motifLabel = new GridBagConstraints();
+        gbc1_motifLabel.anchor = GridBagConstraints.WEST;
+        gbc1_motifLabel.insets = new Insets(0, 0, 5, 5);
+        gbc1_motifLabel.gridx = 0;
+        gbc1_motifLabel.gridy = 3;
+        slimSearchOptionsPanel.add(idLabel, gbc1_motifLabel);
 
-    public void runSlimsearch(CyNetwork network, List<CyNode> selected, String motif) {
-
-        // Get the FASTA sequence for each selected node
-        List<ProteinSequence> selectedFasta = null;
-
-        for (CyNode node : selected) {
-            String name = network.getRow(node).get(CyNetwork.NAME, String.class); // Gets uniprot ID
-            try {
-                ProteinSequence fasta = getSequenceForId(name);
-                selectedFasta.add(fasta);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        // Get state of SlimsearchOptionsPanel
-
-
-        // Send a request to the REST server
-    }
-
-    private static ProteinSequence getSequenceForId(String uniProtId) throws Exception {
-        URL uniprotFasta = new URL(String.format("http://www.uniprot.org/uniprot/%s.fasta", uniProtId));
-        ProteinSequence seq = FastaReaderHelper.readFastaProteinSequence(uniprotFasta.openStream()).get(uniProtId);
-        return seq;
+        idTextArea = new JTextArea();
+        GridBagConstraints gbc1_textArea = new GridBagConstraints();
+        gbc1_textArea.insets = new Insets(0, 0, 0, 5);
+        gbc1_textArea.fill = GridBagConstraints.BOTH;
+        gbc1_textArea.gridx = 0;
+        gbc1_textArea.gridy = 4;
+        slimSearchOptionsPanel.add(idTextArea, gbc1_textArea);
     }
 }

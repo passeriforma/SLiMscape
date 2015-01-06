@@ -114,8 +114,7 @@ public class SlimsearchOptionsPanel extends JPanel {
         customPanel.add(customParametersTextArea, gbc_customParametersTextArea);
     }
 
-    public SlimsearchOptions getSLiMFinderOptions()
-    {
+    public SlimsearchOptions getSLiMSearchOptions() {
         SlimsearchOptions slimsearchOptions = new SlimsearchOptions();
         slimsearchOptions.setDismask(disorderMakingCheckBox.isEnabled());
         slimsearchOptions.setCutoff(Double.parseDouble(probabililtyCutoffTextField.getText()));

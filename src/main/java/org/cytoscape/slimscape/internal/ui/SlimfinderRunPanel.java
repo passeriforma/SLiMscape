@@ -2,6 +2,7 @@ package org.cytoscape.slimscape.internal.ui;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
@@ -12,6 +13,7 @@ public class SlimfinderRunPanel extends JPanel {
 
     JComboBox comboBox = null;
     JComboBox attributeNameCombobox = null;
+    JTextArea idTextArea = null;
 
     public SlimfinderRunPanel() {
         int height = 170;
@@ -53,5 +55,56 @@ public class SlimfinderRunPanel extends JPanel {
         gbc_runSLiMFinderButton.gridx = 0;
         gbc_runSLiMFinderButton.gridy = 0;
         sLiMFinderPanel.add(runSLiMFinderButton, gbc_runSLiMFinderButton);
+
+
+        JPanel slimSearchOptionsPanel = new JPanel();
+        slimSearchOptionsPanel.setBorder(new TitledBorder(new LineBorder(
+                new Color(184, 207, 229)), "Parameters", TitledBorder.LEADING,
+                TitledBorder.TOP, null, new Color(51, 51, 51)));
+        GridBagConstraints gbc_slimSearchOptionsPanel = new GridBagConstraints();
+        gbc_slimSearchOptionsPanel.insets = new Insets(0, 0, 5, 0);
+        gbc_slimSearchOptionsPanel.fill = GridBagConstraints.BOTH;
+        gbc_slimSearchOptionsPanel.gridx = 0;
+        gbc_slimSearchOptionsPanel.gridy = 1;
+        sLiMFinderPanel.add(slimSearchOptionsPanel,gbc_slimSearchOptionsPanel);
+        GridBagLayout gbl_slimSearchOptionsPanel = new GridBagLayout();
+        gbl_slimSearchOptionsPanel.columnWidths = new int[] { 0, 0 };
+        gbl_slimSearchOptionsPanel.rowHeights = new int[] { 0, 0, 0, 0 };
+        gbl_slimSearchOptionsPanel.columnWeights = new double[] { 1.0,
+                Double.MIN_VALUE };
+        gbl_slimSearchOptionsPanel.rowWeights = new double[] { 1.0, 0.0, 1.0,
+                Double.MIN_VALUE };
+        slimSearchOptionsPanel.setLayout(gbl_slimSearchOptionsPanel);
+
+        JPanel panel = new JPanel();
+        GridBagConstraints gbc_panel = new GridBagConstraints();
+        gbc_panel.insets = new Insets(0, 0, 5, 5);
+        gbc_panel.fill = GridBagConstraints.BOTH;
+        gbc_panel.gridx = 0;
+        gbc_panel.gridy = 0;
+        slimSearchOptionsPanel.add(panel, gbc_panel);
+        GridBagLayout gbl_panel = new GridBagLayout();
+        gbl_panel.columnWidths = new int[] { 0, 0, 0 };
+        gbl_panel.rowHeights = new int[] { 0, 0 };
+        gbl_panel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
+        gbl_panel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+        panel.setLayout(gbl_panel);
+
+        JLabel idLabel = new JLabel("Run ID:");
+        GridBagConstraints gbc1_motifLabel = new GridBagConstraints();
+        gbc1_motifLabel.anchor = GridBagConstraints.WEST;
+        gbc1_motifLabel.insets = new Insets(0, 0, 5, 5);
+        gbc1_motifLabel.gridx = 0;
+        gbc1_motifLabel.gridy = 1;
+        slimSearchOptionsPanel.add(idLabel, gbc1_motifLabel);
+
+        idTextArea = new JTextArea();
+        GridBagConstraints gbc1_textArea = new GridBagConstraints();
+        gbc1_textArea.insets = new Insets(0, 0, 0, 5);
+        gbc1_textArea.fill = GridBagConstraints.BOTH;
+        gbc1_textArea.gridx = 0;
+        gbc1_textArea.gridy = 2;
+        slimSearchOptionsPanel.add(idTextArea, gbc1_textArea);
+
     }
 }
