@@ -1,5 +1,7 @@
 package org.cytoscape.slimscape.internal.ui;
 
+import org.biojava3.core.sequence.ProteinSequence;
+import org.biojava3.core.sequence.io.FastaReaderHelper;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
@@ -12,6 +14,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.List;
 
 /*
@@ -138,15 +141,29 @@ public class SlimsearchRunPanel extends JPanel {
     }
 
     public void runSlimsearch(CyNetwork network, List<CyNode> selected, String motif) {
-        // get FASTA for each
-        // To do this, get the uniprot ID and ask uniprot.
-        // Then, get info from the options panel
-        // Finally, send to server
-        // Should the last bits be in another class?
+
+        // Get the FASTA sequence for each selected node
+        List<ProteinSequence> selectedFasta = null;
+
         for (CyNode node : selected) {
-            //JOptionPane.showMessageDialog(null, "Node name: " + network.getRow(node).get(CyNetwork.NAME, String.class));
-            String name = network.getRow(node).get(CyNetwork.NAME, String.class);
-            this.openBrowser.openURL("http://www.uniprot.org/uniprot/" + name);
+            String name = network.getRow(node).get(CyNetwork.NAME, String.class); // Gets uniprot ID
+            try {
+                ProteinSequence fasta = getSequenceForId(name);
+                selectedFasta.add(fasta);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+        // Get state of SlimsearchOptionsPanel
+
+
+        // Send a request to the REST server
+    }
+
+    private static ProteinSequence getSequenceForId(String uniProtId) throws Exception {
+        URL uniprotFasta = new URL(String.format("http://www.uniprot.org/uniprot/%s.fasta", uniProtId));
+        ProteinSequence seq = FastaReaderHelper.readFastaProteinSequence(uniprotFasta.openStream()).get(uniProtId);
+        return seq;
     }
 }
