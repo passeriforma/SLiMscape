@@ -6,6 +6,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
+/*
+ * @author: Kevin O'Brien
+ */
 public class SlimsearchOptionsPanel extends JPanel {
 
     private JTextField probabililtyCutoffTextField;

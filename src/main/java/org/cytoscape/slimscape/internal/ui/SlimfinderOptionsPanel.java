@@ -5,6 +5,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
+/*
+ * @author: Kevin O'Brien
+ */
 public class SlimfinderOptionsPanel extends JPanel {
     private JTextField probabililtyCutoffTextField = null;
     private JCheckBox disorderMakingCheckBox = null;

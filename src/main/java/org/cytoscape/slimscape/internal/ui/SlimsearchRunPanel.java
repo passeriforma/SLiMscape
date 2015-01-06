@@ -1,13 +1,38 @@
 package org.cytoscape.slimscape.internal.ui;
 
+import org.cytoscape.application.CyApplicationManager;
+import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyNode;
+import org.cytoscape.model.CyTableUtil;
+import org.cytoscape.util.swing.OpenBrowser;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
+/*
+ * @author: Kevin O'Brien
+ */
 public class SlimsearchRunPanel extends JPanel {
-    
-    public SlimsearchRunPanel () {
+    CyApplicationManager manager;
+    private JTextArea motifTextArea = null;
+    final CyNetwork network;
+    OpenBrowser openBrowser;
+
+	/**
+	 * Create the panel.
+	 */
+    public SlimsearchRunPanel (final CyApplicationManager manager, OpenBrowser openBrowser) {
+
+        this.openBrowser = openBrowser;
+        this.manager = manager;
+        final CyNetwork network = manager.getCurrentNetwork();
+        this.network = network;
+
         setBackground(new Color(238, 238, 238));
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[] { 558, 0 };
@@ -33,6 +58,25 @@ public class SlimsearchRunPanel extends JPanel {
         gbc_runSLiMFinderPanel.gridy = 0;
         add(runSLiMFinderPanel, gbc_runSLiMFinderPanel);
         JButton runSLiMSearchButton = new JButton("RunSLiMSearch");
+
+        // Get selected nodes in the graph and send them for processing
+        runSLiMSearchButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CyNetwork network = manager.getCurrentNetwork();
+                List<CyNode> selected = CyTableUtil.getNodesInState(network, "selected", true);
+
+                if (selected.size() > 0) {
+                    if (motifTextArea.getText().length() > 0) {
+                        String motif = motifTextArea.getText(); // THIS IS MY PROBLEM
+                        runSlimsearch(network, selected, motif);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No motif in the text area!");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No nodes selected!");
+                }
+            }
+        });
 
         GridBagConstraints gbc_runSLiMSearchButton = new GridBagConstraints();
         gbc_runSLiMSearchButton.anchor = GridBagConstraints.NORTHWEST;
@@ -83,7 +127,7 @@ public class SlimsearchRunPanel extends JPanel {
         gbc_motifLabel.gridy = 1;
         slimSearchOptionsPanel.add(motifLabel, gbc_motifLabel);
 
-        JTextArea motifTextArea = new JTextArea();
+        motifTextArea = new JTextArea();
         GridBagConstraints gbc_textArea = new GridBagConstraints();
         gbc_textArea.insets = new Insets(0, 0, 0, 5);
         gbc_textArea.fill = GridBagConstraints.BOTH;
@@ -91,5 +135,18 @@ public class SlimsearchRunPanel extends JPanel {
         gbc_textArea.gridy = 2;
         slimSearchOptionsPanel.add(motifTextArea, gbc_textArea);
 
+    }
+
+    public void runSlimsearch(CyNetwork network, List<CyNode> selected, String motif) {
+        // get FASTA for each
+        // To do this, get the uniprot ID and ask uniprot.
+        // Then, get info from the options panel
+        // Finally, send to server
+        // Should the last bits be in another class?
+        for (CyNode node : selected) {
+            //JOptionPane.showMessageDialog(null, "Node name: " + network.getRow(node).get(CyNetwork.NAME, String.class));
+            String name = network.getRow(node).get(CyNetwork.NAME, String.class);
+            this.openBrowser.openURL("http://www.uniprot.org/uniprot/" + name);
+        }
     }
 }

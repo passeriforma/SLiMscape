@@ -1,7 +1,7 @@
 package org.cytoscape.slimscape.internal.ui;
 
-/**
- *
+/*
+ * @author: Kevin O'Brien
  */
 public class SlimfinderOptions {
 

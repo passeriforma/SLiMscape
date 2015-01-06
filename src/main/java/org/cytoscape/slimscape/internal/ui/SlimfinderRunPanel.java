@@ -5,6 +5,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
+/*
+ * @author: Kevin O'Brien
+ */
 public class SlimfinderRunPanel extends JPanel {
 
     JComboBox comboBox = null;

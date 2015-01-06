@@ -1,7 +1,7 @@
 package org.cytoscape.slimscape.internal.ui;
 
-/**
- * Created by rayne on 5/01/15.
+/*
+ * @author: Kevin O'Brien
  */
 public class SlimsearchOptions {
     private boolean dismask;
