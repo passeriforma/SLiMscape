@@ -15,6 +15,8 @@ public class SlimsearchOptionsPanel extends JPanel {
     private JCheckBox disorderMakingCheckBox;
     private JTextArea customParametersTextArea;
     private JCheckBox conservationCheckBox;
+    private SlimsearchOptions options = new SlimsearchOptions();
+
 
     public SlimsearchOptionsPanel () {
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -39,14 +41,16 @@ public class SlimsearchOptionsPanel extends JPanel {
         gbl_maskingPanel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
         maskingPanel.setLayout(gbl_maskingPanel);
 
-        this.disorderMakingCheckBox = new JCheckBox("Disorder Masking");
-        this.disorderMakingCheckBox.setSelected(true);
+        disorderMakingCheckBox = new JCheckBox("Disorder Masking");
+        disorderMakingCheckBox.setSelected(true);
         GridBagConstraints gbc_disorderMakingCheckBox = new GridBagConstraints();
         gbc_disorderMakingCheckBox.anchor = GridBagConstraints.WEST;
         gbc_disorderMakingCheckBox.insets = new Insets(0, 0, 5, 5);
         gbc_disorderMakingCheckBox.gridx = 0;
         gbc_disorderMakingCheckBox.gridy = 0;
-        maskingPanel.add(this.disorderMakingCheckBox, gbc_disorderMakingCheckBox);
+        maskingPanel.add(disorderMakingCheckBox, gbc_disorderMakingCheckBox);
+
+
 
         conservationCheckBox = new JCheckBox("Conservation Masking");
         conservationCheckBox.setSelected(true);
@@ -114,12 +118,11 @@ public class SlimsearchOptionsPanel extends JPanel {
         customPanel.add(customParametersTextArea, gbc_customParametersTextArea);
     }
 
-    public SlimsearchOptions getSLiMSearchOptions() {
-        SlimsearchOptions slimsearchOptions = new SlimsearchOptions();
-        slimsearchOptions.setDismask(disorderMakingCheckBox.isEnabled());
-        slimsearchOptions.setCutoff(Double.parseDouble(probabililtyCutoffTextField.getText()));
-        slimsearchOptions.setCustomParameters(customParametersTextArea.getText());
-        slimsearchOptions.setConsmask(conservationCheckBox.isSelected());
-        return slimsearchOptions;
+    public SlimsearchOptions getSlimsearchOptions() {
+        options.setDismask(disorderMakingCheckBox.isSelected());
+        options.setCutoff(Double.parseDouble(probabililtyCutoffTextField.getText()));
+        options.setCustomParameters(customParametersTextArea.getText());
+        options.setConsmask(conservationCheckBox.isSelected());
+        return options;
     }
 }

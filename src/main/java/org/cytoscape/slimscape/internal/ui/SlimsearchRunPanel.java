@@ -24,16 +24,19 @@ public class SlimsearchRunPanel extends JPanel {
     private JTextArea idTextArea = null;
     final CyNetwork network;
     OpenBrowser openBrowser;
+    private SlimsearchOptionsPanel optionsPanel;
 
 	/**
 	 * Create the panel.
 	 */
-    public SlimsearchRunPanel (final CyApplicationManager manager, OpenBrowser openBrowser) {
+    public SlimsearchRunPanel (final CyApplicationManager manager, OpenBrowser openBrowser,
+                               final SlimsearchOptionsPanel optionsPanel) {
 
         this.openBrowser = openBrowser;
         this.manager = manager;
         CyNetwork network = manager.getCurrentNetwork();
         this.network = network;
+        this.optionsPanel = optionsPanel;
 
         setBackground(new Color(238, 238, 238));
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -69,8 +72,8 @@ public class SlimsearchRunPanel extends JPanel {
 
                 if (selected.size() > 0) {
                     if (motifTextArea.getText().length() > 0) {
-                        String motif = motifTextArea.getText(); // THIS IS MY PROBLEM
-                        new RunSlimsearch(network, selected, motif); // TODO: Is this okay/does this work?
+                        String motif = motifTextArea.getText();
+                        new RunSlimsearch(network, selected, motif, optionsPanel);
                     } else {
                         JOptionPane.showMessageDialog(null, "No motif in the text area!");
                     }

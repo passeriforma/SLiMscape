@@ -13,7 +13,7 @@ public class SlimsearchOptions {
         super();
     }
 
-    public boolean isDismask() {
+    public boolean getDismask() {
         return dismask;
     }
 
@@ -25,7 +25,7 @@ public class SlimsearchOptions {
         return cutoff;
     }
 
-    public boolean isUsingConservation() {
+    public boolean getConservation() {
         return consmask;
     }
 
