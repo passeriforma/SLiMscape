@@ -5,6 +5,7 @@ import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
 import org.cytoscape.slimscape.internal.RunSlimfinder;
+import org.cytoscape.util.swing.OpenBrowser;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -13,6 +14,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * @author: Kevin O'Brien
@@ -25,7 +28,8 @@ public class SlimfinderRunPanel extends JPanel {
     SlimfinderOptionsPanel optionsPanel;
     CyApplicationManager manager;
 
-    public SlimfinderRunPanel(final CyApplicationManager manager, final SlimfinderOptionsPanel optionsPanel) {
+    public SlimfinderRunPanel(final CyApplicationManager manager, final OpenBrowser openBrowser,
+                              final SlimfinderOptionsPanel optionsPanel) {
         setBackground(new Color(238, 238, 238));
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{629, 0};
@@ -68,12 +72,21 @@ public class SlimfinderRunPanel extends JPanel {
         runSLiMFinderButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CyNetwork network = manager.getCurrentNetwork();
-                java.util.List<CyNode> selected = CyTableUtil.getNodesInState(network, "selected", true);
-
-                if (selected.size() > 0) {
-                    new RunSlimfinder(network, selected, optionsPanel);
+                // There is a past runs ID in the box
+                if (idTextArea.getText().length() > 0) {
+                    // Send request to the server for that page
+                    String id = idTextArea.getText();
+                    openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
                 } else {
-                    JOptionPane.showMessageDialog(null, "No nodes selected!");
+                    List<CyNode> selected = new ArrayList<CyNode>();
+                    selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
+                    JOptionPane.showMessageDialog(null, selected.size());
+
+                    if (selected.size() > 0) {
+                        new RunSlimfinder(network, selected, optionsPanel);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No nodes selected!");
+                    }
                 }
             }
         });

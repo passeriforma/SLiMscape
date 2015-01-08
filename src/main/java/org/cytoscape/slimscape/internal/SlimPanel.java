@@ -44,7 +44,7 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
 
         JTabbedPane slimfinder = new JTabbedPane();
         SlimfinderOptionsPanel optionsPanel1 = new SlimfinderOptionsPanel();
-        slimfinder.addTab("Run SLiMFinder", new SlimfinderRunPanel(manager, optionsPanel1));
+        slimfinder.addTab("Run SLiMFinder", new SlimfinderRunPanel(manager, openBrowser, optionsPanel1));
         slimfinder.addTab("Options", optionsPanel1);
 
         // Add the slimsearch tab to tabbedPane

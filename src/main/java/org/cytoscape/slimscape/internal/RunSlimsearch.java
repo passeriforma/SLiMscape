@@ -5,6 +5,7 @@ import org.cytoscape.model.CyNode;
 import org.cytoscape.slimscape.internal.ui.SlimsearchOptions;
 import org.cytoscape.slimscape.internal.ui.SlimsearchOptionsPanel;
 
+import javax.swing.*;
 import java.util.List;
 
 public class RunSlimsearch {
@@ -20,6 +21,7 @@ public class RunSlimsearch {
 
         for (CyNode node : selected) {
             String name = network.getRow(node).get(CyNetwork.NAME, String.class); // Gets uniprot ID
+            JOptionPane.showMessageDialog(null, name);
             uniprotIDs.add(name);
         }
 

@@ -29,7 +29,7 @@ public class SlimsearchRunPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-    public SlimsearchRunPanel (final CyApplicationManager manager, OpenBrowser openBrowser,
+    public SlimsearchRunPanel (final CyApplicationManager manager, final OpenBrowser openBrowser,
                                final SlimsearchOptionsPanel optionsPanel) {
 
         this.openBrowser = openBrowser;
@@ -68,17 +68,23 @@ public class SlimsearchRunPanel extends JPanel {
         runSLiMSearchButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CyNetwork network = manager.getCurrentNetwork();
-                List<CyNode> selected = CyTableUtil.getNodesInState(network, "selected", true);
-
-                if (selected.size() > 0) {
-                    if (motifTextArea.getText().length() > 0) {
-                        String motif = motifTextArea.getText();
-                        new RunSlimsearch(network, selected, motif, optionsPanel);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No motif in the text area!");
-                    }
+                // There is a past runs ID in the box
+                if (idTextArea.getText().length() > 0) {
+                    // Send request to the server for that page
+                    String id = idTextArea.getText();
+                    openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
                 } else {
-                    JOptionPane.showMessageDialog(null, "No nodes selected!");
+                    List<CyNode> selected = CyTableUtil.getNodesInState(network, "selected", true);
+                    if (selected.size() > 0) {
+                        if (motifTextArea.getText().length() > 0) {
+                            String motif = motifTextArea.getText();
+                            new RunSlimsearch(network, selected, motif, optionsPanel);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No motif in the text area!");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No nodes selected!");
+                    }
                 }
             }
         });
