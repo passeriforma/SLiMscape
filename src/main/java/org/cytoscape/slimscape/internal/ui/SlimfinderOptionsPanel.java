@@ -162,11 +162,12 @@ public class SlimfinderOptionsPanel extends JPanel {
     {
         SlimfinderOptions slimfinderOptions = new SlimfinderOptions();
         slimfinderOptions.setDismask(disorderMakingCheckBox.isSelected());
+        slimfinderOptions.setConsmask(conservationMakingCheckBox.isSelected());
+        slimfinderOptions.setFeaturemask(featureMaskingCheckBox.isSelected());
         slimfinderOptions.setCutoff(Double.parseDouble(probabililtyCutoffTextField.getText()));
         slimfinderOptions.setCustomParameters(customParametersTextArea.getText());
         slimfinderOptions.setWalltime(walltimeTextField.getText());
-        slimfinderOptions.setConsmask(conservationMakingCheckBox.isSelected());
-        slimfinderOptions.setFeaturemask(featureMaskingCheckBox.isSelected());
+
         return slimfinderOptions;
     }
 

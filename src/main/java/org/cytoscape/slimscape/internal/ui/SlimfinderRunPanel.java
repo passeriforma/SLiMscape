@@ -1,10 +1,18 @@
 package org.cytoscape.slimscape.internal.ui;
 
+import org.cytoscape.application.CyApplicationManager;
+import org.cytoscape.model.CyNetwork;
+import org.cytoscape.model.CyNode;
+import org.cytoscape.model.CyTableUtil;
+import org.cytoscape.slimscape.internal.RunSlimfinder;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /*
  * @author: Kevin O'Brien
@@ -14,13 +22,14 @@ public class SlimfinderRunPanel extends JPanel {
     JComboBox comboBox = null;
     JComboBox attributeNameCombobox = null;
     JTextArea idTextArea = null;
+    SlimfinderOptionsPanel optionsPanel;
+    CyApplicationManager manager;
 
-    public SlimfinderRunPanel() {
-        int height = 170;
+    public SlimfinderRunPanel(final CyApplicationManager manager, final SlimfinderOptionsPanel optionsPanel) {
         setBackground(new Color(238, 238, 238));
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{629, 0};
-        gridBagLayout.rowHeights = new int[]{height, 0};
+        gridBagLayout.rowHeights = new int[]{170, 0};
         gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
         gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
         setLayout(gridBagLayout);
@@ -56,6 +65,18 @@ public class SlimfinderRunPanel extends JPanel {
         gbc_runSLiMFinderButton.gridy = 0;
         sLiMFinderPanel.add(runSLiMFinderButton, gbc_runSLiMFinderButton);
 
+        runSLiMFinderButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CyNetwork network = manager.getCurrentNetwork();
+                java.util.List<CyNode> selected = CyTableUtil.getNodesInState(network, "selected", true);
+
+                if (selected.size() > 0) {
+                    new RunSlimfinder(network, selected, optionsPanel);
+                } else {
+                    JOptionPane.showMessageDialog(null, "No nodes selected!");
+                }
+            }
+        });
 
         JPanel slimSearchOptionsPanel = new JPanel();
         slimSearchOptionsPanel.setBorder(new TitledBorder(new LineBorder(

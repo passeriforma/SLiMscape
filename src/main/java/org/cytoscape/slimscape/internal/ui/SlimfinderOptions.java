@@ -17,20 +17,28 @@ public class SlimfinderOptions {
         super();
     }
 
-    public boolean isUsingConservation() {
-        return consmask;
-    }
-
-    public void setUsingConservation(boolean usingConservation) {
-        this.consmask = usingConservation;
-    }
-
     public void setFeaturemask(boolean featuremask) {
         this.featuremask = featuremask;
     }
 
+    public boolean getFeaturemask() {
+        return featuremask;
+    }
+
     public void setDismask(boolean dismaskBoolean) {
         this.dismask = dismaskBoolean;
+    }
+
+    public boolean getDismask() {
+        return dismask;
+    }
+
+    public void setConsmask(boolean consmask) {
+        this.consmask = consmask;
+    }
+
+    public boolean getConsmask() {
+        return consmask;
     }
 
     public double getCutoff() {
@@ -45,20 +53,15 @@ public class SlimfinderOptions {
         this.walltime = walltime;
     }
 
-    public void setConsmask(boolean consmask) {
-        this.consmask = consmask;
+    public String getWalltime() {
+        return walltime;
     }
 
     public void setCustomParameters(String customParameters) {
         this.customParameters = customParameters;
     }
 
-    private String booleanToString(boolean input) {
-        if (input == true) {
-            return "T";
-        } else if (input == false) {
-            return "F";
-        }
-        return null;
+    public String getCustomParameters() {
+        return customParameters;
     }
 }
