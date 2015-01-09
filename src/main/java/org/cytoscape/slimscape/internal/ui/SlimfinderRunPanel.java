@@ -5,6 +5,7 @@ import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
 import org.cytoscape.slimscape.internal.RunSlimfinder;
+import org.cytoscape.slimscape.internal.SlimfinderPrepareResults;
 import org.cytoscape.util.swing.OpenBrowser;
 
 import javax.swing.*;
@@ -76,7 +77,11 @@ public class SlimfinderRunPanel extends JPanel {
                 if (idTextArea.getText().length() > 0) {
                     // Send request to the server for that page
                     String id = idTextArea.getText();
-                    openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
+                    try {
+                        new SlimfinderPrepareResults(("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id));
+                    } catch (Exception e1) {
+                        JOptionPane.showMessageDialog(null, "Error processing results.");
+                    }
                 } else {
                     List<CyNode> selected = new ArrayList<CyNode>();
                     selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
