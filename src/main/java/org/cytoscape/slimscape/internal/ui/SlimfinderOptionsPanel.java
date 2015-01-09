@@ -167,7 +167,6 @@ public class SlimfinderOptionsPanel extends JPanel {
         slimfinderOptions.setCutoff(Double.parseDouble(probabililtyCutoffTextField.getText()));
         slimfinderOptions.setCustomParameters(customParametersTextArea.getText());
         slimfinderOptions.setWalltime(walltimeTextField.getText());
-
         return slimfinderOptions;
     }
 

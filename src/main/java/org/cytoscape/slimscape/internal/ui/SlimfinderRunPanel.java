@@ -80,8 +80,6 @@ public class SlimfinderRunPanel extends JPanel {
                 } else {
                     List<CyNode> selected = new ArrayList<CyNode>();
                     selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
-                    JOptionPane.showMessageDialog(null, selected.size());
-
                     if (selected.size() > 0) {
                         new RunSlimfinder(network, selected, optionsPanel);
                     } else {

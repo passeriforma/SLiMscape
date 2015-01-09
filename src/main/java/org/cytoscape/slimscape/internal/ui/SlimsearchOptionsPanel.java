@@ -15,8 +15,6 @@ public class SlimsearchOptionsPanel extends JPanel {
     private JCheckBox disorderMakingCheckBox;
     private JTextArea customParametersTextArea;
     private JCheckBox conservationCheckBox;
-    private SlimsearchOptions options;
-
 
     public SlimsearchOptionsPanel () {
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -117,7 +115,8 @@ public class SlimsearchOptionsPanel extends JPanel {
     }
 
     public SlimsearchOptions getSlimsearchOptions() {
-        options.setDismask(disorderMakingCheckBox.isEnabled());
+        SlimsearchOptions options = new SlimsearchOptions();
+        options.setDismask(disorderMakingCheckBox.isSelected());
         options.setCutoff(Double.parseDouble(probabililtyCutoffTextField.getText()));
         options.setCustomParameters(customParametersTextArea.getText());
         options.setConsmask(conservationCheckBox.isSelected());
