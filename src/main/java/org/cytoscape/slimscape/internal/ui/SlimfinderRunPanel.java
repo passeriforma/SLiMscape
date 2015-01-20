@@ -79,8 +79,8 @@ public class SlimfinderRunPanel extends JPanel {
                     String id = idTextArea.getText();
                     try {
                         new SlimfinderPrepareResults(("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id));
-                    } catch (Exception e1) {
-                        JOptionPane.showMessageDialog(null, "Error processing results.");
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex);
                     }
                 } else {
                     List<CyNode> selected = new ArrayList<CyNode>();
@@ -104,6 +104,7 @@ public class SlimfinderRunPanel extends JPanel {
         gbc_slimSearchOptionsPanel.gridx = 0;
         gbc_slimSearchOptionsPanel.gridy = 1;
         sLiMFinderPanel.add(slimSearchOptionsPanel,gbc_slimSearchOptionsPanel);
+
         GridBagLayout gbl_slimSearchOptionsPanel = new GridBagLayout();
         gbl_slimSearchOptionsPanel.columnWidths = new int[] { 0, 0 };
         gbl_slimSearchOptionsPanel.rowHeights = new int[] { 0, 0, 0, 0 };

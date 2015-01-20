@@ -74,8 +74,8 @@ public class SlimsearchRunPanel extends JPanel {
                     String id = idTextArea.getText();
                     try {
                         //new SlimsearchPrepareResults(("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id));
-                    } catch (Exception e1) {
-                        JOptionPane.showMessageDialog(null, "Error processing results.");
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex);
                     }
                 } else {
                     List<CyNode> selected = CyTableUtil.getNodesInState(network, "selected", true);
