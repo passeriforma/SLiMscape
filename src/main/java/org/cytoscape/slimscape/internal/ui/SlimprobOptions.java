@@ -3,13 +3,13 @@ package org.cytoscape.slimscape.internal.ui;
 /*
  * @author: Kevin O'Brien
  */
-public class SlimsearchOptions {
+public class SlimprobOptions {
     private boolean dismask;
     private double cutoff = 0.1;
     private String customParameters = "";
     private boolean consmask;
 
-    public SlimsearchOptions() {
+    public SlimprobOptions() {
         super();
     }
 

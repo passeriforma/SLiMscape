@@ -4,7 +4,7 @@ import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
-import org.cytoscape.slimscape.internal.RunSlimsearch;
+import org.cytoscape.slimscape.internal.RunSlimprob;
 import org.cytoscape.util.swing.OpenBrowser;
 
 import javax.swing.*;
@@ -18,19 +18,19 @@ import java.util.List;
 /*
  * @author: Kevin O'Brien
  */
-public class SlimsearchRunPanel extends JPanel {
+public class SlimprobRunPanel extends JPanel {
     CyApplicationManager manager;
     private JTextArea motifTextArea = null;
     private JTextArea idTextArea = null;
     final CyNetwork network;
     OpenBrowser openBrowser;
-    private SlimsearchOptionsPanel optionsPanel;
+    private SlimprobOptionsPanel optionsPanel;
 
 	/**
 	 * Create the panel.
 	 */
-    public SlimsearchRunPanel (final CyApplicationManager manager, final OpenBrowser openBrowser,
-                               final SlimsearchOptionsPanel optionsPanel) {
+    public SlimprobRunPanel(final CyApplicationManager manager, final OpenBrowser openBrowser,
+                            final SlimprobOptionsPanel optionsPanel) {
 
         this.openBrowser = openBrowser;
         this.manager = manager;
@@ -47,7 +47,7 @@ public class SlimsearchRunPanel extends JPanel {
         setLayout(gridBagLayout);
 
         JPanel runSLiMFinderPanel = new JPanel();
-        runSLiMFinderPanel.setBorder(new TitledBorder(null, "Run SLiMSearch",
+        runSLiMFinderPanel.setBorder(new TitledBorder(null, "Run Slimprob",
                 TitledBorder.LEADING, TitledBorder.TOP, null, null));
         GridBagLayout gbl_runSLiMFinderPanel = new GridBagLayout();
         gbl_runSLiMFinderPanel.columnWidths = new int[] { 466, 0 };
@@ -62,10 +62,10 @@ public class SlimsearchRunPanel extends JPanel {
         gbc_runSLiMFinderPanel.gridx = 0;
         gbc_runSLiMFinderPanel.gridy = 0;
         add(runSLiMFinderPanel, gbc_runSLiMFinderPanel);
-        JButton runSLiMSearchButton = new JButton("RunSLiMSearch");
+        JButton runSlimprobButton = new JButton("RunSlimprob");
 
         // Get selected nodes in the graph and send them for processing
-        runSLiMSearchButton.addActionListener(new ActionListener() {
+        runSlimprobButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CyNetwork network = manager.getCurrentNetwork();
                 // There is a past runs ID in the box
@@ -73,7 +73,7 @@ public class SlimsearchRunPanel extends JPanel {
                     // Send request to the server for that page
                     String id = idTextArea.getText();
                     try {
-                        // new SlimsearchPrepareResults(("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=full"));
+                        // new SlimprobPrepareResults(("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=full"));
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, ex);
                     }
@@ -82,7 +82,7 @@ public class SlimsearchRunPanel extends JPanel {
                     if (selected.size() > 0) {
                         if (motifTextArea.getText().length() > 0) {
                             String motif = motifTextArea.getText();
-                            new RunSlimsearch(network, selected, motif, optionsPanel);
+                            new RunSlimprob(network, selected, motif, optionsPanel);
                         } else {
                             JOptionPane.showMessageDialog(null, "No motif in the text area!");
                         }
@@ -93,32 +93,32 @@ public class SlimsearchRunPanel extends JPanel {
             }
         });
 
-        GridBagConstraints gbc_runSLiMSearchButton = new GridBagConstraints();
-        gbc_runSLiMSearchButton.anchor = GridBagConstraints.NORTHWEST;
-        gbc_runSLiMSearchButton.insets = new Insets(0, 0, 5, 0);
-        gbc_runSLiMSearchButton.gridx = 0;
-        gbc_runSLiMSearchButton.gridy = 0;
-        runSLiMFinderPanel.add(runSLiMSearchButton, gbc_runSLiMSearchButton);
+        GridBagConstraints gbc_runSlimprobButton = new GridBagConstraints();
+        gbc_runSlimprobButton.anchor = GridBagConstraints.NORTHWEST;
+        gbc_runSlimprobButton.insets = new Insets(0, 0, 5, 0);
+        gbc_runSlimprobButton.gridx = 0;
+        gbc_runSlimprobButton.gridy = 0;
+        runSLiMFinderPanel.add(runSlimprobButton, gbc_runSlimprobButton);
 
-        JPanel slimSearchOptionsPanel = new JPanel();
-        slimSearchOptionsPanel.setBorder(new TitledBorder(new LineBorder(
+        JPanel slimprobOptionsPanel = new JPanel();
+        slimprobOptionsPanel.setBorder(new TitledBorder(new LineBorder(
                 new Color(184, 207, 229)), "Parameters", TitledBorder.LEADING,
                 TitledBorder.TOP, null, new Color(51, 51, 51)));
-        GridBagConstraints gbc_slimSearchOptionsPanel = new GridBagConstraints();
-        gbc_slimSearchOptionsPanel.insets = new Insets(0, 0, 5, 0);
-        gbc_slimSearchOptionsPanel.fill = GridBagConstraints.BOTH;
-        gbc_slimSearchOptionsPanel.gridx = 0;
-        gbc_slimSearchOptionsPanel.gridy = 1;
-        runSLiMFinderPanel.add(slimSearchOptionsPanel,
-                gbc_slimSearchOptionsPanel);
-        GridBagLayout gbl_slimSearchOptionsPanel = new GridBagLayout();
-        gbl_slimSearchOptionsPanel.columnWidths = new int[] { 0, 0 };
-        gbl_slimSearchOptionsPanel.rowHeights = new int[] { 0, 0, 0, 0 };
-        gbl_slimSearchOptionsPanel.columnWeights = new double[] { 1.0,
+        GridBagConstraints gbc_slimprobOptionsPanel = new GridBagConstraints();
+        gbc_slimprobOptionsPanel.insets = new Insets(0, 0, 5, 0);
+        gbc_slimprobOptionsPanel.fill = GridBagConstraints.BOTH;
+        gbc_slimprobOptionsPanel.gridx = 0;
+        gbc_slimprobOptionsPanel.gridy = 1;
+        runSLiMFinderPanel.add(slimprobOptionsPanel,
+                gbc_slimprobOptionsPanel);
+        GridBagLayout gbl_slimprobOptionsPanel = new GridBagLayout();
+        gbl_slimprobOptionsPanel.columnWidths = new int[] { 0, 0 };
+        gbl_slimprobOptionsPanel.rowHeights = new int[] { 0, 0, 0, 0 };
+        gbl_slimprobOptionsPanel.columnWeights = new double[] { 1.0,
                 Double.MIN_VALUE };
-        gbl_slimSearchOptionsPanel.rowWeights = new double[] { 1.0, 0.0, 1.0,
+        gbl_slimprobOptionsPanel.rowWeights = new double[] { 1.0, 0.0, 1.0,
                 Double.MIN_VALUE };
-        slimSearchOptionsPanel.setLayout(gbl_slimSearchOptionsPanel);
+        slimprobOptionsPanel.setLayout(gbl_slimprobOptionsPanel);
 
         JPanel panel = new JPanel();
         GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -126,7 +126,7 @@ public class SlimsearchRunPanel extends JPanel {
         gbc_panel.fill = GridBagConstraints.BOTH;
         gbc_panel.gridx = 0;
         gbc_panel.gridy = 0;
-        slimSearchOptionsPanel.add(panel, gbc_panel);
+        slimprobOptionsPanel.add(panel, gbc_panel);
         GridBagLayout gbl_panel = new GridBagLayout();
         gbl_panel.columnWidths = new int[] { 0, 0, 0 };
         gbl_panel.rowHeights = new int[] { 0, 0 };
@@ -140,7 +140,7 @@ public class SlimsearchRunPanel extends JPanel {
         gbc_motifLabel.insets = new Insets(0, 0, 5, 5);
         gbc_motifLabel.gridx = 0;
         gbc_motifLabel.gridy = 1;
-        slimSearchOptionsPanel.add(motifLabel, gbc_motifLabel);
+        slimprobOptionsPanel.add(motifLabel, gbc_motifLabel);
 
         motifTextArea = new JTextArea();
         GridBagConstraints gbc_textArea = new GridBagConstraints();
@@ -148,7 +148,7 @@ public class SlimsearchRunPanel extends JPanel {
         gbc_textArea.fill = GridBagConstraints.BOTH;
         gbc_textArea.gridx = 0;
         gbc_textArea.gridy = 2;
-        slimSearchOptionsPanel.add(motifTextArea, gbc_textArea);
+        slimprobOptionsPanel.add(motifTextArea, gbc_textArea);
 
         JLabel idLabel = new JLabel("Run ID:");
         GridBagConstraints gbc1_motifLabel = new GridBagConstraints();
@@ -156,7 +156,7 @@ public class SlimsearchRunPanel extends JPanel {
         gbc1_motifLabel.insets = new Insets(0, 0, 5, 5);
         gbc1_motifLabel.gridx = 0;
         gbc1_motifLabel.gridy = 3;
-        slimSearchOptionsPanel.add(idLabel, gbc1_motifLabel);
+        slimprobOptionsPanel.add(idLabel, gbc1_motifLabel);
 
         idTextArea = new JTextArea();
         GridBagConstraints gbc1_textArea = new GridBagConstraints();
@@ -164,6 +164,6 @@ public class SlimsearchRunPanel extends JPanel {
         gbc1_textArea.fill = GridBagConstraints.BOTH;
         gbc1_textArea.gridx = 0;
         gbc1_textArea.gridy = 4;
-        slimSearchOptionsPanel.add(idTextArea, gbc1_textArea);
+        slimprobOptionsPanel.add(idTextArea, gbc1_textArea);
     }
 }

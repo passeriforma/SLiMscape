@@ -2,17 +2,17 @@ package org.cytoscape.slimscape.internal;
 
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
-import org.cytoscape.slimscape.internal.ui.SlimsearchOptions;
-import org.cytoscape.slimscape.internal.ui.SlimsearchOptionsPanel;
+import org.cytoscape.slimscape.internal.ui.SlimprobOptions;
+import org.cytoscape.slimscape.internal.ui.SlimprobOptionsPanel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RunSlimsearch {
+public class RunSlimprob {
     CyNetwork network;
-    private SlimsearchOptionsPanel optionsPanel;
+    private SlimprobOptionsPanel optionsPanel;
 
-    public RunSlimsearch(CyNetwork network, List<CyNode> selected, String motif, SlimsearchOptionsPanel optionsPanel) {
+    public RunSlimprob(CyNetwork network, List<CyNode> selected, String motif, SlimprobOptionsPanel optionsPanel) {
         this.network = network;
         this.optionsPanel = optionsPanel;
 
@@ -37,9 +37,9 @@ public class RunSlimsearch {
     }
 
     // Gets the current state of the options panel, and constructs the URL to send to the REST server
-    private String constructUrl (SlimsearchOptionsPanel optionsPanel, List<String> uniprotIDs) {
-        // Get state of SlimsearchOptionsPanel
-        SlimsearchOptions options = optionsPanel.getSlimsearchOptions();
+    private String constructUrl (SlimprobOptionsPanel optionsPanel, List<String> uniprotIDs) {
+        // Get state of SlimprobOptionsPanel
+        SlimprobOptions options = optionsPanel.getSlimprobOptions();
         boolean dismask = options.getDismask();
         boolean conservation = options.getConservation();
         double cutoff = options.getCutoff();

@@ -9,14 +9,14 @@ import java.awt.*;
 /*
  * @author: Kevin O'Brien
  */
-public class SlimsearchOptionsPanel extends JPanel {
+public class SlimprobOptionsPanel extends JPanel {
 
     private JTextField probabililtyCutoffTextField;
     private JCheckBox disorderMakingCheckBox;
     private JTextArea customParametersTextArea;
     private JCheckBox conservationCheckBox;
 
-    public SlimsearchOptionsPanel () {
+    public SlimprobOptionsPanel() {
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{450, 0};
         gridBagLayout.rowHeights = new int[]{97, 93, 97, 0};
@@ -114,8 +114,8 @@ public class SlimsearchOptionsPanel extends JPanel {
         customPanel.add(customParametersTextArea, gbc_customParametersTextArea);
     }
 
-    public SlimsearchOptions getSlimsearchOptions() {
-        SlimsearchOptions options = new SlimsearchOptions();
+    public SlimprobOptions getSlimprobOptions() {
+        SlimprobOptions options = new SlimprobOptions();
         options.setDismask(disorderMakingCheckBox.isSelected());
         options.setCutoff(Double.parseDouble(probabililtyCutoffTextField.getText()));
         options.setCustomParameters(customParametersTextArea.getText());
