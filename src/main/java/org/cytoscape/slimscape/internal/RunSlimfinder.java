@@ -89,6 +89,6 @@ public class RunSlimfinder {
 
 
         return ("http://rest.slimsuite.unsw.edu.au/slimprob" + ids + prob + dismaskS + consmaskS + featuremaskS +
-                walltime + custom);
+                walltime + custom + "&rest=full");
     }
 }

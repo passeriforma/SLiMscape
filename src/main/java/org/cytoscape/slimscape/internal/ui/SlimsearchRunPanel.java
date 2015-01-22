@@ -73,7 +73,7 @@ public class SlimsearchRunPanel extends JPanel {
                     // Send request to the server for that page
                     String id = idTextArea.getText();
                     try {
-                        //new SlimsearchPrepareResults(("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id));
+                        // new SlimsearchPrepareResults(("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=full"));
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, ex);
                     }

@@ -73,7 +73,7 @@ public class RunSlimsearch {
         }
         ids = ids.substring(0, ids.length()-1);
 
-        return ("http://rest.slimsuite.unsw.edu.au/slimprob" + ids + prob + dismaskS + consmaskS + custom);
+        return ("http://rest.slimsuite.unsw.edu.au/slimprob" + ids + prob + dismaskS + consmaskS + custom + "&rest=full");
     }
 
 }
