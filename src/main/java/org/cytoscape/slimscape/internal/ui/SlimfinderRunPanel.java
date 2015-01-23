@@ -5,17 +5,21 @@ import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
 import org.cytoscape.slimscape.internal.RunSlimfinder;
-import org.cytoscape.slimscape.internal.SlimfinderPrepareResults;
 import org.cytoscape.util.swing.OpenBrowser;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.*;
 import java.util.List;
 
 /*
@@ -28,6 +32,7 @@ public class SlimfinderRunPanel extends JPanel {
     JTextArea idTextArea = null;
     SlimfinderOptionsPanel optionsPanel;
     CyApplicationManager manager;
+    List<String> input;
 
     public SlimfinderRunPanel(final CyApplicationManager manager, final OpenBrowser openBrowser,
                               final SlimfinderOptionsPanel optionsPanel) {
@@ -70,30 +75,6 @@ public class SlimfinderRunPanel extends JPanel {
         gbc_runSLiMFinderButton.gridy = 0;
         sLiMFinderPanel.add(runSLiMFinderButton, gbc_runSLiMFinderButton);
 
-        runSLiMFinderButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CyNetwork network = manager.getCurrentNetwork();
-                // There is a past runs ID in the box
-                if (idTextArea.getText().length() > 0) {
-                    // Send request to the server for that page
-                    String id = idTextArea.getText();
-                    try {
-                        new SlimfinderPrepareResults(("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=full"));
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, ex);
-                    }
-                } else {
-                    List<CyNode> selected = new ArrayList<CyNode>();
-                    selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
-                    if (selected.size() > 0) {
-                        new RunSlimfinder(network, selected, optionsPanel);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "No nodes selected!");
-                    }
-                }
-            }
-        });
-
         JPanel slimSearchOptionsPanel = new JPanel();
         slimSearchOptionsPanel.setBorder(new TitledBorder(new LineBorder(
                 new Color(184, 207, 229)), "Parameters", TitledBorder.LEADING,
@@ -103,15 +84,15 @@ public class SlimfinderRunPanel extends JPanel {
         gbc_slimSearchOptionsPanel.fill = GridBagConstraints.BOTH;
         gbc_slimSearchOptionsPanel.gridx = 0;
         gbc_slimSearchOptionsPanel.gridy = 1;
-        sLiMFinderPanel.add(slimSearchOptionsPanel,gbc_slimSearchOptionsPanel);
+        sLiMFinderPanel.add(slimSearchOptionsPanel, gbc_slimSearchOptionsPanel);
 
         GridBagLayout gbl_slimSearchOptionsPanel = new GridBagLayout();
-        gbl_slimSearchOptionsPanel.columnWidths = new int[] { 0, 0 };
-        gbl_slimSearchOptionsPanel.rowHeights = new int[] { 0, 0, 0, 0 };
-        gbl_slimSearchOptionsPanel.columnWeights = new double[] { 1.0,
-                Double.MIN_VALUE };
-        gbl_slimSearchOptionsPanel.rowWeights = new double[] { 1.0, 0.0, 1.0,
-                Double.MIN_VALUE };
+        gbl_slimSearchOptionsPanel.columnWidths = new int[]{0, 0};
+        gbl_slimSearchOptionsPanel.rowHeights = new int[]{0, 0, 0, 0};
+        gbl_slimSearchOptionsPanel.columnWeights = new double[]{1.0,
+                Double.MIN_VALUE};
+        gbl_slimSearchOptionsPanel.rowWeights = new double[]{1.0, 0.0, 1.0,
+                Double.MIN_VALUE};
         slimSearchOptionsPanel.setLayout(gbl_slimSearchOptionsPanel);
 
         JPanel panel = new JPanel();
@@ -122,10 +103,10 @@ public class SlimfinderRunPanel extends JPanel {
         gbc_panel.gridy = 0;
         slimSearchOptionsPanel.add(panel, gbc_panel);
         GridBagLayout gbl_panel = new GridBagLayout();
-        gbl_panel.columnWidths = new int[] { 0, 0, 0 };
-        gbl_panel.rowHeights = new int[] { 0, 0 };
-        gbl_panel.columnWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
-        gbl_panel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+        gbl_panel.columnWidths = new int[]{0, 0, 0};
+        gbl_panel.rowHeights = new int[]{0, 0};
+        gbl_panel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+        gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
         panel.setLayout(gbl_panel);
 
         JLabel idLabel = new JLabel("Run ID:");
@@ -144,5 +125,150 @@ public class SlimfinderRunPanel extends JPanel {
         gbc1_textArea.gridy = 2;
         slimSearchOptionsPanel.add(idTextArea, gbc1_textArea);
 
+        runSLiMFinderButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CyNetwork network = manager.getCurrentNetwork();
+                // There is a past runs ID in the box
+                if (idTextArea.getText().length() > 0) {
+                    // Send request to the server for that page
+                    String id = idTextArea.getText();
+                    try {
+                        Map results = SlimfinderPrepareResults(
+                                ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=full"));
+                        if (results == null) {
+                            // TODO: Insert error catch here (?show page)
+                        } else {
+                            List<String> csvData = (List<String>) results.get("csv"); // Throwing a null pointer exception
+                            JTable csv = createResultTable(csvData);
+                            //JTable occ = createResultTable((List<String>) results.get("occ"));
+                            JPanel customPanel = new JPanel();
+                            customPanel.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "CSV Output",
+                                    TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
+                            GridBagConstraints gbc_customPanel = new GridBagConstraints();
+                            gbc_customPanel.fill = GridBagConstraints.BOTH;
+                            gbc_customPanel.gridx = 0;
+                            gbc_customPanel.gridy = 3;
+                            add(customPanel, gbc_customPanel);
+                            GridBagLayout gbl_customPanel = new GridBagLayout();
+                            gbl_customPanel.columnWidths = new int[]{0, 0};
+                            gbl_customPanel.rowHeights = new int[]{0, 0};
+                            gbl_customPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+                            gbl_customPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+                            customPanel.setLayout(gbl_customPanel);
+
+                            GridBagConstraints gbc_customParametersTextArea = new GridBagConstraints();
+                            gbc_customParametersTextArea.fill = GridBagConstraints.BOTH;
+                            gbc_customParametersTextArea.gridx = 0;
+                            gbc_customParametersTextArea.gridy = 0;
+                            customPanel.add(csv, gbc_customParametersTextArea);
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, ex);
+                    }
+                } else {
+                    List<CyNode> selected = new ArrayList<CyNode>();
+                    selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
+                    if (selected.size() > 0) {
+                        new RunSlimfinder(network, selected, optionsPanel); // I want to get this URL back to process here.
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No nodes selected!");
+                    }
+                }
+            }
+        });
+
+        // TODO: Add results here. Blargh lazybutt
+        // Make JTable, add csv
+        // Make second JTable, add osg (or whatev theyre called)
+        // Add one below the other.
+        // Use shiny magic to fit them in the spaces
+    }
+
+    /**
+     * @desc attains and analyses results from the Slimsuite server
+     * @param url - The url where the results should be
+     * @return Map - A map of List<String> containing the contents of the csv and occ blocks.
+     *               If there is an error, null is returned.
+     * @throws Exception
+     */
+    private Map SlimfinderPrepareResults(String url) {
+        // Gets URL data
+        try {
+            URL website = new URL(url);
+            URLConnection connection = website.openConnection();
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                            connection.getInputStream()));
+
+            String inputLine;
+            String lineOne = in.readLine(); // Reads in the first line
+
+            // There is an error in the results obtained
+            if (lineOne.startsWith("ERROR")) {
+                in.close();
+                return null;
+            } else {
+                List<String> csv = new ArrayList<String>();
+                List<String> occ = new ArrayList<String>();
+                int separators = 0;
+
+                while ((inputLine = in.readLine()) != null) {
+                    if (inputLine
+                            .equals("###~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~###")) {
+                        separators++;
+                    }
+                    if (separators == 3) {  // Add to the csv component
+                        csv.add(inputLine);
+                    }
+                    if (separators == 4) { // Add to occ
+                        occ.add(inputLine);
+
+                    }
+                    if (separators > 4) {
+                        break;
+                    }
+                }
+                in.close();
+                Map<String, List<String>> toReturn = new HashMap<String, List<String>>();
+                toReturn.put("csv", csv);
+                toReturn.put("occ", occ);
+                return toReturn;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex + " in function");
+            return null;
+        }
+    }
+
+    /**
+     * @desc Creates a JTable from an input of tab separated strings
+     * @param input - a List<String> consisting of a series of tab-separated lines
+     * @return JTable - a table populated with the input elements
+     */
+    private JTable createResultTable (List<String> input) {
+        // Get column names from input
+        JTable table;
+        List<String> names = Arrays.asList(input.get(2).split("\\s*,\\s*"));
+        Object columnNames[] = new String[names.size()]; // line 2
+        names.toArray(columnNames);
+
+        // Create table
+        table = new JTable(new DefaultTableModel(null, columnNames));  // ?does this break things
+        table.setPreferredScrollableViewportSize(new Dimension(400, 700));
+        table.setFillsViewportHeight(true);
+        table.getColumnModel().getColumn(0).setMaxWidth(25);
+        // TODO: make the table fill the panel below.
+
+        // Add a row in table for each element in the input
+        int lines = input.size();
+        for(int c=3; c<lines; c++) {
+            List<String> line = Arrays.asList(input.get(c).split("\\s*,\\s*"));
+            Object lineObject[] = new String[line.size()];
+            line.toArray(lineObject);
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.addRow(lineObject);
+        }
+
+        return table;
     }
 }
