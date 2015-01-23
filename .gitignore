@@ -1,3 +1,4 @@
 *.jar
 target/surefire/surefire*
+target/classes/*
 .idea/*
