@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -138,7 +139,7 @@ public class SlimfinderRunPanel extends JPanel {
                         if (results == null) {
                             // TODO: Insert error catch here (?show page)
                         } else {
-                            List<String> csvData = (List<String>) results.get("csv"); // Throwing a null pointer exception
+                            List<String> csvData = (List<String>) results.get("csv");
                             JTable csv = createResultTable(csvData);
                             //JTable occ = createResultTable((List<String>) results.get("occ"));
                             JPanel customPanel = new JPanel();
@@ -161,6 +162,8 @@ public class SlimfinderRunPanel extends JPanel {
                             gbc_customParametersTextArea.gridx = 0;
                             gbc_customParametersTextArea.gridy = 0;
                             customPanel.add(csv, gbc_customParametersTextArea);
+
+                            // TODO: As above for occ
                         }
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, ex);
@@ -176,12 +179,6 @@ public class SlimfinderRunPanel extends JPanel {
                 }
             }
         });
-
-        // TODO: Add results here. Blargh lazybutt
-        // Make JTable, add csv
-        // Make second JTable, add osg (or whatev theyre called)
-        // Add one below the other.
-        // Use shiny magic to fit them in the spaces
     }
 
     /**
@@ -218,11 +215,29 @@ public class SlimfinderRunPanel extends JPanel {
                         separators++;
                     }
                     if (separators == 3) {  // Add to the csv component
-                        csv.add(inputLine);
+                        boolean braces = false;
+                        StringBuilder builder = new StringBuilder();
+                        boolean inBraces = false;
+                        for (char x : inputLine.toCharArray()) {
+                            if (x == '{') {
+                                inBraces = true;
+                                builder.append(x);
+                            } else if (x == '}') {
+                                inBraces = false;
+                                builder.append(x);
+                            } else if (x == ',' && inBraces) {
+                                builder.append('|');
+                            } else {
+                                builder.append(x);
+                            }
+                        }
+
+                        String toReturn = builder.toString();
+
+                        csv.add(toReturn);
                     }
                     if (separators == 4) { // Add to occ
                         occ.add(inputLine);
-
                     }
                     if (separators > 4) {
                         break;
@@ -248,25 +263,33 @@ public class SlimfinderRunPanel extends JPanel {
     private JTable createResultTable (List<String> input) {
         // Get column names from input
         JTable table;
-        List<String> names = Arrays.asList(input.get(2).split("\\s*,\\s*"));
-        Object columnNames[] = new String[names.size()]; // line 2
-        names.toArray(columnNames);
+        List<String> names = Arrays.asList(input.get(2).split(","));
+        List<String> abbreviated = names.subList(12, names.size()-3);
+        Object columnNames[] = new String[abbreviated.size()]; // line 2
+        abbreviated.toArray(columnNames);
 
         // Create table
         table = new JTable(new DefaultTableModel(null, columnNames));  // ?does this break things
         table.setPreferredScrollableViewportSize(new Dimension(400, 700));
         table.setFillsViewportHeight(true);
         table.getColumnModel().getColumn(0).setMaxWidth(25);
-        // TODO: make the table fill the panel below.
 
         // Add a row in table for each element in the input
         int lines = input.size();
         for(int c=3; c<lines; c++) {
-            List<String> line = Arrays.asList(input.get(c).split("\\s*,\\s*"));
-            Object lineObject[] = new String[line.size()];
-            line.toArray(lineObject);
+            List<String> line = Arrays.asList(input.get(c).split(",")); // Needs to include a skip for {number,number} {12,-3}
+            List<String> abbreviate = line.subList(12, line.size()-3);
+            Object lineObject[] = new String[abbreviate.size()];
+            abbreviate.toArray(lineObject);
             DefaultTableModel model = (DefaultTableModel) table.getModel();
             model.addRow(lineObject);
+        }
+
+        table.setEnabled(false);
+        TableColumn column;
+        for (int i = 0; i < abbreviated.size(); i++) {
+            column = table.getColumnModel().getColumn(i);
+            column.setMinWidth(50);
         }
 
         return table;
