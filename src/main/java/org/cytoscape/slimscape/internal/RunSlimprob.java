@@ -45,35 +45,38 @@ public class RunSlimprob {
         double cutoff = options.getCutoff();
         String custom = options.getCustomParameters();
 
+        StringBuilder stringBuilder = new StringBuilder("http://rest.slimsuite.unsw.edu.au/slimprob");
+
         // Construct properly formatted string components
         String dismaskS = "&dismask=";
         if (dismask) {
-            dismaskS = dismaskS + "T";
+            stringBuilder.append(dismaskS + "T");
         } else {
-            dismaskS = dismaskS + "F";
-
+            stringBuilder.append(dismaskS + "F");
         }
 
         String consmaskS = "&consmask=";
         if (conservation) {
-            consmaskS = consmaskS + "T";
+            stringBuilder.append(consmaskS + "T");
         } else {
-            consmaskS = consmaskS + "F";
+            stringBuilder.append(consmaskS + "F");
         }
 
-        String prob = "&probcut=" + cutoff;
+        stringBuilder.append("&probcut=" + cutoff);
 
         custom = custom.replace("\n", "&");
         custom = custom.replace(" ", "");
-        custom = "&" + custom;
+        stringBuilder.append("&" + custom);
 
         String ids = "&uniprotid=";
         for (String id : uniprotIDs) {
             ids = ids + id + ",";
         }
-        ids = ids.substring(0, ids.length()-1);
+        ids = ids.substring(0, ids.length() - 1);
+        stringBuilder.append(ids);
 
-        return ("http://rest.slimsuite.unsw.edu.au/slimprob" + ids + prob + dismaskS + consmaskS + custom + "&rest=full");
+        // Make the final string
+
+        return (stringBuilder.toString());
     }
-
 }
