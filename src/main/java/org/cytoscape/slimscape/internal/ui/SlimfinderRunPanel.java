@@ -20,7 +20,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -139,18 +140,14 @@ public class SlimfinderRunPanel extends JPanel {
                         if (results == null) {
                             openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
                         } else {
-                            JScrollPane csv = createCsvTable(results);  // TODO: Work out how to add this to the panel.
-                            //JTable occ = createResultTable((List<String>) results.get("occ"));
-                            Container customPanel = new JPanel();
-                            csv.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "CSV Output",
-                                    TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-                            GridBagConstraints gbc_customPanel = new GridBagConstraints();
-                            gbc_customPanel.fill = GridBagConstraints.BOTH;
-                            gbc_customPanel.gridx = 0;
-                            gbc_customPanel.gridy = 3;
-                            add(customPanel, gbc_customPanel);
-
-                            customPanel.add(csv, BorderLayout.CENTER);
+                            JTable csv = createCsvTable(results);  // TODO: Work out how to add this to the panel.
+                            JPanel panel = new JPanel();
+                            panel.setLayout(new BorderLayout());
+                            panel.add(new JScrollPane(csv), BorderLayout.CENTER);
+                            JFrame frame = new JFrame("Main");
+                            frame.getContentPane().add(panel);
+                            frame.pack();
+                            frame.setVisible(true);
 
                             // TODO: As above for occ
                             // List<String> results = PrepareResults(
@@ -189,7 +186,7 @@ public class SlimfinderRunPanel extends JPanel {
                             connection.getInputStream()));
 
             String inputLine;
-            String lineOne = in.readLine(); // Reads in the first line
+            String lineOne = in.readLine();
 
             // There is an error in the results obtained
             if (lineOne.startsWith("ERROR")) {
@@ -197,10 +194,8 @@ public class SlimfinderRunPanel extends JPanel {
                 return null;
             } else {
                 List<String> csv = new ArrayList<String>();
-                int separators = 0;
-
+                csv.add(lineOne);
                 while ((inputLine = in.readLine()) != null) {
-                    boolean braces = false;
                     StringBuilder builder = new StringBuilder();
                     boolean inBraces = false;
                     for (char x : inputLine.toCharArray()) {
@@ -236,27 +231,27 @@ public class SlimfinderRunPanel extends JPanel {
      * @param input - a List<String> consisting of a series of tab-separated lines
      * @return JTable - a table populated with the input elements
      */
-    private JScrollPane createCsvTable (List<String> input) {
+    private JTable createCsvTable (List<String> input) {
         // Get column names from input
         JTable table;
-        List<String> names = Arrays.asList(input.get(2).split(","));
-        List<String> abbreviated = names.subList(10, names.size()-5);  // TODO: get this to show
-        Object columnNames[] = new String[abbreviated.size()]; // line 2
+        List<String> names = Arrays.asList(input.get(0).split(","));
+        List<String> abbreviated = names.subList(10, names.size()-5);
+        Object columnNames[] = new String[abbreviated.size()];
         abbreviated.toArray(columnNames);
 
         // Create table
-        table = new JTable(new DefaultTableModel(null, columnNames));
+        DefaultTableModel model = new DefaultTableModel(null, columnNames);
+        table = new JTable(model);
         table.setPreferredScrollableViewportSize(new Dimension(400, 700));
         table.setFillsViewportHeight(true);
 
         // Add a row in table for each element in the input
         int lines = input.size();
-        for(int c=3; c<lines; c++) {
+        for(int c=1; c<lines; c++) {
             List<String> line = Arrays.asList(input.get(c).split(","));
             List<String> abbreviate = line.subList(10, line.size()-5);
             Object lineObject[] = new String[abbreviate.size()];
             abbreviate.toArray(lineObject);
-            DefaultTableModel model = (DefaultTableModel) table.getModel();
             model.addRow(lineObject);
         }
 
@@ -271,9 +266,7 @@ public class SlimfinderRunPanel extends JPanel {
                 column.setMinWidth(50);
             }
         }
-        JScrollPane pane = new JScrollPane();
-        pane.add(table);
-        return pane;
+        return table;
     }
 
     private JTable createOccTable (List<String> input) {
