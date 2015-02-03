@@ -1,9 +1,11 @@
 package org.cytoscape.slimscape.internal.ui;
 
 import org.cytoscape.application.CyApplicationManager;
+import org.cytoscape.event.CyEventHelper;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
 import org.cytoscape.model.CyTableUtil;
+import org.cytoscape.slimscape.internal.AlterGraph;
 import org.cytoscape.slimscape.internal.RunSlimfinder;
 import org.cytoscape.util.swing.OpenBrowser;
 
@@ -37,7 +39,7 @@ public class SlimfinderRunPanel extends JPanel {
     List<String> input;
 
     public SlimfinderRunPanel(final CyApplicationManager manager, final OpenBrowser openBrowser,
-                              final SlimfinderOptionsPanel optionsPanel) {
+                              final SlimfinderOptionsPanel optionsPanel, final CyEventHelper eventHelper) {
         setBackground(new Color(238, 238, 238));
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{629, 0};
@@ -140,7 +142,8 @@ public class SlimfinderRunPanel extends JPanel {
                         if (csvResults == null) {
                             openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
                         } else {
-                            JTable csv = createCsvTable(csvResults);  // TODO: Work out how to add this to the panel.
+                            // Display main (CSV) results
+                            JTable csv = createCsvTable(csvResults);
                             JPanel csvPanel = new JPanel();
                             csvPanel.setLayout(new BorderLayout());
                             csvPanel.add(new JScrollPane(csv), BorderLayout.CENTER);
@@ -149,10 +152,10 @@ public class SlimfinderRunPanel extends JPanel {
                             csvFrame.pack();
                             csvFrame.setVisible(true);
 
-                            // TODO: As above for occ
+                            // Display OCC results
                             List<String> occResults = PrepareResults(
                             ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=occ"));
-                            JTable occ = createOccTable(occResults);  // TODO: Work out how to add this to the panel.
+                            JTable occ = createOccTable(occResults);
                             JPanel occPanel = new JPanel();
                             occPanel.setLayout(new BorderLayout());
                             occPanel.add(new JScrollPane(occ), BorderLayout.CENTER);
@@ -160,6 +163,18 @@ public class SlimfinderRunPanel extends JPanel {
                             occFrame.getContentPane().add(occPanel);
                             occFrame.pack();
                             occFrame.setVisible(true);
+
+                            // Alter the graph appropriately
+                            // Get a list of the uniprot IDs
+                            List<String> ids = new ArrayList<String>();
+                            for (int y=0; y<occ.getRowCount(); y++) {
+                                Object current = occ.getModel().getValueAt(y, 2);
+                                String string = String.valueOf(current);
+                                ids.add(string);
+                            }
+
+                            // Alter the graph
+                            new AlterGraph(ids, manager, eventHelper);
                         }
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, ex);

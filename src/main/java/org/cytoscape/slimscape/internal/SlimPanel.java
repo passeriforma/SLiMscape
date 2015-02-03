@@ -4,6 +4,7 @@ import org.cytoscape.app.swing.CySwingAppAdapter;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
+import org.cytoscape.event.CyEventHelper;
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.slimscape.internal.ui.*;
 import org.cytoscape.util.swing.OpenBrowser;
@@ -16,14 +17,15 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
     private CyApplicationManager manager;
     private final CySwingAppAdapter adapter;
     private OpenBrowser openBrowser;
-
+    private CyEventHelper eventHelper;
     private JTextArea motifTextArea;
 
-    public SlimPanel(CyApplicationManager manager, CySwingAppAdapter adapter, OpenBrowser openBrowser) {
+    public SlimPanel(CyApplicationManager manager, CySwingAppAdapter adapter, OpenBrowser openBrowser, CyEventHelper eventHelper) {
         super();
         this.adapter = adapter;
         this.manager = manager;
         this.openBrowser = openBrowser;
+        this.eventHelper = eventHelper;
 
         CyNetwork network = manager.getCurrentNetwork();
         this.setBounds(100, 100, 725, 471);
@@ -44,7 +46,7 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
 
         JTabbedPane slimfinder = new JTabbedPane();
         SlimfinderOptionsPanel optionsPanel1 = new SlimfinderOptionsPanel();
-        slimfinder.addTab("Run SLiMFinder", new SlimfinderRunPanel(manager, openBrowser, optionsPanel1));
+        slimfinder.addTab("Run SLiMFinder", new SlimfinderRunPanel(manager, openBrowser, optionsPanel1, eventHelper));
         slimfinder.addTab("Options", optionsPanel1);
 
         // Add the slimprob tab to tabbedPane
