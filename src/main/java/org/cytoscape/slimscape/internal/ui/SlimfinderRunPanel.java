@@ -135,23 +135,31 @@ public class SlimfinderRunPanel extends JPanel {
                     // Send request to the server for that page
                     String id = idTextArea.getText();
                     try {
-                        List<String> results = PrepareResults(
+                        List<String> csvResults = PrepareResults(
                                 ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main"));
-                        if (results == null) {
+                        if (csvResults == null) {
                             openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
                         } else {
-                            JTable csv = createCsvTable(results);  // TODO: Work out how to add this to the panel.
-                            JPanel panel = new JPanel();
-                            panel.setLayout(new BorderLayout());
-                            panel.add(new JScrollPane(csv), BorderLayout.CENTER);
-                            JFrame frame = new JFrame("Main");
-                            frame.getContentPane().add(panel);
-                            frame.pack();
-                            frame.setVisible(true);
+                            JTable csv = createCsvTable(csvResults);  // TODO: Work out how to add this to the panel.
+                            JPanel csvPanel = new JPanel();
+                            csvPanel.setLayout(new BorderLayout());
+                            csvPanel.add(new JScrollPane(csv), BorderLayout.CENTER);
+                            JFrame csvFrame = new JFrame("Main Results");
+                            csvFrame.getContentPane().add(csvPanel);
+                            csvFrame.pack();
+                            csvFrame.setVisible(true);
 
                             // TODO: As above for occ
-                            // List<String> results = PrepareResults(
-                            //("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=occ"));
+                            List<String> occResults = PrepareResults(
+                            ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=occ"));
+                            JTable occ = createOccTable(occResults);  // TODO: Work out how to add this to the panel.
+                            JPanel occPanel = new JPanel();
+                            occPanel.setLayout(new BorderLayout());
+                            occPanel.add(new JScrollPane(occ), BorderLayout.CENTER);
+                            JFrame occFrame = new JFrame("OCC Results");
+                            occFrame.getContentPane().add(occPanel);
+                            occFrame.pack();
+                            occFrame.setVisible(true);
                         }
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, ex);
@@ -271,24 +279,24 @@ public class SlimfinderRunPanel extends JPanel {
 
     private JTable createOccTable (List<String> input) {
         JTable table;
-        List<String> names = Arrays.asList(input.get(2).split(","));
+        List<String> names = Arrays.asList(input.get(0).split(","));
         List<String> abbreviated = names.subList(3, names.size()-7);
         Object columnNames[] = new String[abbreviated.size()]; // line 2
         abbreviated.toArray(columnNames);
 
         // Create table
-        table = new JTable(new DefaultTableModel(null, columnNames));
+        DefaultTableModel model = new DefaultTableModel(null, columnNames);
+        table = new JTable(model);
         table.setPreferredScrollableViewportSize(new Dimension(400, 700));
         table.setFillsViewportHeight(true);
 
         // Add a row in table for each element in the input
         int lines = input.size();
-        for(int c=3; c<lines; c++) {
+        for(int c=1; c<lines; c++) {
             List<String> line = Arrays.asList(input.get(c).split(","));
             List<String> abbreviate = line.subList(3, line.size()-7);
             Object lineObject[] = new String[abbreviate.size()];
             abbreviate.toArray(lineObject);
-            DefaultTableModel model = (DefaultTableModel) table.getModel();
             model.addRow(lineObject);
         }
 
@@ -297,7 +305,7 @@ public class SlimfinderRunPanel extends JPanel {
         TableColumn column;
         for (int i = 0; i < abbreviated.size(); i++) {
             column = table.getColumnModel().getColumn(i);
-            column.setMinWidth(50);
+            column.setMinWidth(100);
         }
 
         return table;
