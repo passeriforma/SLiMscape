@@ -137,7 +137,7 @@ public class SlimfinderRunPanel extends JPanel {
                         List<String> results = PrepareResults(
                                 ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main"));
                         if (results == null) {
-                            // TODO: Insert error catch here (?show page)
+                            openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
                         } else {
                             JScrollPane csv = createCsvTable(results);  // TODO: Work out how to add this to the panel.
                             //JTable occ = createResultTable((List<String>) results.get("occ"));
@@ -163,7 +163,7 @@ public class SlimfinderRunPanel extends JPanel {
                     List<CyNode> selected = new ArrayList<CyNode>();
                     selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
                     if (selected.size() > 0) {
-                        new RunSlimfinder(network, selected, optionsPanel); // I want to get this URL back to process here.
+                        new RunSlimfinder(network, selected, optionsPanel); // TODO: I want to get this URL back to process here. Need to implement.
                     } else {
                         JOptionPane.showMessageDialog(null, "No nodes selected!");
                     }
