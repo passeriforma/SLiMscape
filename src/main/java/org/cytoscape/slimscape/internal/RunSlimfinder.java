@@ -6,6 +6,7 @@ import org.cytoscape.model.CyNode;
 import org.cytoscape.slimscape.internal.ui.SlimfinderOptions;
 import org.cytoscape.slimscape.internal.ui.SlimfinderOptionsPanel;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +89,8 @@ public class RunSlimfinder {
         stringBuilder.append(ids);
 
         // Make the final string
+
+        JOptionPane.showMessageDialog(null, stringBuilder.toString());
 
         return (stringBuilder.toString());
     }
