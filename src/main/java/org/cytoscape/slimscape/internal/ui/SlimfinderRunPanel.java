@@ -2,12 +2,12 @@ package org.cytoscape.slimscape.internal.ui;
 
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.event.CyEventHelper;
-import org.cytoscape.model.CyNetwork;
-import org.cytoscape.model.CyNode;
-import org.cytoscape.model.CyTableUtil;
+import org.cytoscape.model.*;
 import org.cytoscape.slimscape.internal.AlterGraph;
 import org.cytoscape.slimscape.internal.RunSlimfinder;
 import org.cytoscape.util.swing.OpenBrowser;
+import org.cytoscape.view.model.CyNetworkViewFactory;
+import org.cytoscape.view.model.CyNetworkViewManager;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -37,9 +37,21 @@ public class SlimfinderRunPanel extends JPanel {
     SlimfinderOptionsPanel optionsPanel;
     CyApplicationManager manager;
     List<String> input;
+    CyNetworkFactory networkFactory;
+    CyNetworkManager networkManager;
+    CyNetworkViewFactory networkViewFactory;
+    CyNetworkViewManager networkViewManager;
 
     public SlimfinderRunPanel(final CyApplicationManager manager, final OpenBrowser openBrowser,
-                              final SlimfinderOptionsPanel optionsPanel, final CyEventHelper eventHelper) {
+                              final SlimfinderOptionsPanel optionsPanel, final CyEventHelper eventHelper,
+                              final CyNetworkFactory networkFactory, final CyNetworkManager networkManager,
+                              final CyNetworkViewFactory networkViewFactory, final CyNetworkViewManager networkViewManager) {
+        this.networkFactory = networkFactory;
+        this.manager = manager;
+        this.networkManager = networkManager;
+        this.networkViewFactory = networkViewFactory;
+        this.networkViewManager = networkViewManager;
+
         setBackground(new Color(238, 238, 238));
         GridBagLayout gridBagLayout = new GridBagLayout();
         gridBagLayout.columnWidths = new int[]{629, 0};
@@ -174,7 +186,7 @@ public class SlimfinderRunPanel extends JPanel {
                             }
 
                             // Alter the graph
-                            new AlterGraph(ids, manager, eventHelper);
+                            new AlterGraph(ids, manager, eventHelper, networkFactory, networkManager, networkViewFactory, networkViewManager);
                         }
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, ex);
