@@ -23,7 +23,7 @@ public class CyActivator extends AbstractCyActivator {
 		CyApplicationManager manager = getService(context, CyApplicationManager.class);
 		CySwingAppAdapter adapter = getService(context, CySwingAppAdapter.class);
 		CySwingApplication desktopApp = adapter.getCySwingApplication();
-		OpenBrowser openBrowser = getService(context,OpenBrowser.class);
+        OpenBrowser openBrowser = getService(context,OpenBrowser.class);
         CyEventHelper eventHelper = getService(context, CyEventHelper.class);
         CyNetworkFactory networkFactory = getService(context, CyNetworkFactory.class);
         CyNetworkManager networkManager = getService(context, CyNetworkManager.class);

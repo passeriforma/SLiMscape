@@ -20,7 +20,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont forget, you can add ,ActionListener
+public class SlimPanel extends JPanel implements CytoPanelComponent {
     private CyApplicationManager manager;
     private final CySwingAppAdapter adapter;
     private OpenBrowser openBrowser;
@@ -54,22 +54,21 @@ public class SlimPanel extends JPanel implements CytoPanelComponent { // Dont fo
         gbc_tabbedPane.gridy = 0;
         add(tabbedPane, gbc_tabbedPane);
 
-        JTabbedPane slimprob = new JTabbedPane();
-        SlimprobOptionsPanel optionsPanel = new SlimprobOptionsPanel();
-        slimprob.addTab("Run SLiMProb", new SlimprobRunPanel(manager, openBrowser, optionsPanel));
-        slimprob.addTab("Options", optionsPanel);
-
         JTabbedPane slimfinder = new JTabbedPane();
-        SlimfinderOptionsPanel optionsPanel1 = new SlimfinderOptionsPanel();
-        slimfinder.addTab("Run SLiMFinder", new SlimfinderRunPanel(manager, openBrowser, optionsPanel1,
+        SlimfinderOptionsPanel slimfinderOptionsPanel = new SlimfinderOptionsPanel();
+        slimfinder.addTab("Run SLiMFinder", new SlimfinderRunPanel(manager, openBrowser, slimfinderOptionsPanel,
                 eventHelper, networkFactory, networkManager, networkViewFactory, networkViewManager));
-        slimfinder.addTab("Options", optionsPanel1);
+        slimfinder.addTab("Options", slimfinderOptionsPanel);
 
-        // Add the slimprob tab to tabbedPane
+        JTabbedPane slimprob = new JTabbedPane();
+        SlimprobOptionsPanel slimprobOptionsPanel = new SlimprobOptionsPanel();
+        slimprob.addTab("Run SLiMProb", new SlimprobRunPanel(manager, openBrowser, slimprobOptionsPanel));
+        slimprob.addTab("Options", slimprobOptionsPanel);
+
+        // Add the slimprob and slimfinder tabs to tabbedPane
         tabbedPane.addTab("SLiMProb", slimprob);
         tabbedPane.addTab("SLiMFinder", slimfinder);
         tabbedPane.addTab("Domain", new JPanel());
-
 
         this.add(tabbedPane);
     }
