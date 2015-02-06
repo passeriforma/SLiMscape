@@ -176,26 +176,31 @@ public class SlimfinderRunPanel extends JPanel {
                             occFrame.pack();
                             occFrame.setVisible(true);
 
-                            // Alter the graph appropriately
+                            // Get list of all node IDs from slimdb
+                            List<String> nodeIds = getNodeIds("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=slimdb");
+
+                            // Get graph edge data from upc outputs
+                            List<String> upc = getUpcResults("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=upc");
+
                             // Get a list of the uniprot IDs
-                            List<String> ids = new ArrayList<String>();
+                            List<String> occIds = new ArrayList<String>();
                             for (int y=0; y<occ.getRowCount(); y++) {
                                 Object current = occ.getModel().getValueAt(y, 2);
                                 String string = String.valueOf(current);
-                                ids.add(string);
+                                occIds.add(string);
                             }
 
                             // Alter the graph
-                            new AlterGraph(ids, manager, eventHelper, networkFactory, networkManager, networkViewFactory, networkViewManager);
+                            new AlterGraph(nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager, networkViewFactory, networkViewManager);
                         }
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, ex);
                     }
-                } else {
+                } else { // TODO: Implement process for graph already present
                     List<CyNode> selected = new ArrayList<CyNode>();
                     selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
                     if (selected.size() > 0) {
-                        new RunSlimfinder(network, selected, optionsPanel); // TODO: I want to get this URL back to process here. Need to implement.
+                        new RunSlimfinder(network, selected, optionsPanel);
                     } else {
                         JOptionPane.showMessageDialog(null, "No nodes selected!");
                     }
@@ -206,7 +211,7 @@ public class SlimfinderRunPanel extends JPanel {
 
     /**
      * @desc attains and analyses main results from the Slimsuite server
-     * @param url - The url where the results should be
+     * @param url - The url where the results should be located
      * @return Map - A map of List<String> containing the contents of the csv and occ blocks.
      *               If there is an error, null is returned.
      * @throws Exception
@@ -261,9 +266,80 @@ public class SlimfinderRunPanel extends JPanel {
         }
     }
 
+    private List<String> getNodeIds(String url) {
+
+        try {
+            URL website = new URL(url);
+            URLConnection connection = website.openConnection();
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                            connection.getInputStream()));
+
+            String inputLine;
+
+            List<String> nodeIds = new ArrayList<String>();
+            // Add each line with more than two connections
+            while ((inputLine = in.readLine()) != null) {
+                if (inputLine.startsWith(">")) {
+                    String[] line = inputLine.split(" ");
+                    nodeIds.add(line[0].substring(1));
+                }
+            }
+            in.close();
+            return nodeIds;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex + " in function");
+            return null;
+        }
+
+    }
+
     /**
-     * @desc Creates a JTable from an input of tab separated strings
-     * @param input - a List<String> consisting of a series of tab-separated lines
+     * @desc attains and analyses the upc results from the Slimsuite server, so that graph edges can be added later
+     * @param url - The url where the results should be located
+     * @return Map - A map of List<String> containing the contents of the upc lines with >1 elements present.
+     *               If there is an error, null is returned.
+     * @throws Exception
+     */
+    private List<String> getUpcResults(String url) {
+
+        try {
+            URL website = new URL(url);
+            URLConnection connection = website.openConnection();
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                            connection.getInputStream()));
+
+            String inputLine;
+            String lineOne = in.readLine();
+
+            // There is an error in the results obtained
+            if (lineOne.startsWith("ERROR")) {
+                in.close();
+                return null;
+            } else {
+                in.readLine(); // Removes the second line which contains unnecessary data for our purposes
+                List<String> upc = new ArrayList<String>();
+                // Add each line with more than two connections
+                while ((inputLine = in.readLine()) != null) {
+                    String[] line = inputLine.split("\\t");
+                    if (Integer.parseInt(line[1]) > 1) {
+                        upc.add(line[3]);
+                    }
+                }
+                in.close();
+
+                return upc;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex + " in function");
+            return null;
+        }
+    }
+
+    /**
+     * @desc Creates a csv-specific JTable from an input of comma separated strings
+     * @param input - a List<String> consisting of a series of comma-separated lines
      * @return JTable - a table populated with the input elements
      */
     private JTable createCsvTable (List<String> input) {
@@ -304,6 +380,11 @@ public class SlimfinderRunPanel extends JPanel {
         return table;
     }
 
+    /**
+     * @desc Creates an occ-specific JTable from an input of comma separated strings
+     * @param input - a List<String> consisting of a series of comma-separated lines
+     * @return JTable - a table populated with the input elements
+     */
     private JTable createOccTable (List<String> input) {
         JTable table;
         List<String> names = Arrays.asList(input.get(0).split(","));
