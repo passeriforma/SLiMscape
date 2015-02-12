@@ -8,6 +8,7 @@ import org.cytoscape.slimscape.internal.RunSlimfinder;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
+import org.cytoscape.view.vizmap.VisualMappingManager;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -41,16 +42,18 @@ public class SlimfinderRunPanel extends JPanel {
     CyNetworkManager networkManager;
     CyNetworkViewFactory networkViewFactory;
     CyNetworkViewManager networkViewManager;
+    VisualMappingManager visualMappingManager;
 
     public SlimfinderRunPanel(final CyApplicationManager manager, final OpenBrowser openBrowser,
                               final SlimfinderOptionsPanel optionsPanel, final CyEventHelper eventHelper,
                               final CyNetworkFactory networkFactory, final CyNetworkManager networkManager,
-                              final CyNetworkViewFactory networkViewFactory, final CyNetworkViewManager networkViewManager) {
+                              final CyNetworkViewFactory networkViewFactory, final CyNetworkViewManager networkViewManager, final VisualMappingManager visualMappingManager) {
         this.networkFactory = networkFactory;
         this.manager = manager;
         this.networkManager = networkManager;
         this.networkViewFactory = networkViewFactory;
         this.networkViewManager = networkViewManager;
+        this.visualMappingManager = visualMappingManager;
 
         setBackground(new Color(238, 238, 238));
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -191,7 +194,7 @@ public class SlimfinderRunPanel extends JPanel {
                             }
 
                             // Alter the graph
-                            new AlterGraph(nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager, networkViewFactory, networkViewManager);
+                            new AlterGraph(nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager, networkViewFactory, networkViewManager, visualMappingManager);
                         }
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, ex);

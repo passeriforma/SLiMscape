@@ -15,6 +15,7 @@ import org.cytoscape.slimscape.internal.ui.SlimprobRunPanel;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
+import org.cytoscape.view.vizmap.VisualMappingManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +33,7 @@ public class SlimPanel extends JPanel implements CytoPanelComponent {
 
     public SlimPanel(CyApplicationManager manager, CySwingAppAdapter adapter, OpenBrowser openBrowser,
                      CyEventHelper eventHelper, CyNetworkFactory networkFactory, CyNetworkManager networkManager,
-                     CyNetworkViewFactory networkViewFactory, CyNetworkViewManager networkViewManager) {
+                     CyNetworkViewFactory networkViewFactory, CyNetworkViewManager networkViewManager, VisualMappingManager visualMappingManager) {
         super();
         this.adapter = adapter;
         this.manager = manager;
@@ -57,7 +58,7 @@ public class SlimPanel extends JPanel implements CytoPanelComponent {
         JTabbedPane slimfinder = new JTabbedPane();
         SlimfinderOptionsPanel slimfinderOptionsPanel = new SlimfinderOptionsPanel();
         slimfinder.addTab("Run SLiMFinder", new SlimfinderRunPanel(manager, openBrowser, slimfinderOptionsPanel,
-                eventHelper, networkFactory, networkManager, networkViewFactory, networkViewManager));
+                eventHelper, networkFactory, networkManager, networkViewFactory, networkViewManager, visualMappingManager));
         slimfinder.addTab("Options", slimfinderOptionsPanel);
 
         JTabbedPane slimprob = new JTabbedPane();

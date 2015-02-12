@@ -12,6 +12,7 @@ import org.cytoscape.service.util.AbstractCyActivator;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
+import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.osgi.framework.BundleContext;
 
 import java.util.Properties;
@@ -29,11 +30,12 @@ public class CyActivator extends AbstractCyActivator {
         CyNetworkManager networkManager = getService(context, CyNetworkManager.class);
         CyNetworkViewFactory networkViewFactory = getService(context, CyNetworkViewFactory.class);
         CyNetworkViewManager networkViewManager = getService(context, CyNetworkViewManager.class);
+        VisualMappingManager visualMappingManager = getService(context,VisualMappingManager.class);
 
 		Properties properties = new Properties();
 
 		SlimPanel slimPanel = new SlimPanel(manager, adapter, openBrowser, eventHelper, networkFactory, networkManager,
-                networkViewFactory, networkViewManager);
+                networkViewFactory, networkViewManager, visualMappingManager);
 		registerService(context, slimPanel, CytoPanelComponent.class, properties);
 
 		SlimscapePluginAction slimscapePluginAction = new SlimscapePluginAction(manager, adapter, desktopApp, slimPanel);
