@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<properties>
-						<bundle.symbolicName>org.cytoscape.slimscape.slimscape</bundle.symbolicName>
+		<bundle.symbolicName>org.cytoscape.slimscape.slimscape</bundle.symbolicName>
 		<bundle.namespace>org.cytoscape.slimscape</bundle.namespace>
 	</properties>
 
@@ -10,9 +10,7 @@
 	<groupId>org.cytoscape.slimscape</groupId>
 	<artifactId>slimscape</artifactId>
 	<version>1.0-SNAPSHOT</version>
-
-			<name>${bundle.symbolicName} [${bundle.namespace}]</name>
-	
+		<name>${bundle.symbolicName} [${bundle.namespace}]</name>
 	<packaging>bundle</packaging>
 
 	<build>
@@ -104,6 +102,21 @@
 			<name>Cytoscape Releases</name>
 			<url>http://code.cytoscape.org/nexus/content/repositories/releases/</url>
 		</repository>
+		<repository>
+			<id>biojava-maven-repo</id>
+			<name>BioJava repository</name>
+			<url>http://www.biojava.org/download/maven/</url>
+		</repository>
+		<repository>
+			<id>ebi-repo</id>
+			<snapshots>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<name>ebi-repo</name>
+			<url>http://www.ebi.ac.uk/~maven/m2repo</url>
+		</repository>
 	</repositories>
 
 	<!-- Dependencies needed to compile this project. -->
@@ -134,12 +147,17 @@
 			<artifactId>session-api</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.cytoscape</groupId>
 			<artifactId>presentation-api</artifactId>
 			<version>3.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>1.0</version>
+		</dependency>
+
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.ops4j.pax.logging</groupId>
@@ -147,7 +165,11 @@
 			<version>1.5.2</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.biojava</groupId>
+			<artifactId>biojava3-core</artifactId>
+			<version>3.1.0</version>
+		</dependency>
 	</dependencies>
 
 </project>

@@ -31,9 +31,8 @@ public class SlimscapePluginAction extends AbstractCyAction {
     }
 
     /**
-     * This method opens the Slimscape settings panel on menu selection
-     * @param event
-     *          event triggered when bingo menu item is clicked
+     * @desc - This method opens the Slimscape settings panel on menu selection.
+     * @param event - event triggered when menu item is clicked.
      */
     @Override
     public void actionPerformed(ActionEvent event) {

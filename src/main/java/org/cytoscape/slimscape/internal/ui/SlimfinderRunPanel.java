@@ -47,7 +47,8 @@ public class SlimfinderRunPanel extends JPanel {
     public SlimfinderRunPanel(final CyApplicationManager manager, final OpenBrowser openBrowser,
                               final SlimfinderOptionsPanel optionsPanel, final CyEventHelper eventHelper,
                               final CyNetworkFactory networkFactory, final CyNetworkManager networkManager,
-                              final CyNetworkViewFactory networkViewFactory, final CyNetworkViewManager networkViewManager, final VisualMappingManager visualMappingManager) {
+                              final CyNetworkViewFactory networkViewFactory, final CyNetworkViewManager networkViewManager,
+                              final VisualMappingManager visualMappingManager) {
         this.networkFactory = networkFactory;
         this.manager = manager;
         this.networkManager = networkManager;
@@ -155,6 +156,8 @@ public class SlimfinderRunPanel extends JPanel {
                         List<String> csvResults = PrepareResults(
                                 ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main"));
                         if (csvResults == null) {
+                            JOptionPane.showMessageDialog(null, "There was a problem with the results." +
+                                    "Opening the output page in a web browser.");
                             openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
                         } else {
                             // Display main (CSV) results
@@ -180,10 +183,12 @@ public class SlimfinderRunPanel extends JPanel {
                             occFrame.setVisible(true);
 
                             // Get list of all node IDs from slimdb
-                            List<String> nodeIds = getNodeIds("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=slimdb");
+                            List<String> nodeIds = getNodeIds("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id
+                                    + "&rest=slimdb");
 
                             // Get graph edge data from upc outputs
-                            List<String> upc = getUpcResults("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=upc");
+                            List<String> upc = getUpcResults("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id
+                                    + "&rest=upc");
 
                             // Get a list of the uniprot IDs
                             List<String> occIds = new ArrayList<String>();
@@ -194,7 +199,8 @@ public class SlimfinderRunPanel extends JPanel {
                             }
 
                             // Alter the graph
-                            new AlterGraph(nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager, networkViewFactory, networkViewManager, visualMappingManager);
+                            new AlterGraph(nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,
+                                    networkViewFactory, networkViewManager, visualMappingManager);
                         }
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, ex);
@@ -213,8 +219,8 @@ public class SlimfinderRunPanel extends JPanel {
     }
 
     /**
-     * @desc attains and analyses main results from the Slimsuite server
-     * @param url - The url where the results should be located
+     * @desc attains and analyses main results from the Slimsuite server.
+     * @param url - The url where the results should be located.
      * @return Map - A map of List<String> containing the contents of the csv and occ blocks.
      *               If there is an error, null is returned.
      * @throws Exception
@@ -298,8 +304,8 @@ public class SlimfinderRunPanel extends JPanel {
     }
 
     /**
-     * @desc attains and analyses the upc results from the Slimsuite server, so that graph edges can be added later
-     * @param url - The url where the results should be located
+     * @desc attains and analyses the upc results from the Slimsuite server, so that graph edges can be added later.
+     * @param url - The url where the results should be located.
      * @return Map - A map of List<String> containing the contents of the upc lines with >1 elements present.
      *               If there is an error, null is returned.
      * @throws Exception
@@ -341,9 +347,9 @@ public class SlimfinderRunPanel extends JPanel {
     }
 
     /**
-     * @desc Creates a csv-specific JTable from an input of comma separated strings
-     * @param input - a List<String> consisting of a series of comma-separated lines
-     * @return JTable - a table populated with the input elements
+     * @desc Creates a csv-specific JTable from an input of comma separated strings.
+     * @param input - a List<String> consisting of a series of comma-separated lines.
+     * @return JTable - a table populated with the input elements.
      */
     private JTable createCsvTable (List<String> input) {
         // Get column names from input
@@ -384,9 +390,9 @@ public class SlimfinderRunPanel extends JPanel {
     }
 
     /**
-     * @desc Creates an occ-specific JTable from an input of comma separated strings
-     * @param input - a List<String> consisting of a series of comma-separated lines
-     * @return JTable - a table populated with the input elements
+     * @desc Creates an occ-specific JTable from an input of comma separated strings.
+     * @param input - a List<String> consisting of a series of comma-separated lines.
+     * @return JTable - a table populated with the input elements.
      */
     private JTable createOccTable (List<String> input) {
         JTable table;

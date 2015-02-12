@@ -74,6 +74,7 @@ public class SlimPanel extends JPanel implements CytoPanelComponent {
         this.add(tabbedPane);
     }
 
+    // Obligatory components for CytoPanelComponent
     public Component getComponent() {
         return this;
     }
