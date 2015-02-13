@@ -173,8 +173,19 @@ public class SlimfinderRunPanel extends JPanel {
                     if (selected.size() > 0) {
                         RunSlimfinder slimfinder = new RunSlimfinder(network, selected, optionsPanel);
                         String url = slimfinder.getUrl();
-                        // TODO: Get the run ID from the input data ?grab the url
-                        // When ready, analyse the data from there.
+                        String id = getJobID(url);
+                        JOptionPane.showMessageDialog(null, id);
+                        try {
+                            List<String> csvResults = PrepareResults(
+                                    ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main"));
+                            if (csvResults == null) {
+                                throwError(id);
+                            } else {
+                                displayResults(csvResults, id);
+                            }
+                        } catch (Exception ec) {
+                            JOptionPane.showMessageDialog(null, ec);
+                        }
                     } else {
                         JOptionPane.showMessageDialog(null, "No nodes selected!");
                     }
@@ -456,5 +467,41 @@ public class SlimfinderRunPanel extends JPanel {
         JOptionPane.showMessageDialog(null, "There was a problem with the results." +
                 "Opening the output page in a web browser.");
         openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
+    }
+
+    /**
+     * @desc - gets the job id from a running SLiMSuite service, for later use.
+     * @param url - the URL to search for the ID in.
+     * @return - the ID, as a string.
+     */
+    private String getJobID (String url) {
+        try {
+            URL website = new URL(url);
+            URLConnection connection = website.openConnection();
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                            connection.getInputStream()));
+
+            String inputLine;
+            String lineOne = in.readLine();
+
+            // There is an error in the results obtained
+            if (lineOne.startsWith("ERROR")) {
+                in.close();
+                return null;
+            } else {
+                String id = null;
+                while ((inputLine = in.readLine()) != null) {
+                    if (inputLine.contains("### slimprob job")) {
+                        id = inputLine.split("job")[1];
+                    }
+                }
+                in.close();
+                return id;
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex + " in function");
+            return null;
+        }
     }
 }
