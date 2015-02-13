@@ -43,6 +43,8 @@ public class SlimfinderRunPanel extends JPanel {
     CyNetworkViewFactory networkViewFactory;
     CyNetworkViewManager networkViewManager;
     VisualMappingManager visualMappingManager;
+    CyEventHelper eventHelper;
+    OpenBrowser openBrowser;
 
     public SlimfinderRunPanel(final CyApplicationManager manager, final OpenBrowser openBrowser,
                               final SlimfinderOptionsPanel optionsPanel, final CyEventHelper eventHelper,
@@ -55,6 +57,8 @@ public class SlimfinderRunPanel extends JPanel {
         this.networkViewFactory = networkViewFactory;
         this.networkViewManager = networkViewManager;
         this.visualMappingManager = visualMappingManager;
+        this.eventHelper = eventHelper;
+        this.openBrowser = openBrowser;
 
         setBackground(new Color(238, 238, 238));
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -156,51 +160,9 @@ public class SlimfinderRunPanel extends JPanel {
                         List<String> csvResults = PrepareResults(
                                 ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main"));
                         if (csvResults == null) {
-                            JOptionPane.showMessageDialog(null, "There was a problem with the results." +
-                                    "Opening the output page in a web browser.");
-                            openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
+                            throwError(id);
                         } else {
-                            // Display main (CSV) results
-                            JTable csv = createCsvTable(csvResults);
-                            JPanel csvPanel = new JPanel();
-                            csvPanel.setLayout(new BorderLayout());
-                            csvPanel.add(new JScrollPane(csv), BorderLayout.CENTER);
-                            JFrame csvFrame = new JFrame("Main Results");
-                            csvFrame.getContentPane().add(csvPanel);
-                            csvFrame.pack();
-                            csvFrame.setVisible(true);
-
-                            // Display OCC results
-                            List<String> occResults = PrepareResults(
-                            ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=occ"));
-                            JTable occ = createOccTable(occResults);
-                            JPanel occPanel = new JPanel();
-                            occPanel.setLayout(new BorderLayout());
-                            occPanel.add(new JScrollPane(occ), BorderLayout.CENTER);
-                            JFrame occFrame = new JFrame("OCC Results");
-                            occFrame.getContentPane().add(occPanel);
-                            occFrame.pack();
-                            occFrame.setVisible(true);
-
-                            // Get list of all node IDs from slimdb
-                            List<String> nodeIds = getNodeIds("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id
-                                    + "&rest=slimdb");
-
-                            // Get graph edge data from upc outputs
-                            List<String> upc = getUpcResults("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id
-                                    + "&rest=upc");
-
-                            // Get a list of the uniprot IDs
-                            List<String> occIds = new ArrayList<String>();
-                            for (int y=0; y<occ.getRowCount(); y++) {
-                                Object current = occ.getModel().getValueAt(y, 2);
-                                String string = String.valueOf(current);
-                                occIds.add(string);
-                            }
-
-                            // Alter the graph
-                            new AlterGraph(nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,
-                                    networkViewFactory, networkViewManager, visualMappingManager);
+                            displayResults(csvResults, id);
                         }
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, ex);
@@ -209,7 +171,10 @@ public class SlimfinderRunPanel extends JPanel {
                     List<CyNode> selected = new ArrayList<CyNode>();
                     selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
                     if (selected.size() > 0) {
-                        new RunSlimfinder(network, selected, optionsPanel);
+                        RunSlimfinder slimfinder = new RunSlimfinder(network, selected, optionsPanel);
+                        String url = slimfinder.getUrl();
+                        // TODO: Get the run ID from the input data ?grab the url
+                        // When ready, analyse the data from there.
                     } else {
                         JOptionPane.showMessageDialog(null, "No nodes selected!");
                     }
@@ -275,6 +240,11 @@ public class SlimfinderRunPanel extends JPanel {
         }
     }
 
+    /**
+     * @desc - Gets the IDs of each node in the slimdb results page.
+     * @param url - the URL to search for results in
+     * @return - list of all the IDs found, as strings
+     */
     private List<String> getNodeIds(String url) {
 
         try {
@@ -426,5 +396,65 @@ public class SlimfinderRunPanel extends JPanel {
         }
 
         return table;
+    }
+
+    /**
+     * @desc - creates the results panels and alters/creates the cytoscape network as required.
+     * @param csvResults  - processed results from the main page.
+     * @param id -  run ID from the server.
+     */
+    private void displayResults(List<String> csvResults, String id) {
+        // Get OCC Results
+        List<String> occResults = PrepareResults(
+                ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=occ"));
+
+        // Get list of all node IDs from slimdb
+        List<String> nodeIds = getNodeIds("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id
+                + "&rest=slimdb");
+
+        // Get graph edge data from upc outputs
+        List<String> upc = getUpcResults("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id
+                + "&rest=upc");
+
+        // Display main (CSV) results
+        JTable csv = createCsvTable(csvResults);
+        JPanel csvPanel = new JPanel();
+        csvPanel.setLayout(new BorderLayout());
+        csvPanel.add(new JScrollPane(csv), BorderLayout.CENTER);
+        JFrame csvFrame = new JFrame("Main Results");
+        csvFrame.getContentPane().add(csvPanel);
+        csvFrame.pack();
+        csvFrame.setVisible(true);
+
+        // Display OCC results
+
+        JTable occ = createOccTable(occResults);
+        JPanel occPanel = new JPanel();
+        occPanel.setLayout(new BorderLayout());
+        occPanel.add(new JScrollPane(occ), BorderLayout.CENTER);
+        JFrame occFrame = new JFrame("OCC Results");
+        occFrame.getContentPane().add(occPanel);
+        occFrame.pack();
+        occFrame.setVisible(true);
+
+        List<String> occIds = new ArrayList<String>();
+        for (int y=0; y<occ.getRowCount(); y++) {
+            Object current = occ.getModel().getValueAt(y, 2);
+            String string = String.valueOf(current);
+            occIds.add(string);
+        }
+
+        // Alter the graph
+        new AlterGraph(nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,
+                networkViewFactory, networkViewManager, visualMappingManager);    }
+
+    /**
+     * @desc - Provides an error popup and opens the server run page in case of an error
+     * @param id - the run ID of the server process
+     */
+    private void throwError (String id) {
+        JOptionPane.showMessageDialog(null, "There was a problem with the results." +
+                "Opening the output page in a web browser.");
+        openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
     }
 }

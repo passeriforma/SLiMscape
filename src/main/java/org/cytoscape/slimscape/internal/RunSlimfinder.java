@@ -6,13 +6,13 @@ import org.cytoscape.model.CyNode;
 import org.cytoscape.slimscape.internal.ui.SlimfinderOptions;
 import org.cytoscape.slimscape.internal.ui.SlimfinderOptionsPanel;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RunSlimfinder {
     CyNetwork network;
     private SlimfinderOptionsPanel optionsPanel;
+    String url;
 
     public RunSlimfinder(CyNetwork network, List<CyNode> selected, SlimfinderOptionsPanel optionsPanel) {
         this.network = network;
@@ -20,10 +20,7 @@ public class RunSlimfinder {
 
         List<String> uniprotIDs = getNodeIds(selected);
 
-        String url = constructUrl(optionsPanel, uniprotIDs);
-
-        // TODO: Send a request to the REST server
-
+        url = constructUrl(optionsPanel, uniprotIDs);
     }
 
     // Gets the uniprot IDs of each selected element, and adds them to a list
@@ -39,7 +36,7 @@ public class RunSlimfinder {
     }
 
     // Gets the current state of the options panel, and constructs the URL to send to the REST server
-    private String constructUrl(SlimfinderOptionsPanel optionsPanel, List<String> uniprotIDs) {
+    public String constructUrl(SlimfinderOptionsPanel optionsPanel, List<String> uniprotIDs) {
         // Get state of SlimsearchOptionsPanel
         SlimfinderOptions options = optionsPanel.getSLiMFinderOptions();
         boolean dismask = options.getDismask();
@@ -89,9 +86,10 @@ public class RunSlimfinder {
         stringBuilder.append(ids);
 
         // Make the final string
-
-        JOptionPane.showMessageDialog(null, stringBuilder.toString());
-
         return (stringBuilder.toString());
+    }
+
+    public String getUrl() {
+        return url;
     }
 }
