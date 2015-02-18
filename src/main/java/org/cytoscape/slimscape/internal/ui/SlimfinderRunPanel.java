@@ -167,14 +167,19 @@ public class SlimfinderRunPanel extends JPanel {
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, ex);
                     }
-                } else { // TODO: Implement process for graph already present
+                } else {
                     List<CyNode> selected = new ArrayList<CyNode>();
                     selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
                     if (selected.size() > 0) {
                         RunSlimfinder slimfinder = new RunSlimfinder(network, selected, optionsPanel);
                         String url = slimfinder.getUrl();
-                        String id = getJobID(url);
-                        JOptionPane.showMessageDialog(null, id);
+                        String id = getJobID(url).replaceAll("\\s+","");
+                        // Make sure the job is ready before analysis starts
+                        JOptionPane.showMessageDialog(null, "http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
+                        boolean ready = jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
+                        while (ready == false) {
+                            // TODO: Add things here to give a popup that retries jobReady
+                        }
                         try {
                             List<String> csvResults = PrepareResults(
                                     ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main"));
@@ -183,8 +188,8 @@ public class SlimfinderRunPanel extends JPanel {
                             } else {
                                 displayResults(csvResults, id);
                             }
-                        } catch (Exception ec) {
-                            JOptionPane.showMessageDialog(null, ec);
+                        } catch (Exception ex) {
+                            JOptionPane.showMessageDialog(null, ex);
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "No nodes selected!");
@@ -199,7 +204,6 @@ public class SlimfinderRunPanel extends JPanel {
      * @param url - The url where the results should be located.
      * @return Map - A map of List<String> containing the contents of the csv and occ blocks.
      *               If there is an error, null is returned.
-     * @throws Exception
      */
     private List<String> PrepareResults(String url) {
         // Gets URL data
@@ -218,8 +222,9 @@ public class SlimfinderRunPanel extends JPanel {
                 in.close();
                 return null;
             } else {
-                List<String> csv = new ArrayList<String>();
+                List<String> csv = new ArrayList<String>();  // TODO: Add error catching if there is nothing in there-
                 csv.add(lineOne);
+                int lines = 0;
                 while ((inputLine = in.readLine()) != null) {
                     StringBuilder builder = new StringBuilder();
                     boolean inBraces = false;
@@ -238,8 +243,8 @@ public class SlimfinderRunPanel extends JPanel {
                     }
 
                     String toReturn = builder.toString();
-
                     csv.add(toReturn);
+                    lines ++;
                 }
                 in.close();
 
@@ -289,7 +294,6 @@ public class SlimfinderRunPanel extends JPanel {
      * @param url - The url where the results should be located.
      * @return Map - A map of List<String> containing the contents of the upc lines with >1 elements present.
      *               If there is an error, null is returned.
-     * @throws Exception
      */
     private List<String> getUpcResults(String url) {
 
@@ -464,9 +468,9 @@ public class SlimfinderRunPanel extends JPanel {
      * @param id - the run ID of the server process
      */
     private void throwError (String id) {
-        JOptionPane.showMessageDialog(null, "There was a problem with the results." +
-                "Opening the output page in a web browser.");
         openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
+        //JOptionPane.showMessageDialog(null, "Something went wrong. " +
+          //      "Opening the output page in a web browser.");
     }
 
     /**
@@ -503,5 +507,28 @@ public class SlimfinderRunPanel extends JPanel {
             JOptionPane.showMessageDialog(null, ex + " in function");
             return null;
         }
+    }
+
+    /**
+     * @desc - Determines whether the job is ready for analysis or still running
+     * @param url - the URL of the run
+     */
+    private boolean jobReady (String url) {
+        String lineOne = null;
+        try {
+            URL website = new URL(url);
+            URLConnection connection = website.openConnection();
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(
+                            connection.getInputStream()));
+            lineOne = in.readLine();
+            if (lineOne.contains("running:")) {
+                return false;
+            }
+            in.close();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex + " in function");
+            }
+        return true;
     }
 }
