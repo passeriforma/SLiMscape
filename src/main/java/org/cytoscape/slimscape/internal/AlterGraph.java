@@ -52,7 +52,13 @@ public class AlterGraph {
                 }
             }
 
-            SLiMNodeStyle(occNodes, nodeIds, manager, visualMappingManager);
+            List<String> occ = new ArrayList<String>();
+            for (int i=0; i<occNodes.size(); i++) {
+                String id = occNodes.get(i).split("_")[3];
+                occ.add(id);
+            }
+
+            SLiMNodeStyle(occ, nodeIds, manager, visualMappingManager);
 
         } catch (Exception e){ // No network, need to make a new one
             JOptionPane.showMessageDialog(null, e);
@@ -135,7 +141,6 @@ public class AlterGraph {
 
         List<CyNode> nodes = new ArrayList<CyNode>();
         for (String id : occNodes) {
-            id = id.split("_")[3];
             if (nodeIds.containsKey(id)) {
                 CyNode node = nodeIds.get(id); // We should have the node here
                 nodes.add(node);
