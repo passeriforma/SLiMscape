@@ -22,7 +22,11 @@ public class RunSlimprob {
         url = constructUrl(optionsPanel, uniprotIDs);
     }
 
-    // Get the uniprot IDs of each selected element, and add them to a list
+    /**
+     * @desc gets the uniprot IDs of each selected node, and returns them as a list
+     * @param selected - list of CyNodes that have been selected in the graph.
+     * @return list containing the Uniprot ids of all selected nodes
+     */
     private List<String> getNodeIds (List<CyNode> selected) {
         List<String> uniprotIDs = new ArrayList<String>();
 
@@ -34,7 +38,12 @@ public class RunSlimprob {
         return uniprotIDs;
     }
 
-    // Gets the current state of the options panel, and constructs the URL to send to the REST server
+    /**
+     * @desc Gets the current state of the options panel, and constructs the URL to send to the REST server
+     * @param optionsPanel - slimpr options panel, containing all the options elements to be passed to the server
+     * @param uniprotIDs - list containing the Uniprot ids of all selected nodes
+     * @return the constructed URL to be passed to the server
+     */
     private String constructUrl (SlimprobOptionsPanel optionsPanel, List<String> uniprotIDs) {
         // Get state of SlimprobOptionsPanel
         SlimprobOptions options = optionsPanel.getSlimprobOptions();
