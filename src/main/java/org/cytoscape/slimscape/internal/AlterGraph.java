@@ -61,7 +61,6 @@ public class AlterGraph {
             SLiMNodeStyle(occ, nodeIds, manager, visualMappingManager);
 
         } catch (Exception e){ // No network, need to make a new one
-            JOptionPane.showMessageDialog(null, e);
             CyNetwork newNetwork = networkFactory.createNetwork();
             newNetwork.getRow(newNetwork).set(CyNetwork.NAME, "SLiMOutput");
             networkManager.addNetwork(newNetwork);

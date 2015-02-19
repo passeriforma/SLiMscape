@@ -176,9 +176,9 @@ public class SlimfinderRunPanel extends JPanel {
                         String id = getJobID(url).replaceAll("\\s+","");
                         // Make sure the job is ready before analysis starts
                         boolean ready = jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
+                        JOptionPane.showMessageDialog(null, id);
+
                         while (ready == false) {
-                            // TODO: Add things here to give a popup that retries jobReady
-                            JOptionPane.showMessageDialog(null, "Not yet ready. Click OK to check again.");
                             ready = jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
                         }
                         try {
@@ -497,7 +497,7 @@ public class SlimfinderRunPanel extends JPanel {
             } else {
                 String id = null;
                 while ((inputLine = in.readLine()) != null) {
-                    if (inputLine.contains("### slimprob job")) {
+                    if (inputLine.contains("### slimfinder job")) {
                         id = inputLine.split("job")[1];
                     }
                 }
@@ -527,12 +527,13 @@ public class SlimfinderRunPanel extends JPanel {
                 in.close();
                 return true;
             } else {
+                JOptionPane.showMessageDialog(null, "Run is currently: " + lineOne + ". Click OK to check again.");
                 in.close();
                 return false;
             }
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex + " in function");
+            JOptionPane.showMessageDialog(null, ex);
             return false;
         }
     }

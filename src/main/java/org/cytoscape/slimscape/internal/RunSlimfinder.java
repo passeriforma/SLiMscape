@@ -46,7 +46,7 @@ public class RunSlimfinder {
         double cutoff = options.getCutoff();
         String custom = options.getCustomParameters();
 
-        StringBuilder stringBuilder = new StringBuilder("http://rest.slimsuite.unsw.edu.au/slimprob");
+        StringBuilder stringBuilder = new StringBuilder("http://rest.slimsuite.unsw.edu.au/slimfinder");
 
         // Construct properly formatted string components
         String dismaskS = "&dismask=";
