@@ -11,6 +11,7 @@ import java.util.List;
 public class RunSlimprob {
     CyNetwork network;
     private SlimprobOptionsPanel optionsPanel;
+    String url;
 
     public RunSlimprob(CyNetwork network, List<CyNode> selected, String motif, SlimprobOptionsPanel optionsPanel) {
         this.network = network;
@@ -18,10 +19,7 @@ public class RunSlimprob {
 
         List<String> uniprotIDs = getNodeIds(selected);
 
-        String url = constructUrl(optionsPanel, uniprotIDs);
-
-        // Send a request to the REST server
-
+        url = constructUrl(optionsPanel, uniprotIDs);
     }
 
     // Get the uniprot IDs of each selected element, and add them to a list
@@ -79,4 +77,9 @@ public class RunSlimprob {
 
         return (stringBuilder.toString());
     }
+
+    public String getUrl() {
+        return url;
+    }
+
 }

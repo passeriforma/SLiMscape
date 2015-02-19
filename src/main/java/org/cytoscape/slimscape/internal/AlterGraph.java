@@ -37,8 +37,8 @@ public class AlterGraph {
         this.networkViewFactory = networkViewFactory;
         this.visualMappingManager = visualMappingManager;
 
-
-        try { // TODO: Alter the pre existing graph. Need to test.
+        // Attempts to alter the preexisting graph. If that fails, makes a new one.
+        try {
             CyNetwork network = manager.getCurrentNetwork();
             // Get state of graph
             List<CyNode> nodes = CyTableUtil.getNodesInState(network, "selected", true);

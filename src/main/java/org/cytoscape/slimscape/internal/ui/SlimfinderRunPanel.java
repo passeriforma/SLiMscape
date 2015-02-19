@@ -223,7 +223,7 @@ public class SlimfinderRunPanel extends JPanel {
                 in.close();
                 return null;
             } else {
-                List<String> csv = new ArrayList<String>();  // TODO: Add error catching if there is nothing in there-
+                List<String> csv = new ArrayList<String>();
                 csv.add(lineOne);
                 int lines = 0;
                 while ((inputLine = in.readLine()) != null) {
