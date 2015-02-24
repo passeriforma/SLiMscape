@@ -191,9 +191,9 @@ public class SlimprobRunPanel extends JPanel {
                         RunSlimprob slimprob = new RunSlimprob(network, selected, motif ,optionsPanel);
                         String url = slimprob.getUrl();
                         String id = getJobID(url).replaceAll("\\s+","");
+                        idTextArea.setText(id);
                         // Make sure the job is ready before analysis starts
                         boolean ready = jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
-                        JOptionPane.showMessageDialog(null, id);
 
                         while (ready == false) {
                             ready = jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
@@ -476,8 +476,6 @@ public class SlimprobRunPanel extends JPanel {
             String string = String.valueOf(current);
             occIds.add(string);
         }
-
-        JOptionPane.showMessageDialog(null, occIds);
 
         // Alter the graph
         new AlterGraph(nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,

@@ -174,6 +174,7 @@ public class SlimfinderRunPanel extends JPanel {
                         RunSlimfinder slimfinder = new RunSlimfinder(network, selected, optionsPanel);
                         String url = slimfinder.getUrl();
                         String id = getJobID(url).replaceAll("\\s+","");
+                        idTextArea.setText(id);
                         // Make sure the job is ready before analysis starts
                         boolean ready = jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
                         JOptionPane.showMessageDialog(null, id);
