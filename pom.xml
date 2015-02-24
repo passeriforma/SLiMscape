@@ -7,13 +7,14 @@
 	</properties>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.cytoscape.slimscape</groupId>
-	<artifactId>slimscape</artifactId>
-	<version>1.0-SNAPSHOT</version>
-		<name>${bundle.symbolicName} [${bundle.namespace}]</name>
+	<groupId>slimscape</groupId>
+	<artifactId>slimscape-impl</artifactId>
+	<version>1.0</version>
+	<name>SLiMScape</name>
 	<packaging>bundle</packaging>
 
 	<build>
+        <finalName>SLiMScape</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
