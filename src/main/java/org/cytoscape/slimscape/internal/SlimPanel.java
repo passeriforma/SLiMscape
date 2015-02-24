@@ -70,7 +70,7 @@ public class SlimPanel extends JPanel implements CytoPanelComponent {
         // Add the slimprob and slimfinder tabs to tabbedPane
         tabbedPane.addTab("SLiMProb", slimprob);
         tabbedPane.addTab("SLiMFinder", slimfinder);
-        tabbedPane.addTab("Domain", new JPanel());
+        //tabbedPane.addTab("Domain", new JPanel());
 
         this.add(tabbedPane);
     }
