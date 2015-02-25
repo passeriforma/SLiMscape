@@ -1,4 +1,4 @@
-# SLiMscape
+#SLiMscape
 SLiMScape, a <a href="http://www.cytoscape.org/">Cytoscape</a> plugin, is a platform for performing short linear motif analyses of protein interaction networks by integrating motif discovery and search tools in a network visualization environment. This aims to aid in the discovery of novel short linear motifs, as well as visualisation of the distribution of known motifs.
 
 ##Input
@@ -13,11 +13,27 @@ SLiMProb has one input; a SLiM to be searched for in the nodes selected on the g
 
 If the motif is found, the colour and shape of the target node will change.
 
-Docsumentation of the options available in the options panel (as well as custom options) can be found <a href="http://docs.slimsuite.unsw.edu.au/software/slimsuite/readme/tools/slimsearch.html">here</a>. The default options are sufficient for most queries.
+###SLiMProb Options
+**Masking**
+- Disorder Masking is used to mask residues which have an IUPred disorder score of less than 0.3
+- Conservation Masking is used to mask residues which have a relative local conservation score of less than X.
+**SLiMChance**
+- Probability Cutoff is the cutoff for returned motifs.
+**Custom Parameters**
+- Custom parameters can be used to add other command line arguments which can be found <a href="http://docs.slimsuite.unsw.edu.au/software/slimsuite/readme/tools/slimsearch.html">here</a>.
 
 ##SLiMFinder
 SLiMFinder aims to discover new motifs in the selected protein interaction network by searching for statistically overrepresented sequences withoin a set of proteins.
 
 It has no mandatory inputs other than a selection of graph nodes or a run ID. If a motif is found in a node, the node will change colour and shape. The specific motif is presented in an output table, along with the Uniprot ID and other data. 
 
-Docsumentation of the options available in the options panel (as well as custom options) can be found <a href="http://docs.slimsuite.unsw.edu.au/software/slimsuite/readme/tools/slimfinder.html">here</a>. The default options are sufficient for most queries.
+###SLiMFinder Options
+**Masking**
+- Disorder Masking is used to mask residues which have an IUPred disorder score of less than 0.3
+- Conservation Masking is used to mask residues which have a relative local conservation score of less than X.
+- Feature Masking is used to mask residues which occur in features such as domains or transmembrane regions.
+**SLiMChance**
+- Probability Cutoff is the cutoff for returned motifs.
+**Miscellaneous Options**
+- Walltime is the maximum runtime of a single run.
+- Custom parameters is used to add other command line arguments which can be found <a href="http://docs.slimsuite.unsw.edu.au/software/slimsuite/readme/tools/slimfinder.html">here</a>.
