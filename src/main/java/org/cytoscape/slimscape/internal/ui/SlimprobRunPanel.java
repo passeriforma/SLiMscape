@@ -195,7 +195,7 @@ public class SlimprobRunPanel extends JPanel {
                         // Make sure the job is ready before analysis starts
                         boolean ready = jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
 
-                        while (ready == false) {
+                        while (!ready) {
                             ready = jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
                         }
                         try {
@@ -242,7 +242,6 @@ public class SlimprobRunPanel extends JPanel {
             } else {
                 List<String> csv = new ArrayList<String>();
                 csv.add(lineOne);
-                int lines = 0;
                 while ((inputLine = in.readLine()) != null) {
                     StringBuilder builder = new StringBuilder();
                     boolean inBraces = false;
@@ -262,7 +261,6 @@ public class SlimprobRunPanel extends JPanel {
 
                     String toReturn = builder.toString();
                     csv.add(toReturn);
-                    lines ++;
                 }
                 in.close();
 
@@ -533,7 +531,7 @@ public class SlimprobRunPanel extends JPanel {
      * @param url - the URL of the run
      */
     private boolean jobReady (String url) {
-        String lineOne = null;
+        String lineOne;
         try {
             URL website = new URL(url);
             URLConnection connection = website.openConnection();

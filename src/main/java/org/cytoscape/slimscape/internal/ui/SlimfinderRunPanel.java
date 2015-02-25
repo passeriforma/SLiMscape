@@ -32,10 +32,7 @@ import java.util.List;
  */
 public class SlimfinderRunPanel extends JPanel {
 
-    JComboBox comboBox = null;
-    JComboBox attributeNameCombobox = null;
     JTextArea idTextArea = null;
-    SlimfinderOptionsPanel optionsPanel;
     CyApplicationManager manager;
     List<String> input;
     CyNetworkFactory networkFactory;
@@ -179,7 +176,7 @@ public class SlimfinderRunPanel extends JPanel {
                         boolean ready = jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
                         JOptionPane.showMessageDialog(null, id);
 
-                        while (ready == false) {
+                        while (!ready) {
                             ready = jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
                         }
                         try {
@@ -226,7 +223,6 @@ public class SlimfinderRunPanel extends JPanel {
             } else {
                 List<String> csv = new ArrayList<String>();
                 csv.add(lineOne);
-                int lines = 0;
                 while ((inputLine = in.readLine()) != null) {
                     StringBuilder builder = new StringBuilder();
                     boolean inBraces = false;
@@ -246,7 +242,6 @@ public class SlimfinderRunPanel extends JPanel {
 
                     String toReturn = builder.toString();
                     csv.add(toReturn);
-                    lines ++;
                 }
                 in.close();
 
@@ -516,7 +511,7 @@ public class SlimfinderRunPanel extends JPanel {
      * @param url - the URL of the run
      */
     private boolean jobReady (String url) {
-        String lineOne = null;
+        String lineOne;
         try {
             URL website = new URL(url);
             URLConnection connection = website.openConnection();

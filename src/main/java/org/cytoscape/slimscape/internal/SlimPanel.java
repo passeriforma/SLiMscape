@@ -5,7 +5,6 @@ import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.application.swing.CytoPanelComponent;
 import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.event.CyEventHelper;
-import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
 import org.cytoscape.slimscape.internal.ui.SlimfinderOptionsPanel;
@@ -22,11 +21,6 @@ import java.awt.*;
 
 
 public class SlimPanel extends JPanel implements CytoPanelComponent {
-    private CyApplicationManager manager;
-    private final CySwingAppAdapter adapter;
-    private OpenBrowser openBrowser;
-    private CyEventHelper eventHelper;
-    private JTextArea motifTextArea;
     CyNetworkFactory networkFactory;
     CyNetworkViewFactory networkViewFactory;
     CyNetworkViewManager networkViewManager;
@@ -35,15 +29,9 @@ public class SlimPanel extends JPanel implements CytoPanelComponent {
                      CyEventHelper eventHelper, CyNetworkFactory networkFactory, CyNetworkManager networkManager,
                      CyNetworkViewFactory networkViewFactory, CyNetworkViewManager networkViewManager, VisualMappingManager visualMappingManager) {
         super();
-        this.adapter = adapter;
-        this.manager = manager;
-        this.openBrowser = openBrowser;
-        this.eventHelper = eventHelper;
         this.networkFactory = networkFactory;
         this.networkViewFactory = networkViewFactory;
         this.networkViewManager = networkViewManager;
-
-        CyNetwork network = manager.getCurrentNetwork();
         this.setBounds(100, 100, 725, 471);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

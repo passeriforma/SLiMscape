@@ -53,8 +53,8 @@ public class AlterGraph {
             }
 
             List<String> occ = new ArrayList<String>();
-            for (int i=0; i<occNodes.size(); i++) {
-                String id = occNodes.get(i).split("_")[3];
+            for (String occNode : occNodes) {
+                String id = occNode.split("_")[3];
                 occ.add(id);
             }
 
@@ -116,9 +116,8 @@ public class AlterGraph {
         }
 
         CyNetworkView networkView =  manager.getCurrentNetworkView();
-        Iterator it = nodeIds.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pairs = (Map.Entry)it.next();
+        for (Object o : nodeIds.entrySet()) {
+            Map.Entry pairs = (Map.Entry) o;
             CyNode node = (CyNode) pairs.getValue();
             View<CyNode> nodeView = networkView.getNodeView(node);
             nodeView.setLockedValue(BasicVisualLexicon.NODE_SHAPE, NodeShapeVisualProperty.ELLIPSE);
@@ -146,9 +145,7 @@ public class AlterGraph {
             }
         }
 
-        Iterator<CyNode> it = nodes.iterator();
-        while (it.hasNext()) {
-            CyNode node = it.next();
+        for (CyNode node : nodes) {
             View<CyNode> nodeView = networkView.getNodeView(node);
 
             nodeView.setLockedValue(BasicVisualLexicon.NODE_FILL_COLOR, Color.RED);
