@@ -6,6 +6,24 @@ The minimum input for SLiMScape is an interaction network which contains a Unipr
 
 Once a search has been completed, the nodes that contain SLiMs will change from the default blue circles to red diamonds. The rest of the nodes will remain as blue circles. 
 
+##Results
+Results for SLiMProb and SLiMFinder are displayed identically, in two panels. 
+**Main Results Panel** contains:
+- N\_Occ
+- E\_Occ
+- p\_Occ
+- pUnd\_Occ
+- N\_Seq
+- E\_Seq
+- p\_Seq
+**OCC Panel** contains:
+- Motif: The motif found in the sequence.
+- Seq: The name of the sequence.
+- Start\_Pos: The start position of the sequence.
+- End\_Pos: The end position of the sequence.
+
+Further results can be obtained on the internet, via "http://rest.slimsuite.unsw.edu.au/retrieve&jobid={jobid produced when the run is performed}"
+
 ##SLiMProb
 SLiMProb searches the protein sequences of the selected nodes for occurrences of a specified regular expressions; useful for locating new instances of a motif found using SLiMFinder. 
 
