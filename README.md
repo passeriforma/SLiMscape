@@ -5,16 +5,20 @@ SLiMScape, a <a href="http://www.cytoscape.org/">Cytoscape</a> plugin, is a plat
 The minimum input for SLiMScape is an interaction network which contains a <a href="http://www.uniprot.org/">Uniprot</a> attribute for each node OR a run ID from the UNSW servers. At the moment, the name of the node needs to be its <a href="http://web.expasy.org/docs/userman.html#ID_line">Uniprot ID</a> or <a href="http://www.uniprot.org/help/accession_numbers">Accession Number</a> for the server to know what to do with it.
 
 An example input with Uniprot IDs is:
-name
-P54253
-O35147
-Q61337
-P04049
-Q99683
-Q9EPK5
+<table>
+<tr><td>name</tr></td>
+<tr><td>P54253</tr></td>
+<tr><td>O35147</tr></td>
+<tr><td>Q61337</tr></td>
+<tr><td>P04049</tr></td>
+<tr><td>Q99683</tr></td>
+<tr><td>Q9EPK5</tr></td>
+</table>
 
 An example input with a run ID is:
-Run ID: 15020400003 (SLiMProb run)
+<table>
+<tr><td>Run ID:</td><td>15020400003 (SLiMProb run)</td></tr>
+</table>
 
 Once a search has been completed, the nodes that contain SLiMs will change from the default blue circles to red diamonds. The rest of the nodes will remain as they were.
 
