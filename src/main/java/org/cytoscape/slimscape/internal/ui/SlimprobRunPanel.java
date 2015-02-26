@@ -207,7 +207,6 @@ public class SlimprobRunPanel extends JPanel {
                                 displayResults(csvResults, id);
                             }
                         } catch (Exception ex) {
-                            JOptionPane.showMessageDialog(null, ex);
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "No nodes selected!");
@@ -267,7 +266,6 @@ public class SlimprobRunPanel extends JPanel {
                 return csv;
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex + " in function");
             return null;
         }
     }
@@ -543,9 +541,11 @@ public class SlimprobRunPanel extends JPanel {
                 in.close();
                 return true;
             } else {
-                JOptionPane.showMessageDialog(null, "Run is currently: " + lineOne + ". Click OK to check again.");
                 in.close();
-                return false;
+                int option = JOptionPane.showConfirmDialog(null, "Run is currently: " + lineOne +
+                        ". Click Yes to check again, or No to stop checking. Please note you'll get errors if you try to"
+                        + "process this before the job is completed.", "Job Pending", JOptionPane.YES_NO_OPTION);
+                return option != JOptionPane.YES_OPTION;
             }
 
         } catch (Exception ex) {
