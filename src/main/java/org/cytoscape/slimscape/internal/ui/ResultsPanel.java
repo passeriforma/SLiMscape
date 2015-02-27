@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 public class ResultsPanel extends JPanel {
 
-    public ResultsPanel (JScrollPane csv, JScrollPane occ, JButton resultsButton, final JTabbedPane slimprob, final String id) {
+    public ResultsPanel (JScrollPane csv, JScrollPane occ, JButton resultsButton, final JTabbedPane slimparent, final String id) {
         csv.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         csv.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -53,8 +53,8 @@ public class ResultsPanel extends JPanel {
 
         closeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int panelIndex = slimprob.indexOfTab("Run " + id + " Results");
-                slimprob.removeTabAt(panelIndex);
+                int panelIndex = slimparent.indexOfTab("Run " + id + " Results");
+                slimparent.removeTabAt(panelIndex);
             }
         });
     }
