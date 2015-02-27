@@ -3,10 +3,12 @@ package org.cytoscape.slimscape.internal.ui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ResultsPanel extends JPanel {
 
-    public ResultsPanel (JScrollPane csv, JScrollPane occ, JButton resultsButton) {
+    public ResultsPanel (JScrollPane csv, JScrollPane occ, JButton resultsButton, final JTabbedPane slimprob, final String id) {
         csv.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         csv.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -41,8 +43,20 @@ public class ResultsPanel extends JPanel {
         gbc_results.weighty = 0;
         gbc_results.fill  = GridBagConstraints.BOTH;
         JPanel resultsButtonPanel = new JPanel();
+        resultsButton.setHorizontalAlignment(SwingConstants.LEFT);
         resultsButtonPanel.add(resultsButton);
+        JButton closeButton = new JButton();
+        closeButton.setText("X");
+        closeButton.setHorizontalAlignment(SwingConstants.RIGHT);
+        resultsButtonPanel.add(closeButton);
         add(resultsButtonPanel, gbc_results);
+
+        closeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int panelIndex = slimprob.indexOfTab("Run " + id + " Results");
+                slimprob.removeTabAt(panelIndex);
+            }
+        });
     }
 
 }

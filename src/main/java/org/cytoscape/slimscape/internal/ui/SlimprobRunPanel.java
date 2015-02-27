@@ -448,7 +448,7 @@ public class SlimprobRunPanel extends JPanel {
 
         // Create button to take users to the full results
         JButton fullResults = new JButton();
-        fullResults.setText("Click here for the full results");
+        fullResults.setText("Full results");
         fullResults.setBorderPainted(false);
         fullResults.setOpaque(false);
         fullResults.setBackground(Color.WHITE);
@@ -473,7 +473,7 @@ public class SlimprobRunPanel extends JPanel {
                 networkViewFactory, networkViewManager, visualMappingManager);
 
         // Display the results in a panel
-        JPanel resultsPane = new ResultsPanel(new JScrollPane(csv), new JScrollPane(occ), fullResults);
+        JPanel resultsPane = new ResultsPanel(new JScrollPane(csv), new JScrollPane(occ), fullResults, slimprob, id);
         slimprob.add("Run " + id + " Results", resultsPane);
     }
 
