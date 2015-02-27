@@ -52,7 +52,7 @@ public class SlimPanel extends JPanel implements CytoPanelComponent {
         JTabbedPane slimprob = new JTabbedPane();
         SlimprobOptionsPanel slimprobOptionsPanel = new SlimprobOptionsPanel();
         slimprob.addTab("Run SLiMProb", new SlimprobRunPanel(manager, openBrowser, slimprobOptionsPanel,
-                eventHelper, networkFactory, networkManager, networkViewFactory, networkViewManager, visualMappingManager));
+                eventHelper, networkFactory, networkManager, networkViewFactory, networkViewManager, visualMappingManager, slimprob));
         slimprob.addTab("Options", slimprobOptionsPanel);
 
         // Add the slimprob and slimfinder tabs to tabbedPane

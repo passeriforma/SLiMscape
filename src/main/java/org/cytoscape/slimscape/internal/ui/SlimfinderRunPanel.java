@@ -29,6 +29,7 @@ import java.util.List;
 
 /*
  * @author: Kevin O'Brien
+ * @author: Emily SW
  */
 public class SlimfinderRunPanel extends JPanel {
 
@@ -436,7 +437,6 @@ public class SlimfinderRunPanel extends JPanel {
         csvFrame.setVisible(true);
 
         // Display OCC results
-
         JTable occ = createOccTable(occResults);
         JPanel occPanel = new JPanel();
         occPanel.setLayout(new BorderLayout());
@@ -455,7 +455,8 @@ public class SlimfinderRunPanel extends JPanel {
 
         // Alter the graph
         new AlterGraph(nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,
-                networkViewFactory, networkViewManager, visualMappingManager);    }
+                networkViewFactory, networkViewManager, visualMappingManager);
+    }
 
     /**
      * @desc - Provides an error popup and opens the server run page in case of an error

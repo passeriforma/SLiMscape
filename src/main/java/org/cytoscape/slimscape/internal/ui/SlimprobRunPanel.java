@@ -41,7 +41,7 @@ public class SlimprobRunPanel extends JPanel {
     CyNetworkViewFactory networkViewFactory;
     CyNetworkViewManager networkViewManager;
     VisualMappingManager visualMappingManager;
-
+    JTabbedPane slimprob;
 
 	/**
 	 * Create the panel.
@@ -50,7 +50,7 @@ public class SlimprobRunPanel extends JPanel {
                             final SlimprobOptionsPanel optionsPanel, final CyEventHelper eventHelper,
                             final CyNetworkFactory networkFactory, final CyNetworkManager networkManager,
                             final CyNetworkViewFactory networkViewFactory, final CyNetworkViewManager networkViewManager,
-                            final VisualMappingManager visualMappingManager) {
+                            final VisualMappingManager visualMappingManager, final JTabbedPane slimprob) {
 
         this.openBrowser = openBrowser;
         this.manager = manager;
@@ -62,6 +62,7 @@ public class SlimprobRunPanel extends JPanel {
         this.visualMappingManager = visualMappingManager;
         this.eventHelper = eventHelper;
         this.openBrowser = openBrowser;
+        this.slimprob = slimprob;
 
 
         setBackground(new Color(238, 238, 238));
@@ -432,7 +433,7 @@ public class SlimprobRunPanel extends JPanel {
      * @param csvResults  - processed results from the main page.
      * @param id -  run ID from the server.
      */
-    private void displayResults(List<String> csvResults, String id) {
+    private void displayResults(List<String> csvResults, final String id) {
         // Get OCC Results
         List<String> occResults = PrepareResults(
                 ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=occ"));
@@ -445,26 +446,20 @@ public class SlimprobRunPanel extends JPanel {
         List<String> upc = getUpcResults("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id
                 + "&rest=upc");
 
-        // Display main (CSV) results
+        // Create button to take users to the full results
+        JButton fullResults = new JButton();
+        fullResults.setText("Click here for the full results");
+        fullResults.setBorderPainted(false);
+        fullResults.setOpaque(false);
+        fullResults.setBackground(Color.WHITE);
+        fullResults.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
+            }
+        });
+
         JTable csv = createCsvTable(csvResults);
-        JPanel csvPanel = new JPanel();
-        csvPanel.setLayout(new BorderLayout());
-        csvPanel.add(new JScrollPane(csv), BorderLayout.CENTER);
-        JFrame csvFrame = new JFrame("Main Results");
-        csvFrame.getContentPane().add(csvPanel);
-        csvFrame.pack();
-        csvFrame.setVisible(true);
-
-        // Display OCC results
-
         JTable occ = createOccTable(occResults);
-        JPanel occPanel = new JPanel();
-        occPanel.setLayout(new BorderLayout());
-        occPanel.add(new JScrollPane(occ), BorderLayout.CENTER);
-        JFrame occFrame = new JFrame("OCC Results");
-        occFrame.getContentPane().add(occPanel);
-        occFrame.pack();
-        occFrame.setVisible(true);
 
         List<String> occIds = new ArrayList<String>();
         for (int y=0; y<occ.getRowCount(); y++) {
@@ -476,6 +471,10 @@ public class SlimprobRunPanel extends JPanel {
         // Alter the graph
         new AlterGraph(nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,
                 networkViewFactory, networkViewManager, visualMappingManager);
+
+        // Display the results in a panel
+        JPanel resultsPane = new ResultsPanel(new JScrollPane(csv), new JScrollPane(occ), fullResults);
+        slimprob.add("Run " + id + " Results", resultsPane);
     }
 
     /**
