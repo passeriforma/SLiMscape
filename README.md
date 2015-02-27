@@ -43,6 +43,7 @@ Results for SLiMProb and SLiMFinder are displayed identically, in two panels.
 
 Further results can be obtained on the internet, at the URL: `http://rest.slimsuite.unsw.edu.au/retrieve&jobid={jobid produced when the run is performed}`
 
+
 ##SLiMProb
 SLiMProb searches the protein sequences of the selected nodes for occurrences of a specified regular expressions; useful for locating new instances of a motif found using SLiMFinder (e.g. R[SFYW].S.P). Conventions as used in the program can be found <a href="http://en.wikipedia.org/wiki/Sequence_motif#Motif_Representation">here</a>.
 
@@ -67,6 +68,7 @@ SLiMFinder aims to discover new motifs in the selected protein interaction netwo
 
 It has no mandatory inputs other than a selection of graph nodes or a run ID. If a motif is found in a node, the node will change colour and shape. The specific motif is presented in an output table, along with the Uniprot ID and other data. 
 
+
 ###SLiMFinder Options
 
 **Masking**
@@ -80,3 +82,23 @@ It has no mandatory inputs other than a selection of graph nodes or a run ID. If
 **Miscellaneous Options**
 - Walltime is the maximum runtime of a single run.
 - Custom parameters is used to add other command line arguments which can be found <a href="http://rest.slimsuite.unsw.edu.au/slimfinder">here</a>.
+
+
+##QSLiMFinder
+QSLiMFinder is a modification of SLiMFinder, aimed at looking for SLiMs shared by a query sequence and one or more additional sequences. SLiMs are drawn from the "Query" sequence, then searched for in the other nodes in the set.
+
+QSLiMFinder requires a "Query" input; the Uniprot ID or Accession Number for the node you'd like to get your SLiMs from. This node does not have to be present in the graph. If a motif is found in a selected node, the node will change colour and shape. The specific motif is presented in an output table, along with the Uniprot ID and other data. 
+
+###QSLiMFinder Options
+
+**Masking**
+- Disorder Masking is used to mask residues which have an IUPred disorder score of less than 0.3
+- Conservation Masking is used to mask residues which have a relative local conservation score of less than X.
+- Feature Masking is used to mask residues which occur in features such as domains or transmembrane regions.
+
+**SLiMChance**
+- Probability Cutoff is the cutoff for returned motifs.
+
+**Miscellaneous Options**
+- Walltime is the maximum runtime of a single run.
+- Custom parameters is used to add other command line arguments which can be found <a href="http://rest.slimsuite.unsw.edu.au/qslimfinder">here</a>.
