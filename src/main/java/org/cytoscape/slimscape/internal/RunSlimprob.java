@@ -12,10 +12,12 @@ public class RunSlimprob {
     CyNetwork network;
     private SlimprobOptionsPanel optionsPanel;
     String url;
+    String motif;
 
     public RunSlimprob(CyNetwork network, List<CyNode> selected, String motif, SlimprobOptionsPanel optionsPanel) {
         this.network = network;
         this.optionsPanel = optionsPanel;
+        this.motif = motif;
 
         List<String> uniprotIDs = getNodeIds(selected);
 
@@ -53,6 +55,8 @@ public class RunSlimprob {
         String custom = options.getCustomParameters();
 
         StringBuilder stringBuilder = new StringBuilder("http://rest.slimsuite.unsw.edu.au/slimprob");
+
+        stringBuilder.append("&motif=" + motif);
 
         // Construct properly formatted string components
         String dismaskS = "&dismask=";

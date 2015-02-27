@@ -7,10 +7,7 @@ import org.cytoscape.application.swing.CytoPanelName;
 import org.cytoscape.event.CyEventHelper;
 import org.cytoscape.model.CyNetworkFactory;
 import org.cytoscape.model.CyNetworkManager;
-import org.cytoscape.slimscape.internal.ui.SlimfinderOptionsPanel;
-import org.cytoscape.slimscape.internal.ui.SlimfinderRunPanel;
-import org.cytoscape.slimscape.internal.ui.SlimprobOptionsPanel;
-import org.cytoscape.slimscape.internal.ui.SlimprobRunPanel;
+import org.cytoscape.slimscape.internal.ui.*;
 import org.cytoscape.util.swing.OpenBrowser;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
@@ -55,9 +52,16 @@ public class SlimPanel extends JPanel implements CytoPanelComponent {
                 eventHelper, networkFactory, networkManager, networkViewFactory, networkViewManager, visualMappingManager, slimprob));
         slimprob.addTab("Options", slimprobOptionsPanel);
 
+        JTabbedPane qslimfinder = new JTabbedPane();
+        SlimfinderOptionsPanel qslimfinderOptionsPanel = new SlimfinderOptionsPanel();
+        qslimfinder.addTab("Run QSLiMFinder", new QSlimfinderRunPanel(manager, openBrowser, slimfinderOptionsPanel,
+                eventHelper, networkFactory, networkManager, networkViewFactory, networkViewManager, visualMappingManager, qslimfinder));
+        qslimfinder.addTab("Options", qslimfinderOptionsPanel);
+
         // Add the slimprob and slimfinder tabs to tabbedPane
         tabbedPane.addTab("SLiMFinder", slimfinder);
         tabbedPane.addTab("SLiMProb", slimprob);
+        tabbedPane.addTab("QSLiMFinder", qslimfinder);
         //tabbedPane.addTab("Domain", new JPanel());
 
         this.add(tabbedPane);

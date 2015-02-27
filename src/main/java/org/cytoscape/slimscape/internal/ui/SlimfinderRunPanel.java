@@ -85,7 +85,7 @@ public class SlimfinderRunPanel extends JPanel {
         gbl_sLiMFinderPanel.rowWeights = new double[]{0.0, 0.0,
                 Double.MIN_VALUE};
         sLiMFinderPanel.setLayout(gbl_sLiMFinderPanel);
-        JButton runSLiMFinderButton = new JButton("RunSLiMFinder");
+        JButton runSLiMFinderButton = new JButton("Run SLiMFinder");
         GridBagConstraints gbc_runSLiMFinderButton = new GridBagConstraints();
         gbc_runSLiMFinderButton.anchor = GridBagConstraints.NORTHWEST;
         gbc_runSLiMFinderButton.insets = new Insets(0, 0, 5, 0);

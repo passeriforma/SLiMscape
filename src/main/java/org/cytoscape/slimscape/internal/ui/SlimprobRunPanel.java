@@ -12,6 +12,7 @@ import org.cytoscape.view.model.CyNetworkViewManager;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -68,8 +69,9 @@ public class SlimprobRunPanel extends JPanel {
         setLayout(gridBagLayout);
 
         JPanel runSLiMFinderPanel = new JPanel();
-        runSLiMFinderPanel.setBorder(new TitledBorder(null, "Run Slimprob",
-                TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        runSLiMFinderPanel.setBorder(BorderFactory.createCompoundBorder(
+                new TitledBorder("Run SLiMProb"),
+                new EmptyBorder(0, 0, 0, 20)));
         GridBagLayout gbl_runSLiMFinderPanel = new GridBagLayout();
         gbl_runSLiMFinderPanel.columnWidths = new int[] { 466, 0 };
         gbl_runSLiMFinderPanel.rowHeights = new int[] { 25, 110, 0, 0, 0 };
@@ -83,7 +85,7 @@ public class SlimprobRunPanel extends JPanel {
         gbc_runSLiMFinderPanel.gridx = 0;
         gbc_runSLiMFinderPanel.gridy = 0;
         add(runSLiMFinderPanel, gbc_runSLiMFinderPanel);
-        JButton runSlimprobButton = new JButton("RunSlimprob");
+        JButton runSlimprobButton = new JButton("Run SLiMProb");
 
         GridBagConstraints gbc_runSlimprobButton = new GridBagConstraints();
         gbc_runSlimprobButton.anchor = GridBagConstraints.NORTHWEST;
