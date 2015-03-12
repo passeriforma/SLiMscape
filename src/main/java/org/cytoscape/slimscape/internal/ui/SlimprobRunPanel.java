@@ -171,10 +171,8 @@ public class SlimprobRunPanel extends JPanel {
                     String id = idTextArea.getText();
                     try {
                         List<String> csvResults = CommonMethods.PrepareResults(
-                                ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main"));
-                        if (csvResults == null) {
-                            throwError(id);
-                        } else {
+                                "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main", openBrowser, id);
+                        if (csvResults != null) {
                             displayResults(csvResults, id);
                         }
                     } catch (Exception ex) {
@@ -197,10 +195,8 @@ public class SlimprobRunPanel extends JPanel {
                         }
                         try {
                             List<String> csvResults = CommonMethods.PrepareResults(
-                                    ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main"));
-                            if (csvResults == null) {
-                                throwError(id);
-                            } else {
+                                    "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main", openBrowser, id);
+                            if (csvResults != null) {
                                 displayResults(csvResults, id);
                             }
                         } catch (Exception ex) {
@@ -221,7 +217,7 @@ public class SlimprobRunPanel extends JPanel {
     private void displayResults(List<String> csvResults, final String id) {
         // Get OCC Results
         List<String> occResults = CommonMethods.PrepareResults(
-                ("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=occ"));
+                "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=occ", openBrowser, id);
 
         // Get list of all node IDs from slimdb
         List<String> nodeIds = CommonMethods.getNodeIds("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id
@@ -262,14 +258,5 @@ public class SlimprobRunPanel extends JPanel {
         slimprob.add("Run " + id + " Results", resultsPane);
     }
 
-    /**
-     * @desc - Provides an error popup and opens the server run page in case of an error
-     * @param id - the run ID of the server process
-     */
-    private void throwError (String id) {
-        openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
-        //JOptionPane.showMessageDialog(null, "Something went wrong. " +
-        //      "Opening the output page in a web browser.");
-    }
 
 }

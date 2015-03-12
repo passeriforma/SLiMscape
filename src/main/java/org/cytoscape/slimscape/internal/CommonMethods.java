@@ -1,5 +1,7 @@
 package org.cytoscape.slimscape.internal;
 
+import org.cytoscape.util.swing.OpenBrowser;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -20,7 +22,7 @@ public class CommonMethods {
      * @return Map - A map of List<String> containing the contents of the csv and occ blocks.
      *               If there is an error, null is returned.
      */
-    public static List<String> PrepareResults(String url) {
+    public static List<String> PrepareResults(String url, OpenBrowser openBrowser, String id) {
         // Gets URL data
         try {
             URL website = new URL(url);
@@ -34,6 +36,9 @@ public class CommonMethods {
 
             // There is an error in the results obtained
             if (lineOne.startsWith("ERROR")) {
+                openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
+                JOptionPane.showMessageDialog(null, "Something went wrong. " +
+                        "Opening the output page in a web browser.");
                 in.close();
                 return null;
             } else {
