@@ -24,6 +24,7 @@ import java.util.List;
 public class QSlimfinderRunPanel extends JPanel{
     JTextArea idTextArea = null;
     JTextArea queryTextArea = null;
+    JTextArea uniprotTextArea = null;
     CyApplicationManager manager;
     List<String> input;
     CyNetworkFactory networkFactory;
@@ -116,6 +117,7 @@ public class QSlimfinderRunPanel extends JPanel{
         gbc_panel.gridx = 0;
         gbc_panel.gridy = 0;
         slimSearchOptionsPanel.add(panel, gbc_panel);
+
         GridBagLayout gbl_panel = new GridBagLayout();
         gbl_panel.columnWidths = new int[]{0, 0, 0};
         gbl_panel.rowHeights = new int[]{0, 0};
@@ -154,6 +156,23 @@ public class QSlimfinderRunPanel extends JPanel{
         gbc1_textArea.gridx = 0;
         gbc1_textArea.gridy = 4;
         slimSearchOptionsPanel.add(idTextArea, gbc1_textArea);
+
+        JLabel uniprotLabel = new JLabel("Uniprot IDs:");
+        gbc1_motifLabel = new GridBagConstraints();
+        gbc1_motifLabel.anchor = GridBagConstraints.WEST;
+        gbc1_motifLabel.insets = new Insets(0, 0, 5, 5);
+        gbc1_motifLabel.gridx = 0;
+        gbc1_motifLabel.gridy = 5;
+        slimSearchOptionsPanel.add(uniprotLabel, gbc1_motifLabel);
+
+        uniprotTextArea = new JTextArea();
+        uniprotTextArea.setLineWrap(true);
+        gbc1_textArea = new GridBagConstraints();
+        gbc1_textArea.insets = new Insets(0, 0, 0, 5);
+        gbc1_textArea.fill = GridBagConstraints.BOTH;
+        gbc1_textArea.gridx = 0;
+        gbc1_textArea.gridy = 6;
+        slimSearchOptionsPanel.add(uniprotTextArea, gbc1_textArea);
 
 
         runSLiMFinderButton.addActionListener(new ActionListener() {

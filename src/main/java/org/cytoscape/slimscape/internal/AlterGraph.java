@@ -44,7 +44,7 @@ public class AlterGraph {
             List<CyNode> nodes = CyTableUtil.getNodesInState(network, "selected", true);
             nodeSize = nodes.size();
         } catch (Exception e) {
-
+            // This is dealt with below, in the else block
         }
 
         // Attempts to alter the preexisting graph. If that fails, makes a new one.

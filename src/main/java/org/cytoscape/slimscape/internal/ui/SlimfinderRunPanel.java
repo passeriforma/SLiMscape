@@ -28,6 +28,7 @@ import java.util.List;
 public class SlimfinderRunPanel extends JPanel {
 
     JTextArea idTextArea = null;
+    JTextArea uniprotTextArea = null;
     CyApplicationManager manager;
     List<String> input;
     CyNetworkFactory networkFactory;
@@ -128,21 +129,39 @@ public class SlimfinderRunPanel extends JPanel {
         gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
         panel.setLayout(gbl_panel);
 
-        JLabel idLabel = new JLabel("Run ID:");
+        JLabel motifLabel = new JLabel("Run ID:");
+        GridBagConstraints gbc_motifLabel = new GridBagConstraints();
+        gbc_motifLabel.anchor = GridBagConstraints.WEST;
+        gbc_motifLabel.insets = new Insets(0, 0, 5, 5);
+        gbc_motifLabel.gridx = 0;
+        gbc_motifLabel.gridy = 1;
+        slimSearchOptionsPanel.add(motifLabel, gbc_motifLabel);
+
+        idTextArea = new JTextArea();
+        GridBagConstraints gbc_textArea = new GridBagConstraints();
+        gbc_textArea.insets = new Insets(0, 0, 0, 5);
+        gbc_textArea.fill = GridBagConstraints.BOTH;
+        gbc_textArea.gridx = 0;
+        gbc_textArea.gridy = 2;
+        slimSearchOptionsPanel.add(idTextArea, gbc_textArea);
+
+        JLabel idLabel = new JLabel("Uniprot IDs:");
         GridBagConstraints gbc1_motifLabel = new GridBagConstraints();
         gbc1_motifLabel.anchor = GridBagConstraints.WEST;
         gbc1_motifLabel.insets = new Insets(0, 0, 5, 5);
         gbc1_motifLabel.gridx = 0;
-        gbc1_motifLabel.gridy = 1;
+        gbc1_motifLabel.gridy = 3;
         slimSearchOptionsPanel.add(idLabel, gbc1_motifLabel);
 
-        idTextArea = new JTextArea();
+        uniprotTextArea = new JTextArea();
+        uniprotTextArea.setLineWrap(true);
         GridBagConstraints gbc1_textArea = new GridBagConstraints();
         gbc1_textArea.insets = new Insets(0, 0, 0, 5);
         gbc1_textArea.fill = GridBagConstraints.BOTH;
         gbc1_textArea.gridx = 0;
-        gbc1_textArea.gridy = 2;
-        slimSearchOptionsPanel.add(idTextArea, gbc1_textArea);
+        gbc1_textArea.gridy = 4;
+        slimSearchOptionsPanel.add(uniprotTextArea, gbc1_textArea);
+
 
         runSLiMFinderButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
