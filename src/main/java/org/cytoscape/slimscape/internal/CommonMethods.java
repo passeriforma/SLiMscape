@@ -253,7 +253,7 @@ public class CommonMethods {
             } else {
                 String id = null;
                 while ((inputLine = in.readLine()) != null) {
-                    if (inputLine.contains("### slimprob job")) {
+                    if (inputLine.contains("###")) {
                         id = inputLine.split("job")[1];
                     }
                 }

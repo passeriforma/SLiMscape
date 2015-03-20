@@ -14,13 +14,19 @@ public class RunSlimfinder {
     private SlimfinderOptionsPanel optionsPanel;
     String url;
 
-    public RunSlimfinder(CyNetwork network, List<CyNode> selected, SlimfinderOptionsPanel optionsPanel) {
+    public RunSlimfinder(CyNetwork network, List<CyNode> selected, List<String> uniprotIDs, SlimfinderOptionsPanel optionsPanel) {
         this.network = network;
         this.optionsPanel = optionsPanel;
 
-        List<String> uniprotIDs = getNodeIds(selected);
+        List<String> ids;
 
-        url = constructUrl(optionsPanel, uniprotIDs);
+        if (uniprotIDs == null) {
+            ids = getNodeIds(selected);
+        } else {
+            ids = uniprotIDs;
+        }
+        url = constructUrl(optionsPanel, ids);
+
     }
 
     /**
@@ -85,7 +91,9 @@ public class RunSlimfinder {
 
         custom = custom.replace("\n", "&");
         custom = custom.replace(" ", "");
-        stringBuilder.append("&" + custom);
+        if (custom.length() > 0) {
+            stringBuilder.append("&" + custom);
+        }
 
         String ids = "&uniprotid=";
         for (String id : uniprotIDs) {

@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -180,10 +181,12 @@ public class SlimfinderRunPanel extends JPanel {
                         JOptionPane.showMessageDialog(null, ex);
                     }
                 } else {
-                    List<CyNode> selected = new ArrayList<CyNode>();
-                    selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
-                    if (selected.size() > 0) {
-                        RunSlimfinder slimfinder = new RunSlimfinder(network, selected, optionsPanel);
+                    // There are a set of IDs in the IDs box
+                    if (uniprotTextArea.getText().length() > 0) {
+                        String input = uniprotTextArea.getText();
+                        // Strings have to be space delineated ONLY
+                        List<String> ids = Arrays.asList(input.split("\\s*"));
+                        RunSlimfinder slimfinder = new RunSlimfinder(network, null, ids, optionsPanel);
                         String url = slimfinder.getUrl();
                         String id = CommonMethods.getJobID(url).replaceAll("\\s+","");
                         idTextArea.setText(id);
@@ -201,9 +204,34 @@ public class SlimfinderRunPanel extends JPanel {
                             }
                         } catch (Exception ex) {
                         }
+                    // Get node IDs from the graph
                     } else {
-                        JOptionPane.showMessageDialog(null, "No nodes selected!");
+                        List<CyNode> selected = new ArrayList<CyNode>();
+                        selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
+                        if (selected.size() > 0) {
+                            RunSlimfinder slimfinder = new RunSlimfinder(network, selected, null, optionsPanel);
+                            String url = slimfinder.getUrl();
+                            String id = CommonMethods.getJobID(url).replaceAll("\\s+","");
+                            idTextArea.setText(id);
+                            // Make sure the job is ready before analysis starts
+                            boolean ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
+
+                            while (!ready) {
+                                ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
+                            }
+                            try {
+                                List<String> csvResults = CommonMethods.PrepareResults(
+                                        "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main", openBrowser, id);
+                                if (csvResults != null) {
+                                    displayResults(csvResults, id);
+                                }
+                            } catch (Exception ex) {
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No nodes selected!");
+                        }
                     }
+
                 }
             }
         });

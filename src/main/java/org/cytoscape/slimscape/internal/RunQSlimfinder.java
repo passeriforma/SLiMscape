@@ -13,13 +13,18 @@ public class RunQSlimfinder {
     String url;
     String query;
 
-    public RunQSlimfinder(CyNetwork network, List<CyNode> selected, String query, SlimfinderOptionsPanel optionsPanel) {
+    public RunQSlimfinder(CyNetwork network, List<CyNode> selected, List<String> uniprotIDs, String query, SlimfinderOptionsPanel optionsPanel) {
         this.network = network;
         this.query = query;
 
-        List<String> uniprotIDs = getNodeIds(selected);
+        List<String> ids;
 
-        url = constructUrl(optionsPanel, uniprotIDs);
+        if (uniprotIDs == null) {
+            ids = getNodeIds(selected);
+        } else {
+            ids = uniprotIDs;
+        }
+        url = constructUrl(optionsPanel, ids);
     }
 
     /**

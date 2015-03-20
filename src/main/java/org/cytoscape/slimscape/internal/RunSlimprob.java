@@ -14,14 +14,19 @@ public class RunSlimprob {
     String url;
     String motif;
 
-    public RunSlimprob(CyNetwork network, List<CyNode> selected, String motif, SlimprobOptionsPanel optionsPanel) {
+    public RunSlimprob(CyNetwork network, List<CyNode> selected, List<String> uniprotIDs, String motif, SlimprobOptionsPanel optionsPanel) {
         this.network = network;
         this.optionsPanel = optionsPanel;
         this.motif = motif;
 
-        List<String> uniprotIDs = getNodeIds(selected);
+        List<String> ids;
 
-        url = constructUrl(optionsPanel, uniprotIDs);
+        if (uniprotIDs == null) {
+            ids = getNodeIds(selected);
+        } else {
+            ids = uniprotIDs;
+        }
+        url = constructUrl(optionsPanel, ids);
     }
 
     /**
