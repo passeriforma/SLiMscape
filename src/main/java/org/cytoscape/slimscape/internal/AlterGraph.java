@@ -37,12 +37,20 @@ public class AlterGraph {
         this.networkViewFactory = networkViewFactory;
         this.visualMappingManager = visualMappingManager;
 
-        // Attempts to alter the preexisting graph. If that fails, makes a new one.
+        int nodeSize = 0;
+
         try {
             CyNetwork network = manager.getCurrentNetwork();
-            // Get state of graph
             List<CyNode> nodes = CyTableUtil.getNodesInState(network, "selected", true);
+            nodeSize = nodes.size();
+        } catch (Exception e) {
 
+        }
+
+        // Attempts to alter the preexisting graph. If that fails, makes a new one.
+        if (nodeSize != 0) {
+            CyNetwork network = manager.getCurrentNetwork();
+            List<CyNode> nodes = CyTableUtil.getNodesInState(network, "selected", true);
             // Adds selected nodes to a Map
             Map<String, CyNode> nodeIds = new HashMap<String, CyNode>();
             for (CyNode node : nodes) {
@@ -60,7 +68,7 @@ public class AlterGraph {
 
             SLiMNodeStyle(occ, nodeIds, manager, visualMappingManager);
 
-        } catch (Exception e){ // No network, need to make a new one
+        } else { // No network, need to make a new one
             CyNetwork newNetwork = networkFactory.createNetwork();
             newNetwork.getRow(newNetwork).set(CyNetwork.NAME, "SLiMOutput");
             networkManager.addNetwork(newNetwork);

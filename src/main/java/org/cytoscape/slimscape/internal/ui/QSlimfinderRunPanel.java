@@ -21,9 +21,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by rayne on 27/02/15.
- */
 public class QSlimfinderRunPanel extends JPanel{
     JTextArea idTextArea = null;
     JTextArea queryTextArea = null;
