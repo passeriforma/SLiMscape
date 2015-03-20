@@ -78,7 +78,7 @@ public class RunQSlimfinder {
             stringBuilder.append(consmaskS + "F");
         }
 
-        String featuremaskS = "&consmask=";
+        String featuremaskS = "&featuremask=";
         if (featuremask) {
             stringBuilder.append(featuremaskS + "T");
         } else {

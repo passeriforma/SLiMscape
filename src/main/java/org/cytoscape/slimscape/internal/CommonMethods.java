@@ -286,7 +286,7 @@ public class CommonMethods {
                 in.close();
                 int option = JOptionPane.showConfirmDialog(null, "Run is currently: " + lineOne +
                         ". Click Yes to check again, or No to stop checking. Please note you'll get errors if you try to"
-                        + "process this before the job is completed.", "Job Pending", JOptionPane.YES_NO_OPTION);
+                        + " process this before the job is completed.", "Job Pending", JOptionPane.YES_NO_OPTION);
                 return option != JOptionPane.YES_OPTION;
             }
 

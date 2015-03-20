@@ -185,7 +185,8 @@ public class SlimfinderRunPanel extends JPanel {
                     if (uniprotTextArea.getText().length() > 0) {
                         String input = uniprotTextArea.getText();
                         // Strings have to be space delineated ONLY
-                        List<String> ids = Arrays.asList(input.split("\\s*"));
+                        List<String> ids = Arrays.asList(input.split("\\s+"));
+                        JOptionPane.showMessageDialog(null, ids);
                         RunSlimfinder slimfinder = new RunSlimfinder(network, null, ids, optionsPanel);
                         String url = slimfinder.getUrl();
                         String id = CommonMethods.getJobID(url).replaceAll("\\s+","");
