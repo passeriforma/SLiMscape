@@ -2,3 +2,4 @@
 target/surefire/surefire*
 target/classes/*
 .idea/*
+*.iml
