@@ -59,7 +59,7 @@ Results for SLiMFinder and QSLiMFinder are displayed identically, also in two pa
 - Start\_Pos: The start position of the sequence.
 
 
-Further results can be obtained on the internet, at the URL: `http://rest.slimsuite.unsw.edu.au/retrieve&jobid={jobid produced when the run is performed}`
+Further results can be obtained on the internet, at the URL: `http://rest.slimsuite.unsw.edu.au/retrieve&jobid={jobid produced when the run is performed}`. Alternatively, there is a button at the bottom of the results panel which will open the above link in your browser.
 
 
 ##SLiMProb
