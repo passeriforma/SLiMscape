@@ -25,10 +25,10 @@ Once a search has been completed, the nodes that contain SLiMs will change from 
 If you want to pre generate a job on the Slimsuite servers, you can do that from <a href="http://rest.slimsuite.unsw.edu.au/">here</a>. If you do this, you can input the generated run ID to Cytoscape, and a graph will be generated for you! It's also handy for larger jobs that may take a while to finish.
 
 ##Results
-Results for SLiMProb and SLiMFinder are displayed identically, in two panels. 
+Results for SLiMProb are displayed in two panels. 
 
 **Main Results Panel** contains:
-- N\_Occ: Number of SLiM occurrences.
+- N\_Occ: Number of specified SLiM occurrences.
 - E\_Occ: Enrichment score for the occurrence(s).
 - p\_Occ: Significance value for the occurrence(s).
 - N\_Seq: Number of nodes the SLiM occurred in.
@@ -40,6 +40,24 @@ Results for SLiMProb and SLiMFinder are displayed identically, in two panels.
 - Seq: The name of the sequence.
 - Start\_Pos: The start position of the sequence.
 - End\_Pos: The end position of the sequence.
+
+Results for SLiMFinder and QSLiMFinder are displayed identically, also in two panels:
+
+**Main Results Panel** contains:
+- Rank: Rank of the motifs found, from most to least common.
+- Sig: Motif significance value.
+- Pattern: Regex of the motif found.
+- IC: Information content of the motif.
+- OCC: Enrichment score for the occurence(s).
+- Support: Number of sequences the motif occurs in (no distinction made between motifs with multiple occurences).
+- UP: Unrelated proteins the motif occurs in.z
+
+**OCC Panel** contains:
+- Pattern: Regex of the motif found.
+- Sig: Motif significance value.
+- Seq: The name of the sequence.
+- Start\_Pos: The start position of the sequence.
+
 
 Further results can be obtained on the internet, at the URL: `http://rest.slimsuite.unsw.edu.au/retrieve&jobid={jobid produced when the run is performed}`
 
