@@ -176,6 +176,8 @@ public class SlimfinderRunPanel extends JPanel {
                                 "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main", openBrowser, id);
                         if (csvResults != null) {
                             displayResults(csvResults, id);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
                         }
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");

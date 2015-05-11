@@ -188,9 +188,11 @@ public class QSlimfinderRunPanel extends JPanel{
                                 "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main", openBrowser, id);
                         if (csvResults != null) {
                             displayResults(csvResults, id);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
                         }
                     } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, ex);
+                        JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
                     }
                 } else {
                     String query = queryTextArea.getText();
