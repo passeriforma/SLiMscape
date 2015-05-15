@@ -24,7 +24,7 @@ public class RunQSlimfinder {
         } else {
             ids = uniprotIDs;
         }
-        url = constructUrl(optionsPanel, ids);
+        url = constructUrl(optionsPanel, ids, query);
     }
 
     /**
@@ -49,7 +49,7 @@ public class RunQSlimfinder {
      * @param uniprotIDs - list containing the Uniprot ids of all selected nodes
      * @return the constructed URL to be passed to the server
      */
-    public String constructUrl(SlimfinderOptionsPanel optionsPanel, List<String> uniprotIDs) {
+    public String constructUrl(SlimfinderOptionsPanel optionsPanel, List<String> uniprotIDs, String query) {
         // Get state of SlimsearchOptionsPanel
         SlimfinderOptions options = optionsPanel.getSLiMFinderOptions();
         boolean dismask = options.getDismask();
@@ -89,9 +89,11 @@ public class RunQSlimfinder {
 
         stringBuilder.append("&walltime=" + walltime);
 
-        custom = custom.replace("\n", "&");
-        custom = custom.replace(" ", "");
-        stringBuilder.append("&" + custom);
+        if (custom.length() > 0) {
+            custom = custom.replace("\n", "&");
+            custom = custom.replace(" ", "");
+            stringBuilder.append("&" + custom);
+        }
 
         String ids = "&uniprotid=";
         for (String id : uniprotIDs) {
@@ -99,7 +101,7 @@ public class RunQSlimfinder {
         }
         ids = ids.substring(0, ids.length() - 1);
         stringBuilder.append(ids);
-
+        
         // Make the final string
         return (stringBuilder.toString());
     }

@@ -186,8 +186,8 @@ public class SlimfinderRunPanel extends JPanel {
                     // There are a set of IDs in the IDs box
                     if (uniprotTextArea.getText().length() > 0) {
                         String input = uniprotTextArea.getText();
-                        // Strings have to be space delineated ONLY
-                        List<String> ids = Arrays.asList(input.split("\\s+"));
+                        // Strings have to be comma+space delineated ONLY
+                        List<String> ids = Arrays.asList(input.split(",\\s+"));
                         JOptionPane.showMessageDialog(null, ids);
                         RunSlimfinder slimfinder = new RunSlimfinder(network, null, ids, optionsPanel);
                         String url = slimfinder.getUrl();

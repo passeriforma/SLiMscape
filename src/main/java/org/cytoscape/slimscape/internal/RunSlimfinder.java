@@ -89,9 +89,9 @@ public class RunSlimfinder {
 
         stringBuilder.append("&walltime=" + walltime);
 
-        custom = custom.replace("\n", "&");
-        custom = custom.replace(" ", "");
         if (custom.length() > 0) {
+            custom = custom.replace("\n", "&");
+            custom = custom.replace(" ", "");
             stringBuilder.append("&" + custom);
         }
 

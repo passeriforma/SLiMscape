@@ -77,9 +77,11 @@ public class RunSlimprob {
             stringBuilder.append(consmaskS + "F");
         }
 
-        custom = custom.replace("\n", "&");
-        custom = custom.replace(" ", "");
-        stringBuilder.append("&" + custom);
+        if (custom.length() > 0) {
+            custom = custom.replace("\n", "&");
+            custom = custom.replace(" ", "");
+            stringBuilder.append("&" + custom);
+        }
 
         String ids = "&uniprotid=";
         for (String id : uniprotIDs) {
