@@ -57,47 +57,12 @@ public class SlimprobOptionsPanel extends JPanel {
         gbc_conservationCheckBox.gridy = 1;
         maskingPanel.add(conservationCheckBox, gbc_conservationCheckBox);
 
-        JPanel SLiMChance = new JPanel();
-        SLiMChance.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "SLiM Chance",
-                TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-        GridBagConstraints gbc_SLiMChance = new GridBagConstraints();
-        gbc_SLiMChance.fill = GridBagConstraints.BOTH;
-        gbc_SLiMChance.insets = new Insets(0, 0, 5, 0);
-        gbc_SLiMChance.gridx = 0;
-        gbc_SLiMChance.gridy = 1;
-        add(SLiMChance, gbc_SLiMChance);
-        GridBagLayout gbl_SLiMChance = new GridBagLayout();
-        gbl_SLiMChance.columnWidths = new int[]{0, 0, 0};
-        gbl_SLiMChance.rowHeights = new int[]{0, 0};
-        gbl_SLiMChance.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-        gbl_SLiMChance.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-        SLiMChance.setLayout(gbl_SLiMChance);
-
-        JLabel labelProbabilityCutOff = new JLabel("Probability cut-off:");
-        labelProbabilityCutOff.setHorizontalAlignment(SwingConstants.LEFT);
-        GridBagConstraints gbc_lblProbabilityCutOff = new GridBagConstraints();
-        gbc_lblProbabilityCutOff.anchor = GridBagConstraints.EAST;
-        gbc_lblProbabilityCutOff.insets = new Insets(0, 0, 0, 5);
-        gbc_lblProbabilityCutOff.gridx = 0;
-        gbc_lblProbabilityCutOff.gridy = 0;
-        SLiMChance.add(labelProbabilityCutOff, gbc_lblProbabilityCutOff);
-
-        probabililtyCutoffTextField = new JTextField();
-        probabililtyCutoffTextField.setHorizontalAlignment(SwingConstants.LEFT);
-        probabililtyCutoffTextField.setText("1");
-        GridBagConstraints gbc_textField = new GridBagConstraints();
-        gbc_textField.anchor = GridBagConstraints.WEST;
-        gbc_textField.gridx = 1;
-        gbc_textField.gridy = 0;
-        SLiMChance.add(probabililtyCutoffTextField, gbc_textField);
-        probabililtyCutoffTextField.setColumns(10);
-
         JPanel customPanel = new JPanel();
         customPanel.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Custom Parameters", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
         GridBagConstraints gbc_customPanel = new GridBagConstraints();
         gbc_customPanel.fill = GridBagConstraints.BOTH;
         gbc_customPanel.gridx = 0;
-        gbc_customPanel.gridy = 2;
+        gbc_customPanel.gridy = 1;
         add(customPanel, gbc_customPanel);
         GridBagLayout gbl_customPanel = new GridBagLayout();
         gbl_customPanel.columnWidths = new int[]{0, 0};

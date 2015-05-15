@@ -56,7 +56,6 @@ public class RunSlimprob {
         SlimprobOptions options = optionsPanel.getSlimprobOptions();
         boolean dismask = options.getDismask();
         boolean conservation = options.getConservation();
-        double cutoff = options.getCutoff();
         String custom = options.getCustomParameters();
 
         StringBuilder stringBuilder = new StringBuilder("http://rest.slimsuite.unsw.edu.au/slimprob");
@@ -77,8 +76,6 @@ public class RunSlimprob {
         } else {
             stringBuilder.append(consmaskS + "F");
         }
-
-        stringBuilder.append("&probcut=" + cutoff);
 
         custom = custom.replace("\n", "&");
         custom = custom.replace(" ", "");

@@ -21,10 +21,6 @@ public class SlimprobOptions {
         this.dismask = dismask;
     }
 
-    public double getCutoff() {
-        return cutoff;
-    }
-
     public boolean getConservation() {
         return consmask;
     }
