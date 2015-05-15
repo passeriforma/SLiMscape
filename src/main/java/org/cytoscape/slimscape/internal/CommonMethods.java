@@ -37,8 +37,7 @@ public class CommonMethods {
             // There is an error in the results obtained
             if (lineOne.startsWith("ERROR")) {
                 openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
-                JOptionPane.showMessageDialog(null, "Something went wrong. " +
-                        "Opening the output page in a web browser.");
+                JOptionPane.showMessageDialog(null, "Something went wrong.");
                 in.close();
                 return null;
             } else {

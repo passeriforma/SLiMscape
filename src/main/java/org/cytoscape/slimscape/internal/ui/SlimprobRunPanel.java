@@ -15,6 +15,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -223,6 +225,8 @@ public class SlimprobRunPanel extends JPanel {
                                     "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main",
                                     openBrowser, id);
                             if (csvResults != null) {
+                                JOptionPane.showMessageDialog(null, "Before");
+
                                 displayResults(csvResults, id);
                             } else {
                                 JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
@@ -288,7 +292,6 @@ public class SlimprobRunPanel extends JPanel {
         fullResults.setText("Full results");
         fullResults.setBorderPainted(false);
         fullResults.setOpaque(false);
-        fullResults.setBackground(Color.WHITE);
         fullResults.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
@@ -300,14 +303,14 @@ public class SlimprobRunPanel extends JPanel {
         help.setText("Help");
         help.setBorderPainted(false);
         help.setOpaque(false);
-        help.setBackground(Color.WHITE);
         help.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 openBrowser.openURL("https://github.com/RayneCatseye/SLiMscape/wiki/SLiMProb");
             }
         });
 
-        JTable csv = CommonMethods.createCsvTable(csvResults);
+
+        JTable csv = slimprobCreateCsvTable(csvResults);
         JTable occ = CommonMethods.createOccTable(occResults);
 
         List<String> occIds = new ArrayList<String>();
@@ -326,5 +329,52 @@ public class SlimprobRunPanel extends JPanel {
         slimprob.add("Run " + id + " Results", resultsPane);
     }
 
+    /**
+     * @desc Creates a csv-specific JTable from an input of comma separated strings.
+     * @param input - a List<String> consisting of a series of comma-separated lines.
+     * @return JTable - a table populated with the input elements.
+     */
+    public static JTable slimprobCreateCsvTable (List<String> input) {
+        // Get column names from input
+        JTable table;
+        List<String> names = Arrays.asList(input.get(0).split(","));
+            int s = names.size();
+        List<String> abbreviated = new ArrayList<String>(names.subList(s-15, s-11));
+        List<String> abbreviated1 = new ArrayList<String>(names.subList(s-8, s-7));
+        List<String> abbreviated2 = new ArrayList<String>(names.subList(s-4, s));
+        abbreviated.addAll(abbreviated1);
+        abbreviated.addAll(abbreviated2);
+        Object columnNames[] = new String[abbreviated.size()];
+        abbreviated.toArray(columnNames);
+
+        // Create table
+        DefaultTableModel model = new DefaultTableModel(null, columnNames);
+        table = new JTable(model);
+        table.setPreferredScrollableViewportSize(new Dimension(400, 700));
+        table.setFillsViewportHeight(true);
+
+        // Add a row in table for each element in the input
+        int lines = input.size();
+        for(int c=1; c<lines; c++) {
+            List<String> line = Arrays.asList(input.get(c).split(","));
+            List<String> abbreviate = new ArrayList<String>(line.subList(s-15, s-11));
+            List<String> abbreviate1 = new ArrayList<String>(line.subList(s-8, s-7));
+            List<String> abbreviate2 = new ArrayList<String>(line.subList(s-4, s));
+            abbreviate.addAll(abbreviate1);
+            abbreviate.addAll(abbreviate2);
+            Object lineObject[] = new String[abbreviate.size()];
+            abbreviate.toArray(lineObject);
+            model.addRow(lineObject);
+        }
+
+        // Table formatting
+        table.setEnabled(false);
+        TableColumn column;
+        for (int i = 0; i < abbreviated.size(); i++) {
+            column = table.getColumnModel().getColumn(i);
+            column.setMinWidth(50);
+        }
+        return table;
+    }
 
 }
