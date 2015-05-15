@@ -254,6 +254,7 @@ public class SlimprobRunPanel extends JPanel {
                                     displayResults(csvResults, id);
                                 }
                             } catch (Exception ex) {
+                                JOptionPane.showMessageDialog(null, "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "No nodes selected!");
