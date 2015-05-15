@@ -292,6 +292,18 @@ public class QSlimfinderRunPanel extends JPanel{
             }
         });
 
+        // Create button to take users to the help page on github
+        JButton help = new JButton();
+        help.setText("Help");
+        help.setBorderPainted(false);
+        help.setOpaque(false);
+        help.setBackground(Color.WHITE);
+        help.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                openBrowser.openURL("https://github.com/RayneCatseye/SLiMscape/wiki/QSLiMFinder");
+            }
+        });
+
         JTable csv = CommonMethods.createCsvTable(csvResults);
         JTable occ = CommonMethods.createOccTable(occResults);
 
@@ -307,7 +319,7 @@ public class QSlimfinderRunPanel extends JPanel{
                 networkViewFactory, networkViewManager, visualMappingManager);
 
         // Display the results in a panel
-        JPanel resultsPane = new ResultsPanel(new JScrollPane(csv), new JScrollPane(occ), fullResults, slimfinder, id);
+        JPanel resultsPane = new ResultsPanel(new JScrollPane(csv), new JScrollPane(occ), fullResults, help, slimfinder, id);
         slimfinder.add("Run " + id + " Results", resultsPane);
     }
 

@@ -101,7 +101,7 @@ public class RunQSlimfinder {
         }
         ids = ids.substring(0, ids.length() - 1);
         stringBuilder.append(ids);
-        
+
         // Make the final string
         return (stringBuilder.toString());
     }
