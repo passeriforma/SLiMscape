@@ -28,12 +28,15 @@ If you want to pre generate a job on the Slimsuite servers, you can do that from
 Results for SLiMProb are displayed in two panels. 
 
 **Main Results Panel** contains:
+- Motif: The name of the motif.
+- Pattern: The motif definition.
+- IC: Information content.
 - N\_Occ: Number of specified SLiM occurrences.
-- E\_Occ: Enrichment score for the occurrence(s).
-- p\_Occ: Significance value for the occurrence(s).
 - N\_Seq: Number of nodes the SLiM occurred in.
-- E\_Seq: Enrichment score for the sequence.
-- p\_Seq: Significance value for the sequence.
+- N_Upc: Number of nodes in the unrelated protein cluster (UPC).
+- E_Upc: Enrichment score for the unrelated protein cluster.
+- p_Upc: Significance value of the unrelated protein cluster.
+- pUnd_Upc: Probability of seeing the observed number of occurrences or less of the UPC.
 
 **OCC Panel** contains:
 - Motif: The motif found in the sequence.
