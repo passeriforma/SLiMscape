@@ -208,17 +208,21 @@ public class QSlimfinderRunPanel extends JPanel{
                         idTextArea.setText(id);
                         // Make sure the job is ready before analysis starts
                         int ready = CommonMethods.checkReady(id);
-                        try {
-                            List<String> csvResults = CommonMethods.PrepareResults(
-                                    "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main",
-                                    openBrowser, id);
-                            if (csvResults != null) {
-                                displayResults(csvResults, id);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
+                        if (ready == 1) {
+                            try {
+                                List<String> csvResults = CommonMethods.PrepareResults(
+                                        "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main",
+                                        openBrowser, id);
+                                if (csvResults != null) {
+                                    displayResults(csvResults, id);
+                                } else {
+                                    JOptionPane.showMessageDialog(null,
+                                            "Unfortunately, there were no SLiMs found in your input.");
+                                }
+                            } catch (Exception ex) {
+                                JOptionPane.showMessageDialog(null,
+                                        "Something went wrong! A server error may have occurred.");
                             }
-                        } catch (Exception ex) {
-                            JOptionPane.showMessageDialog(null, "Something went wrong! A server error may have occurred.");
                         }
                         // Get node IDs from the graph
                     } else {
@@ -231,17 +235,21 @@ public class QSlimfinderRunPanel extends JPanel{
                             idTextArea.setText(id);
                             // Make sure the job is ready before analysis starts
                             int ready = CommonMethods.checkReady(id);
-                            try {
-                                List<String> csvResults = CommonMethods.PrepareResults(
-                                        "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main",
-                                        openBrowser, id);
-                                if (csvResults != null) {
-                                    displayResults(csvResults, id);
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
+                            if (ready == 1) {
+                                try {
+                                    List<String> csvResults = CommonMethods.PrepareResults(
+                                            "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main",
+                                            openBrowser, id);
+                                    if (csvResults != null) {
+                                        displayResults(csvResults, id);
+                                    } else {
+                                        JOptionPane.showMessageDialog(null,
+                                                "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
+                                    }
+                                } catch (Exception ex) {
+                                    JOptionPane.showMessageDialog(null,
+                                            "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
                                 }
-                            } catch (Exception ex) {
-                                JOptionPane.showMessageDialog(null, "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "No nodes selected!");

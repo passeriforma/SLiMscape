@@ -216,19 +216,23 @@ public class SlimprobRunPanel extends JPanel {
                         idTextArea.setText(id);
                         // Make sure the job is ready before analysis starts
                         int ready = CommonMethods.checkReady(id);
-                        try {
-                            List<String> csvResults = CommonMethods.PrepareResults(
-                                    "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main",
-                                    openBrowser, id);
-                            if (csvResults != null) {
-                                JOptionPane.showMessageDialog(null, "Before");
+                        if (ready == 1) {
+                            try {
+                                List<String> csvResults = CommonMethods.PrepareResults(
+                                        "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main",
+                                        openBrowser, id);
+                                if (csvResults != null) {
+                                    JOptionPane.showMessageDialog(null, "Before");
 
-                                displayResults(csvResults, id);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
+                                    displayResults(csvResults, id);
+                                } else {
+                                    JOptionPane.showMessageDialog(null,
+                                            "Unfortunately, there were no SLiMs found in your input.");
+                                }
+                            } catch (Exception ex) {
+                                JOptionPane.showMessageDialog(null,
+                                        "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
                             }
-                        } catch (Exception ex) {
-                            JOptionPane.showMessageDialog(null, "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
                         }
                         // Get node IDs from the graph
                     } else {
@@ -241,15 +245,18 @@ public class SlimprobRunPanel extends JPanel {
                             idTextArea.setText(id);
                             // Make sure the job is ready before analysis starts
                             int ready = CommonMethods.checkReady(id);
-                            try {
-                                List<String> csvResults = CommonMethods.PrepareResults(
-                                        "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main",
-                                        openBrowser, id);
-                                if (csvResults != null) {
-                                    displayResults(csvResults, id);
+                            if (ready == 1) {
+                                try {
+                                    List<String> csvResults = CommonMethods.PrepareResults(
+                                            "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main",
+                                            openBrowser, id);
+                                    if (csvResults != null) {
+                                        displayResults(csvResults, id);
+                                    }
+                                } catch (Exception ex) {
+                                    JOptionPane.showMessageDialog(null,
+                                            "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
                                 }
-                            } catch (Exception ex) {
-                                JOptionPane.showMessageDialog(null, "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "No nodes selected!");
