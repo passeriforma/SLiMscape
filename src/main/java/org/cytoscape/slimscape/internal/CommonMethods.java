@@ -17,6 +17,25 @@ import java.util.List;
 public class CommonMethods {
 
     /**
+     * @desc checks if a run is ready on the rest servers
+     * @param id - Run ID from the rest server
+     * @return int - Int indicative of whether analysis should take place or not.
+     *               -1 = no, do not analyse
+     *               1 = analyse now
+     */
+    public static int checkReady(String id) {
+        int ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
+
+        while (ready != 1) {
+            ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
+            if (ready == -1) { // Pressed the "no" button, do not want to refresh
+                break;
+            }
+        }
+        return ready;
+    }
+
+    /**
      * @desc attains and analyses main results from the Slimsuite server.
      * @param url - The url where the results should be located.
      * @return Map - A map of List<String> containing the contents of the csv and occ blocks.
@@ -37,7 +56,7 @@ public class CommonMethods {
             // There is an error in the results obtained
             if (lineOne.startsWith("ERROR")) {
                 openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
-                JOptionPane.showMessageDialog(null, "Something went wrong.");
+                JOptionPane.showMessageDialog(null, lineOne);
                 in.close();
                 return null;
             } else {
@@ -268,8 +287,11 @@ public class CommonMethods {
     /**
      * @desc - Determines whether the job is ready for analysis or still running
      * @param url - the URL of the run
+     * @return - 1: Job is ready
+     *           0: Job is not yet ready
+     *           -1: Error/job is cancelled
      */
-    public static boolean jobReady (String url) {
+    public static int jobReady (String url) {
         String lineOne;
         try {
             URL website = new URL(url);
@@ -280,18 +302,21 @@ public class CommonMethods {
             lineOne = in.readLine();
             if (lineOne.contains("Finished")) {
                 in.close();
-                return true;
+                return 1;
             } else {
                 in.close();
                 int option = JOptionPane.showConfirmDialog(null, "Run is currently: " + lineOne +
                         ". Click Yes to check again, or No to stop checking. Please note you'll get errors if you try to"
                         + " process this before the job is completed.", "Job Pending", JOptionPane.YES_NO_OPTION);
-                return option != JOptionPane.YES_OPTION;
+                if (option == JOptionPane.NO_OPTION) {
+                    return -1;
+                } else {
+                    return 0;
+                }
             }
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex);
-            return false;
+            return -1;
         }
     }
 

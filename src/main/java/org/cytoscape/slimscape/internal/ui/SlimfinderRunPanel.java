@@ -188,27 +188,27 @@ public class SlimfinderRunPanel extends JPanel {
                         String input = uniprotTextArea.getText();
                         // Strings have to be comma+space delineated ONLY
                         List<String> ids = Arrays.asList(input.split(",\\s+|\\s+"));
-                        JOptionPane.showMessageDialog(null, ids);
                         RunSlimfinder slimfinder = new RunSlimfinder(network, null, ids, optionsPanel);
                         String url = slimfinder.getUrl();
                         String id = CommonMethods.getJobID(url).replaceAll("\\s+","");
                         idTextArea.setText(id);
                         // Make sure the job is ready before analysis starts
-                        boolean ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
-
-                        while (!ready) {
-                            ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
-                        }
-                        try {
-                            List<String> csvResults = CommonMethods.PrepareResults(
-                                    "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main", openBrowser, id);
-                            if (csvResults != null) {
-                                displayResults(csvResults, id);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
+                        int ready = CommonMethods.checkReady(id);
+                        if (ready == 1) {
+                            try {
+                                List<String> csvResults = CommonMethods.PrepareResults(
+                                        "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main",
+                                        openBrowser, id);
+                                if (csvResults != null) {
+                                    displayResults(csvResults, id);
+                                } else {
+                                    JOptionPane.showMessageDialog(null,
+                                            "Unfortunately, there were no SLiMs found in your input.");
+                                }
+                            } catch (Exception ex) {
+                                JOptionPane.showMessageDialog(null,
+                                        "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
                             }
-                        } catch (Exception ex) {
-                            JOptionPane.showMessageDialog(null, "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
                         }
                     // Get node IDs from the graph
                     } else {
@@ -220,16 +220,14 @@ public class SlimfinderRunPanel extends JPanel {
                             String id = CommonMethods.getJobID(url).replaceAll("\\s+","");
                             idTextArea.setText(id);
                             // Make sure the job is ready before analysis starts
-                            boolean ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
-
-                            while (!ready) {
-                                ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
-                            }
+                            int ready = CommonMethods.checkReady(id);
                             try {
                                 List<String> csvResults = CommonMethods.PrepareResults(
                                         "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main", openBrowser, id);
                                 if (csvResults != null) {
                                     displayResults(csvResults, id);
+                                } else {
+                                    JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
                                 }
                             } catch (Exception ex) {
                                 JOptionPane.showMessageDialog(null, "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");

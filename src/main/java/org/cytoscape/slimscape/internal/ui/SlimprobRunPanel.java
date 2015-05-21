@@ -215,11 +215,7 @@ public class SlimprobRunPanel extends JPanel {
                         String id = CommonMethods.getJobID(url).replaceAll("\\s+", "");
                         idTextArea.setText(id);
                         // Make sure the job is ready before analysis starts
-                        boolean ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
-
-                        while (!ready) {
-                            ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
-                        }
+                        int ready = CommonMethods.checkReady(id);
                         try {
                             List<String> csvResults = CommonMethods.PrepareResults(
                                     "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main",
@@ -244,12 +240,7 @@ public class SlimprobRunPanel extends JPanel {
                             String id = CommonMethods.getJobID(url).replaceAll("\\s+", "");
                             idTextArea.setText(id);
                             // Make sure the job is ready before analysis starts
-                            boolean ready =
-                                    CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
-
-                            while (!ready) {
-                                ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
-                            }
+                            int ready = CommonMethods.checkReady(id);
                             try {
                                 List<String> csvResults = CommonMethods.PrepareResults(
                                         "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main",
