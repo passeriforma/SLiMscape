@@ -25,11 +25,14 @@ public class CommonMethods {
      */
     public static int checkReady(String id) {
         int ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
-
-        while (ready != 1) {
-            ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
-            if (ready == -1) { // Pressed the "no" button, do not want to refresh
-                break;
+        if (ready == -1) { // Pressed the "no" button, do not want to refresh
+            return ready;
+        } else {
+            while (ready != 1) {
+                ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
+                if (ready == -1) { // Pressed the "no" button, do not want to refresh
+                    break;
+                }
             }
         }
         return ready;
