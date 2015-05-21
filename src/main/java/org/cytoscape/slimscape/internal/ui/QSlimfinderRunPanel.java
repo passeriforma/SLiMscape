@@ -201,7 +201,7 @@ public class QSlimfinderRunPanel extends JPanel{
                     if (uniprotTextArea.getText().length() > 0) {
                         String input = uniprotTextArea.getText();
                         // Strings have to be comma+space delineated ONLY
-                        List<String> ids = Arrays.asList(input.split(",\\s+"));
+                        List<String> ids = Arrays.asList(input.split(",\\s+|\\s+"));
                         RunQSlimfinder qslimfinder = new RunQSlimfinder(network, null, ids, query, optionsPanel);
                         String url = qslimfinder.getUrl();
                         String id = CommonMethods.getJobID(url).replaceAll("\\s+", "");
