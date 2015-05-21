@@ -166,14 +166,17 @@ public class QSlimfinderRunPanel extends JPanel{
         gbc1_motifLabel.gridy = 5;
         slimSearchOptionsPanel.add(uniprotLabel, gbc1_motifLabel);
 
-        uniprotTextArea = new JTextArea();
+        uniprotTextArea = new JTextArea(4, 15);
         uniprotTextArea.setLineWrap(true);
+        JScrollPane scroll = new JScrollPane(uniprotTextArea);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scroll.setMinimumSize(new Dimension(15, 60));
         gbc1_textArea = new GridBagConstraints();
         gbc1_textArea.insets = new Insets(0, 0, 0, 5);
         gbc1_textArea.fill = GridBagConstraints.BOTH;
         gbc1_textArea.gridx = 0;
         gbc1_textArea.gridy = 6;
-        slimSearchOptionsPanel.add(uniprotTextArea, gbc1_textArea);
+        slimSearchOptionsPanel.add(scroll, gbc1_textArea);
 
 
         runSLiMFinderButton.addActionListener(new ActionListener() {
