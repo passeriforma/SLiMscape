@@ -126,7 +126,7 @@ public class SlimfinderOptionsPanel extends JPanel {
         MiscellaneousOptionsPanel.add(walltimeLabel, gbc_walltimeLabel);
 
         this.walltimeTextField = new JTextField();
-        walltimeTextField.setText("99999999");
+        walltimeTextField.setText("0");
         walltimeTextField.setHorizontalAlignment(SwingConstants.LEFT);
         walltimeTextField.setColumns(10);
         GridBagConstraints gbc_walltimeTextField = new GridBagConstraints();
