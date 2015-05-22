@@ -186,17 +186,7 @@ public class QSlimfinderRunPanel extends JPanel{
                 if (idTextArea.getText().length() > 6) {
                     // Send request to the server for that page
                     String id = idTextArea.getText();
-                    try {
-                        List<String> csvResults = CommonMethods.PrepareResults(
-                                "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main", openBrowser, id);
-                        if (csvResults != null) {
-                            displayResults(csvResults, id);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
-                        }
-                    } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
-                    }
+                    resultProcessing(id);
                 } else {
                     String query = queryTextArea.getText();
 
@@ -212,20 +202,7 @@ public class QSlimfinderRunPanel extends JPanel{
                         // Make sure the job is ready before analysis starts
                         int ready = CommonMethods.checkReady(id);
                         if (ready == 1) {
-                            try {
-                                List<String> csvResults = CommonMethods.PrepareResults(
-                                        "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main",
-                                        openBrowser, id);
-                                if (csvResults != null) {
-                                    displayResults(csvResults, id);
-                                } else {
-                                    JOptionPane.showMessageDialog(null,
-                                            "Unfortunately, there were no SLiMs found in your input.");
-                                }
-                            } catch (Exception ex) {
-                                JOptionPane.showMessageDialog(null,
-                                        "Something went wrong! A server error may have occurred.");
-                            }
+                            resultProcessing(id);
                         }
                         // Get node IDs from the graph
                     } else {
@@ -239,20 +216,7 @@ public class QSlimfinderRunPanel extends JPanel{
                             // Make sure the job is ready before analysis starts
                             int ready = CommonMethods.checkReady(id);
                             if (ready == 1) {
-                                try {
-                                    List<String> csvResults = CommonMethods.PrepareResults(
-                                            "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main",
-                                            openBrowser, id);
-                                    if (csvResults != null) {
-                                        displayResults(csvResults, id);
-                                    } else {
-                                        JOptionPane.showMessageDialog(null,
-                                                "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
-                                    }
-                                } catch (Exception ex) {
-                                    JOptionPane.showMessageDialog(null,
-                                            "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
-                                }
+                                resultProcessing(id);
                             }
                         } else {
                             JOptionPane.showMessageDialog(null, "No nodes selected!");
@@ -263,6 +227,19 @@ public class QSlimfinderRunPanel extends JPanel{
         });
     }
 
+    private void resultProcessing(String id) {
+        try {
+            List<String> csvResults = CommonMethods.PrepareResults(
+                    "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main", openBrowser, id);
+            if (csvResults != null) {
+                displayResults(csvResults, id);
+            } else {
+                JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
+        }
+    }
 
     /**
      * @desc - creates the results panels and alters/creates the cytoscape network as required.
