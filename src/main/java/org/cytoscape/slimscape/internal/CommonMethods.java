@@ -12,6 +12,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CommonMethods {
@@ -74,7 +75,7 @@ public class CommonMethods {
                             inBraces = false;
                             builder.append(x);
                         } else if (x == ',' && inBraces) {
-                            builder.append('|');
+                            builder.append(',');
                         } else {
                             builder.append(x);
                         }
@@ -172,7 +173,7 @@ public class CommonMethods {
      * @param input - a List<String> consisting of a series of comma-separated lines.
      * @return JTable - a table populated with the input elements.
      */
-    public static JTable createCsvTable (List<String> input) {
+    public static JTable createCsvTable (List<String> input) { // length 22
         // Get column names from input
         JTable table;
         List<String> names = Arrays.asList(input.get(0).split(","));
@@ -189,7 +190,10 @@ public class CommonMethods {
         // Add a row in table for each element in the input
         int lines = input.size();
         for(int c=1; c<lines; c++) {
-            List<String> line = Arrays.asList(input.get(c).split(","));
+            List<String> line = new LinkedList<String>(Arrays.asList(input.get(c).split(",")));
+            while (line.size() < names.size()) {
+                line.add(" ");
+            }
             List<String> abbreviate = line.subList(10, line.size()-5);
             Object lineObject[] = new String[abbreviate.size()];
             abbreviate.toArray(lineObject);
@@ -231,7 +235,10 @@ public class CommonMethods {
         // Add a row in table for each element in the input
         int lines = input.size();
         for(int c=1; c<lines; c++) {
-            List<String> line = Arrays.asList(input.get(c).split(","));
+            List<String> line = new LinkedList<String>(Arrays.asList(input.get(c).split(",")));
+            while (line.size() < names.size()) {
+                line.add(" ");
+            }
             List<String> abbreviate = line.subList(3, line.size()-7);
             Object lineObject[] = new String[abbreviate.size()];
             abbreviate.toArray(lineObject);
