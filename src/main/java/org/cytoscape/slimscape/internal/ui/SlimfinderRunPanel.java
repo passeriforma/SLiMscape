@@ -138,6 +138,14 @@ public class SlimfinderRunPanel extends JPanel {
         gbc_motifLabel.gridy = 1;
         slimSearchOptionsPanel.add(motifLabel, gbc_motifLabel);
 
+        JButton idCheckButton = new JButton("Check");
+        GridBagConstraints gbc_checkLabel = new GridBagConstraints();
+        gbc_checkLabel.anchor = GridBagConstraints.EAST;
+        gbc_checkLabel.insets = new Insets(0, 0, 0, 5);
+        gbc_checkLabel.gridx = 0;
+        gbc_checkLabel.gridy = 1;
+        slimSearchOptionsPanel.add(idCheckButton, gbc_checkLabel);
+
         idTextArea = new JTextArea();
         GridBagConstraints gbc_textArea = new GridBagConstraints();
         gbc_textArea.insets = new Insets(0, 0, 0, 5);
@@ -166,6 +174,20 @@ public class SlimfinderRunPanel extends JPanel {
         gbc1_textArea.gridy = 4;
         slimSearchOptionsPanel.add(scroll, gbc1_textArea);
 
+        idCheckButton.addActionListener(new ActionListener() {
+            @Override public void actionPerformed(ActionEvent e) {
+                if (idTextArea.getText().length() > 6) {
+                    String id = idTextArea.getText();
+                    int ready = CommonMethods.checkReady(id, openBrowser);
+                    if (ready == 1) { // ready
+                        resultProcessing(id);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "This ID is still being processed. Please check back later.");
+                    }
+                }
+            }
+        });
+
 
         runSLiMFinderButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -177,7 +199,7 @@ public class SlimfinderRunPanel extends JPanel {
                     resultProcessing(id);
                 } else {
                     // There are a set of IDs in the IDs box
-                    if (uniprotTextArea.getText().length() > 0) {
+                    if (uniprotTextArea.getText().length() > 5) {
                         String input = uniprotTextArea.getText();
                         // Strings have to be comma+space delineated ONLY
                         List<String> ids = Arrays.asList(input.split(",\\s+|\\s+"));
@@ -194,7 +216,7 @@ public class SlimfinderRunPanel extends JPanel {
                     } else {
                         List<CyNode> selected = new ArrayList<CyNode>();
                         selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
-                        if (selected.size() > 0) {
+                        if (selected.size() > 1) {
                             RunSlimfinder slimfinder = new RunSlimfinder(network, selected, null, optionsPanel);
                             String url = slimfinder.getUrl();
                             String id = CommonMethods.getJobID(url).replaceAll("\\s+","");
@@ -215,16 +237,12 @@ public class SlimfinderRunPanel extends JPanel {
     }
 
     private void resultProcessing(String id) {
-        try {
-            List<String> csvResults = CommonMethods.PrepareResults(
-                    "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main", openBrowser, id);
-            if (csvResults != null) {
-                displayResults(csvResults, id);
-            } else {
-                JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
+        List<String> csvResults = CommonMethods.PrepareResults(
+                "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main", openBrowser, id);
+        if (csvResults != null) {
+            displayResults(csvResults, id);
+        } else {
+            JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
         }
     }
 
