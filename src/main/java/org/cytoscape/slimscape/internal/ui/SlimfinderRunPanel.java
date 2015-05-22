@@ -186,7 +186,7 @@ public class SlimfinderRunPanel extends JPanel {
                         String id = CommonMethods.getJobID(url).replaceAll("\\s+","");
                         idTextArea.setText(id);
                         // Make sure the job is ready before analysis starts
-                        int ready = CommonMethods.checkReady(id);
+                        int ready = CommonMethods.checkReady(id, openBrowser);
                         if (ready == 1) {
                             resultProcessing(id);
                         }
@@ -200,7 +200,7 @@ public class SlimfinderRunPanel extends JPanel {
                             String id = CommonMethods.getJobID(url).replaceAll("\\s+","");
                             idTextArea.setText(id);
                             // Make sure the job is ready before analysis starts
-                            int ready = CommonMethods.checkReady(id);
+                            int ready = CommonMethods.checkReady(id, openBrowser);
                             if (ready == 1) {
                                 resultProcessing(id);
                             }

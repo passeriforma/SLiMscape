@@ -23,13 +23,13 @@ public class CommonMethods {
      *               -1 = no, do not analyse
      *               1 = analyse now
      */
-    public static int checkReady(String id) {
-        int ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
+    public static int checkReady(String id, OpenBrowser openBrowser) {
+        int ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id, id, openBrowser);
         if (ready == -1) { // Pressed the "no" button, do not want to refresh
             return ready;
         } else {
             while (ready != 1) {
-                ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id);
+                ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id, id, openBrowser);
                 if (ready == -1) { // Pressed the "no" button, do not want to refresh
                     break;
                 }
@@ -54,11 +54,9 @@ public class CommonMethods {
                             connection.getInputStream()));
 
             String inputLine;
-            String lineOne = in.readLine();
-
+            String lineOne  = in.readLine();
             // There is an error in the results obtained
             if (lineOne.startsWith("ERROR")) {
-                openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
                 JOptionPane.showMessageDialog(null, lineOne);
                 in.close();
                 return null;
@@ -294,7 +292,7 @@ public class CommonMethods {
      *           0: Job is not yet ready
      *           -1: Error/job is cancelled
      */
-    public static int jobReady (String url) {
+    public static int jobReady (String url, String id, final OpenBrowser openBrowser) {
         String lineOne;
         try {
             URL website = new URL(url);
@@ -308,9 +306,16 @@ public class CommonMethods {
                 return 1;
             } else {
                 in.close();
-                int option = JOptionPane.showConfirmDialog(null, "Run is currently: " + lineOne +
-                        ". Click Yes to check again, or No to stop checking. Please note you'll get errors if you try to"
-                        + " process this before the job is completed.", "Job Pending", JOptionPane.YES_NO_OPTION);
+                String[] options = new String[2];
+                options[0] = "Reload";
+                options[1] = "Stop";
+                int option = JOptionPane.showOptionDialog(null, "Your job (ID: " + id + ") is queued or " +
+                        "running on the SLiMSuite server. This may take some time. You can Reload this box to check for" +
+                        " completion, or monitor progress at that REST server: " +
+                        "rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + ". " +
+                        "To continue using Cytoscape in the meantime," +
+                        " press Stop and enter the Job ID in SLiMScape later to check progress or retrieve results.",
+                        "Job In Progress", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
                 if (option == JOptionPane.NO_OPTION) {
                     return -1;
                 } else {
