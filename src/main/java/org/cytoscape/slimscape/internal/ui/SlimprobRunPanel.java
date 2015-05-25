@@ -89,26 +89,19 @@ public class SlimprobRunPanel extends JPanel {
         gbc_runSLiMFinderPanel.gridx = 0;
         gbc_runSLiMFinderPanel.gridy = 0;
         add(runSLiMFinderPanel, gbc_runSLiMFinderPanel);
-        JButton runSlimprobButton = new JButton("Run SLiMProb");
-
-        GridBagConstraints gbc_runSlimprobButton = new GridBagConstraints();
-        gbc_runSlimprobButton.anchor = GridBagConstraints.NORTHWEST;
-        gbc_runSlimprobButton.insets = new Insets(0, 0, 5, 0);
-        gbc_runSlimprobButton.gridx = 0;
-        gbc_runSlimprobButton.gridy = 0;
-        runSLiMFinderPanel.add(runSlimprobButton, gbc_runSlimprobButton);
 
         JPanel slimprobOptionsPanel = new JPanel();
         slimprobOptionsPanel.setBorder(new TitledBorder(new LineBorder(
-                new Color(184, 207, 229)), "Parameters", TitledBorder.LEADING,
+                new Color(184, 207, 229)), "New Input", TitledBorder.LEADING,
                 TitledBorder.TOP, null, new Color(51, 51, 51)));
         GridBagConstraints gbc_slimprobOptionsPanel = new GridBagConstraints();
         gbc_slimprobOptionsPanel.insets = new Insets(0, 0, 5, 0);
         gbc_slimprobOptionsPanel.fill = GridBagConstraints.BOTH;
         gbc_slimprobOptionsPanel.gridx = 0;
-        gbc_slimprobOptionsPanel.gridy = 1;
+        gbc_slimprobOptionsPanel.gridy = 0;
         runSLiMFinderPanel.add(slimprobOptionsPanel,
                 gbc_slimprobOptionsPanel);
+
         GridBagLayout gbl_slimprobOptionsPanel = new GridBagLayout();
         gbl_slimprobOptionsPanel.columnWidths = new int[] { 0, 0 };
         gbl_slimprobOptionsPanel.rowHeights = new int[] { 0, 0, 0, 0 };
@@ -125,6 +118,7 @@ public class SlimprobRunPanel extends JPanel {
         gbc_panel.gridx = 0;
         gbc_panel.gridy = 0;
         slimprobOptionsPanel.add(panel, gbc_panel);
+
         GridBagLayout gbl_panel = new GridBagLayout();
         gbl_panel.columnWidths = new int[] { 0, 0, 0 };
         gbl_panel.rowHeights = new int[] { 0, 0 };
@@ -140,6 +134,14 @@ public class SlimprobRunPanel extends JPanel {
         gbc_motifLabel.gridy = 1;
         slimprobOptionsPanel.add(motifLabel, gbc_motifLabel);
 
+        JButton runSlimprobButton = new JButton("Run SLiMProb");
+        GridBagConstraints gbc_runSlimprobButton = new GridBagConstraints();
+        gbc_runSlimprobButton.anchor = GridBagConstraints.EAST;
+        gbc_runSlimprobButton.insets = new Insets(0, 0, 5, 0);
+        gbc_runSlimprobButton.gridx = 0;
+        gbc_runSlimprobButton.gridy = 1;
+        slimprobOptionsPanel.add(runSlimprobButton, gbc_runSlimprobButton);
+
         motifTextArea = new JTextArea();
         GridBagConstraints gbc_textArea = new GridBagConstraints();
         gbc_textArea.insets = new Insets(0, 0, 0, 5);
@@ -148,50 +150,70 @@ public class SlimprobRunPanel extends JPanel {
         gbc_textArea.gridy = 2;
         slimprobOptionsPanel.add(motifTextArea, gbc_textArea);
 
-        JLabel idLabel = new JLabel("Run ID:");
-        GridBagConstraints gbc1_motifLabel = new GridBagConstraints();
-        gbc1_motifLabel.anchor = GridBagConstraints.WEST;
-        gbc1_motifLabel.insets = new Insets(0, 0, 5, 5);
-        gbc1_motifLabel.gridx = 0;
-        gbc1_motifLabel.gridy = 3;
-        slimprobOptionsPanel.add(idLabel, gbc1_motifLabel);
-
-        JButton idCheckButton = new JButton("Check");
-        GridBagConstraints gbc_checkLabel = new GridBagConstraints();
-        gbc_checkLabel.anchor = GridBagConstraints.EAST;
-        gbc_checkLabel.insets = new Insets(0, 0, 0, 5);
-        gbc_checkLabel.gridx = 0;
-        gbc_checkLabel.gridy = 3;
-        slimprobOptionsPanel.add(idCheckButton, gbc_checkLabel);
-
-        idTextArea = new JTextArea();
-        GridBagConstraints gbc1_textArea = new GridBagConstraints();
-        gbc1_textArea.insets = new Insets(0, 0, 0, 5);
-        gbc1_textArea.fill = GridBagConstraints.BOTH;
-        gbc1_textArea.gridx = 0;
-        gbc1_textArea.gridy = 4;
-        slimprobOptionsPanel.add(idTextArea, gbc1_textArea);
-
         JLabel uniprotLabel = new JLabel("Uniprot IDs:");
-        gbc1_motifLabel = new GridBagConstraints();
-        gbc1_motifLabel.anchor = GridBagConstraints.WEST;
-        gbc1_motifLabel.insets = new Insets(0, 0, 5, 5);
-        gbc1_motifLabel.gridx = 0;
-        gbc1_motifLabel.gridy = 5;
-        slimprobOptionsPanel.add(uniprotLabel, gbc1_motifLabel);
+        GridBagConstraints gbc1_uniprot = new GridBagConstraints();
+        gbc1_uniprot.anchor = GridBagConstraints.WEST;
+        gbc1_uniprot.insets = new Insets(0, 0, 5, 5);
+        gbc1_uniprot.gridx = 0;
+        gbc1_uniprot.gridy = 3;
+        slimprobOptionsPanel.add(uniprotLabel, gbc1_uniprot);
 
         uniprotTextArea = new JTextArea(4, 15);
         uniprotTextArea.setLineWrap(true);
         JScrollPane scroll = new JScrollPane(uniprotTextArea);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setMinimumSize(new Dimension(15, 60));
-        gbc1_textArea = new GridBagConstraints();
+        GridBagConstraints gbc_uniprotTextArea = new GridBagConstraints();
+        gbc_uniprotTextArea.insets = new Insets(0, 0, 0, 5);
+        gbc_uniprotTextArea.fill = GridBagConstraints.BOTH;
+        gbc_uniprotTextArea.gridx = 0;
+        gbc_uniprotTextArea.gridy = 6;
+        slimprobOptionsPanel.add(scroll, gbc_uniprotTextArea);
+
+        // Old Run ID Panel
+        JPanel oldRunPanel = new JPanel();
+        oldRunPanel.setBorder(new TitledBorder(new LineBorder(
+                new Color(184, 207, 229)), "Past Run", TitledBorder.LEADING,
+                TitledBorder.TOP, null, new Color(51, 51, 51)));
+        GridBagConstraints gbc_oldRunPanel = new GridBagConstraints();
+        gbc_oldRunPanel.insets = new Insets(0, 0, 5, 0);
+        gbc_oldRunPanel.fill = GridBagConstraints.BOTH;
+        gbc_oldRunPanel.gridx = 0;
+        gbc_oldRunPanel.gridy = 1;
+        runSLiMFinderPanel.add(oldRunPanel, gbc_oldRunPanel);
+
+        GridBagLayout gbl_oldRunPanel = new GridBagLayout();
+        gbl_oldRunPanel.columnWidths = new int[] { 0, 0 };
+        gbl_oldRunPanel.rowHeights = new int[] { 0, 0, 0, 0 };
+        gbl_oldRunPanel.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+        gbl_oldRunPanel.rowWeights = new double[] { 1.0, 0.0, 1.0, Double.MIN_VALUE };
+        oldRunPanel.setLayout(gbl_slimprobOptionsPanel);
+
+        JLabel idLabel = new JLabel("Run ID:");
+        GridBagConstraints gbc1_motifLabel = new GridBagConstraints();
+        gbc1_motifLabel.anchor = GridBagConstraints.WEST;
+        gbc1_motifLabel.insets = new Insets(0, 0, 5, 5);
+        gbc1_motifLabel.gridx = 0;
+        gbc1_motifLabel.gridy = 0;
+        oldRunPanel.add(idLabel, gbc1_motifLabel);
+
+        JButton idCheckButton = new JButton("Check");
+        GridBagConstraints gbc_checkLabel = new GridBagConstraints();
+        gbc_checkLabel.anchor = GridBagConstraints.EAST;
+        gbc_checkLabel.insets = new Insets(0, 0, 0, 5);
+        gbc_checkLabel.gridx = 0;
+        gbc_checkLabel.gridy = 0;
+        oldRunPanel.add(idCheckButton, gbc_checkLabel);
+
+        idTextArea = new JTextArea();
+        GridBagConstraints gbc1_textArea = new GridBagConstraints();
         gbc1_textArea.insets = new Insets(0, 0, 0, 5);
         gbc1_textArea.fill = GridBagConstraints.BOTH;
         gbc1_textArea.gridx = 0;
-        gbc1_textArea.gridy = 6;
-        slimprobOptionsPanel.add(scroll, gbc1_textArea);
+        gbc1_textArea.gridy = 1;
+        oldRunPanel.add(idTextArea, gbc1_textArea);
 
+        // Action listeners for the buttons
         idCheckButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
                 if (idTextArea.getText().length() > 6) {

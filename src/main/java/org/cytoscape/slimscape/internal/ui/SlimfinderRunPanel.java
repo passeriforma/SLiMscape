@@ -88,23 +88,16 @@ public class SlimfinderRunPanel extends JPanel {
         gbl_sLiMFinderPanel.rowWeights = new double[]{0.0, 0.0,
                 Double.MIN_VALUE};
         sLiMFinderPanel.setLayout(gbl_sLiMFinderPanel);
-        runSLiMFinderButton = new JButton("Run SLiMFinder");
-        GridBagConstraints gbc_runSLiMFinderButton = new GridBagConstraints();
-        gbc_runSLiMFinderButton.anchor = GridBagConstraints.NORTHWEST;
-        gbc_runSLiMFinderButton.insets = new Insets(0, 0, 5, 0);
-        gbc_runSLiMFinderButton.gridx = 0;
-        gbc_runSLiMFinderButton.gridy = 0;
-        sLiMFinderPanel.add(runSLiMFinderButton, gbc_runSLiMFinderButton);
 
         JPanel slimSearchOptionsPanel = new JPanel();
         slimSearchOptionsPanel.setBorder(new TitledBorder(new LineBorder(
-                new Color(184, 207, 229)), "Parameters", TitledBorder.LEADING,
+                new Color(184, 207, 229)), "New Input", TitledBorder.LEADING,
                 TitledBorder.TOP, null, new Color(51, 51, 51)));
         GridBagConstraints gbc_slimSearchOptionsPanel = new GridBagConstraints();
-        gbc_slimSearchOptionsPanel.insets = new Insets(0, 0, 5, 0);
+        gbc_slimSearchOptionsPanel.insets = new Insets(5, 5, 5, 5);
         gbc_slimSearchOptionsPanel.fill = GridBagConstraints.BOTH;
         gbc_slimSearchOptionsPanel.gridx = 0;
-        gbc_slimSearchOptionsPanel.gridy = 1;
+        gbc_slimSearchOptionsPanel.gridy = 0;
         sLiMFinderPanel.add(slimSearchOptionsPanel, gbc_slimSearchOptionsPanel);
 
         GridBagLayout gbl_slimSearchOptionsPanel = new GridBagLayout();
@@ -130,37 +123,21 @@ public class SlimfinderRunPanel extends JPanel {
         gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
         panel.setLayout(gbl_panel);
 
-        JLabel motifLabel = new JLabel("Run ID:");
-        GridBagConstraints gbc_motifLabel = new GridBagConstraints();
-        gbc_motifLabel.anchor = GridBagConstraints.WEST;
-        gbc_motifLabel.insets = new Insets(0, 0, 5, 5);
-        gbc_motifLabel.gridx = 0;
-        gbc_motifLabel.gridy = 1;
-        slimSearchOptionsPanel.add(motifLabel, gbc_motifLabel);
-
-        JButton idCheckButton = new JButton("Check");
-        GridBagConstraints gbc_checkLabel = new GridBagConstraints();
-        gbc_checkLabel.anchor = GridBagConstraints.EAST;
-        gbc_checkLabel.insets = new Insets(0, 0, 0, 5);
-        gbc_checkLabel.gridx = 0;
-        gbc_checkLabel.gridy = 1;
-        slimSearchOptionsPanel.add(idCheckButton, gbc_checkLabel);
-
-        idTextArea = new JTextArea();
-        GridBagConstraints gbc_textArea = new GridBagConstraints();
-        gbc_textArea.insets = new Insets(0, 0, 0, 5);
-        gbc_textArea.fill = GridBagConstraints.BOTH;
-        gbc_textArea.gridx = 0;
-        gbc_textArea.gridy = 2;
-        slimSearchOptionsPanel.add(idTextArea, gbc_textArea);
-
         JLabel idLabel = new JLabel("Uniprot IDs:");
         GridBagConstraints gbc1_motifLabel = new GridBagConstraints();
         gbc1_motifLabel.anchor = GridBagConstraints.WEST;
         gbc1_motifLabel.insets = new Insets(0, 0, 5, 5);
         gbc1_motifLabel.gridx = 0;
-        gbc1_motifLabel.gridy = 3;
+        gbc1_motifLabel.gridy = 1;
         slimSearchOptionsPanel.add(idLabel, gbc1_motifLabel);
+
+        runSLiMFinderButton = new JButton("Run SLiMFinder");
+        GridBagConstraints gbc_runSLiMFinderButton = new GridBagConstraints();
+        gbc_runSLiMFinderButton.anchor = GridBagConstraints.EAST;
+        gbc_runSLiMFinderButton.insets = new Insets(0, 0, 0, 5);
+        gbc_runSLiMFinderButton.gridx = 0;
+        gbc_runSLiMFinderButton.gridy = 1;
+        slimSearchOptionsPanel.add(runSLiMFinderButton, gbc_runSLiMFinderButton);
 
         uniprotTextArea = new JTextArea(4, 15);
         uniprotTextArea.setLineWrap(true);
@@ -171,8 +148,53 @@ public class SlimfinderRunPanel extends JPanel {
         gbc1_textArea.insets = new Insets(0, 0, 0, 5);
         gbc1_textArea.fill = GridBagConstraints.BOTH;
         gbc1_textArea.gridx = 0;
-        gbc1_textArea.gridy = 4;
+        gbc1_textArea.gridy = 2;
         slimSearchOptionsPanel.add(scroll, gbc1_textArea);
+
+        JPanel pastRunPanel = new JPanel();
+        pastRunPanel.setBorder(new TitledBorder(new LineBorder(
+                new Color(184, 207, 229)), "Past Run", TitledBorder.LEADING,
+                TitledBorder.TOP, null, new Color(51, 51, 51)));
+        GridBagConstraints gbc_pastRunPanel = new GridBagConstraints();
+        gbc_pastRunPanel.insets = new Insets(5, 5, 5, 5);
+        gbc_pastRunPanel.fill = GridBagConstraints.BOTH;
+        gbc_pastRunPanel.gridx = 0;
+        gbc_pastRunPanel.gridy = 1;
+        sLiMFinderPanel.add(pastRunPanel, gbc_pastRunPanel);
+
+        GridBagLayout gbl_pastRunPanel = new GridBagLayout();
+        gbl_pastRunPanel.columnWidths = new int[]{0, 0};
+        gbl_pastRunPanel.rowHeights = new int[]{0, 0, 0, 0};
+        gbl_pastRunPanel.columnWeights = new double[]{1.0,
+                Double.MIN_VALUE};
+        gbl_pastRunPanel.rowWeights = new double[]{1.0, 0.0, 1.0,
+                Double.MIN_VALUE};
+        pastRunPanel.setLayout(gbl_pastRunPanel);
+
+        JLabel motifLabel = new JLabel("Run ID:");
+        GridBagConstraints gbc_motifLabel = new GridBagConstraints();
+        gbc_motifLabel.anchor = GridBagConstraints.WEST;
+        gbc_motifLabel.insets = new Insets(0, 0, 5, 5);
+        gbc_motifLabel.gridx = 0;
+        gbc_motifLabel.gridy = 1;
+        pastRunPanel.add(motifLabel, gbc_motifLabel);
+
+        JButton idCheckButton = new JButton("Check");
+        GridBagConstraints gbc_checkLabel = new GridBagConstraints();
+        gbc_checkLabel.anchor = GridBagConstraints.EAST;
+        gbc_checkLabel.insets = new Insets(0, 0, 0, 5);
+        gbc_checkLabel.gridx = 0;
+        gbc_checkLabel.gridy = 1;
+        pastRunPanel.add(idCheckButton, gbc_checkLabel);
+
+
+        idTextArea = new JTextArea();
+        GridBagConstraints gbc_textArea = new GridBagConstraints();
+        gbc_textArea.insets = new Insets(0, 0, 0, 5);
+        gbc_textArea.fill = GridBagConstraints.BOTH;
+        gbc_textArea.gridx = 0;
+        gbc_textArea.gridy = 2;
+        pastRunPanel.add(idTextArea, gbc_textArea);
 
         idCheckButton.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
