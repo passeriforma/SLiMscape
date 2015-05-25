@@ -258,11 +258,9 @@ public class SlimprobRunPanel extends JPanel {
     private void resultProcessing(String id) {
         try {
             List<String> csvResults = CommonMethods.PrepareResults(
-                    "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main", openBrowser, id);
+                    "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id, "&rest=main", openBrowser, id);
             if (csvResults != null) {
                 displayResults(csvResults, id);
-            } else {
-                JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Something went wrong! No results were generated. Please check the " +
@@ -278,7 +276,7 @@ public class SlimprobRunPanel extends JPanel {
     private void displayResults(List<String> csvResults, final String id) {
         // Get OCC Results
         List<String> occResults = CommonMethods.PrepareResults(
-                "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=occ", openBrowser, id);
+                "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id, "&rest=occ", openBrowser, id);
 
         // Get list of all node IDs from slimdb
         List<String> nodeIds = CommonMethods.getNodeIds("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id
@@ -358,6 +356,9 @@ public class SlimprobRunPanel extends JPanel {
         int lines = input.size();
         for(int c=1; c<lines; c++) {
             List<String> line = Arrays.asList(input.get(c).split(","));
+            while (line.size() < names.size()) {
+                line.add(" ");
+            }
             List<String> abbreviate = new ArrayList<String>(line.subList(s-15, s-11));
             List<String> abbreviate1 = new ArrayList<String>(line.subList(s-8, s-7));
             List<String> abbreviate2 = new ArrayList<String>(line.subList(s-4, s));

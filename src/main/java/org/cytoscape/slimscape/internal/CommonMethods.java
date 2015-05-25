@@ -17,27 +17,6 @@ import java.util.List;
 
 public class CommonMethods {
 
-    /**
-     * @desc checks if a run is ready on the rest servers
-     * @param id - Run ID from the rest server
-     * @return int - Int indicative of whether analysis should take place or not.
-     *               -1 = no, do not analyse
-     *               1 = analyse now
-     */
-    public static int checkReady(String id, OpenBrowser openBrowser) {
-        int ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id, id, openBrowser);
-        if (ready == -1) { // Pressed the "no" button, do not want to refresh
-            return ready;
-        } else {
-            while (ready != 1) {
-                ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id, id, openBrowser);
-                if (ready == -1) { // Pressed the "no" button, do not want to refresh
-                    break;
-                }
-            }
-        }
-        return ready;
-    }
 
     /**
      * @desc attains and analyses main results from the Slimsuite server.
@@ -45,23 +24,31 @@ public class CommonMethods {
      * @return Map - A map of List<String> containing the contents of the csv and occ blocks.
      *               If there is an error, null is returned.
      */
-    public static List<String> PrepareResults(String url, OpenBrowser openBrowser, String id) {
-        // Gets URL data
+    public static List<String> PrepareResults(String url, String page, OpenBrowser openBrowser, String id) {
+        // First, check if there's an error. If not, then grab the results
         try {
-            URL website = new URL(url);
-            URLConnection connection = website.openConnection();
-            BufferedReader in = new BufferedReader(
+            URL websiteFull = new URL(url + "&rest=full");
+            URLConnection connectionFull = websiteFull.openConnection();
+            BufferedReader inF = new BufferedReader(
                     new InputStreamReader(
-                            connection.getInputStream()));
+                            connectionFull.getInputStream()));
 
-            String inputLine;
-            String lineOne  = in.readLine();
-            // There is an error in the results obtained
-            if (lineOne.startsWith("ERROR")) {
-                JOptionPane.showMessageDialog(null, lineOne);
-                in.close();
+            String errorLine  = inF.readLine();
+            if (errorLine.startsWith("ERROR")) {
+                JOptionPane.showMessageDialog(null, errorLine);
+                inF.close();
                 return null;
             } else {
+
+                URL website = new URL(url + page);
+                URLConnection connection = website.openConnection();
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(
+                                connection.getInputStream()));
+
+                String inputLine;
+                String lineOne = in.readLine();
+                // There is an error in the results obtained
                 List<String> csv = new ArrayList<String>();
                 csv.add(lineOne);
                 while ((inputLine = in.readLine()) != null) {
@@ -80,12 +67,10 @@ public class CommonMethods {
                             builder.append(x);
                         }
                     }
-
                     String toReturn = builder.toString();
                     csv.add(toReturn);
                 }
                 in.close();
-
                 return csv;
             }
         } catch (Exception ex) {
@@ -173,7 +158,7 @@ public class CommonMethods {
      * @param input - a List<String> consisting of a series of comma-separated lines.
      * @return JTable - a table populated with the input elements.
      */
-    public static JTable createCsvTable (List<String> input) { // length 22
+    public static JTable createCsvTable (List<String> input) {
         // Get column names from input
         JTable table;
         List<String> names = Arrays.asList(input.get(0).split(","));
@@ -291,6 +276,29 @@ public class CommonMethods {
             return null;
         }
     }
+
+    /**
+     * @desc checks if a run is ready on the rest servers
+     * @param id - Run ID from the rest server
+     * @return int - Int indicative of whether analysis should take place or not.
+     *               -1 = no, do not analyse
+     *               1 = analyse now
+     */
+    public static int checkReady(String id, OpenBrowser openBrowser) {
+        int ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id, id, openBrowser);
+        if (ready == -1) { // Pressed the "no" button, do not want to refresh
+            return ready;
+        } else {
+            while (ready != 1) {
+                ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id, id, openBrowser);
+                if (ready == -1) { // Pressed the "no" button, do not want to refresh
+                    break;
+                }
+            }
+        }
+        return ready;
+    }
+
 
     /**
      * @desc - Determines whether the job is ready for analysis or still running

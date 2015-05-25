@@ -238,12 +238,10 @@ public class SlimfinderRunPanel extends JPanel {
 
     private void resultProcessing(String id) {
         List<String> csvResults = CommonMethods.PrepareResults(
-                "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=main", openBrowser, id);
+                "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id, "&rest=main", openBrowser, id);
         if (csvResults != null) {
             displayResults(csvResults, id);
-        } else {
-            JOptionPane.showMessageDialog(null, "Something went wrong! No results were generated. Please check the " +
-                    "full server run at the url: rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + ". ");        }
+        }
     }
 
     /**
@@ -254,7 +252,7 @@ public class SlimfinderRunPanel extends JPanel {
     private void displayResults(List<String> csvResults, final String id) {
         // Get OCC Results
         List<String> occResults = CommonMethods.PrepareResults(
-                "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + "&rest=occ", openBrowser, id);
+                "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id, "&rest=occ", openBrowser, id);
 
         // Get list of all node IDs from slimdb
         List<String> nodeIds = CommonMethods.getNodeIds("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id
