@@ -258,8 +258,8 @@ public class QSlimfinderRunPanel extends JPanel{
                 JOptionPane.showMessageDialog(null, "Unfortunately, there were no SLiMs found in your input.");
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Something went wrong! Either there are no SLiMs in your input, or a server error has occurred.");
-        }
+            JOptionPane.showMessageDialog(null, "Something went wrong! No results were generated. Please check the " +
+                    "full server run at the url: rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + ". ");        }
     }
 
     /**
