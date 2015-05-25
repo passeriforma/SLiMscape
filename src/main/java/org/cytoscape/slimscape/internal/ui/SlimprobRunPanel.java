@@ -215,15 +215,28 @@ public class SlimprobRunPanel extends JPanel {
                     // Send request to the server for that page
                     String id = idTextArea.getText();
                     resultProcessing(id);
-                } else {
-                    String motif = motifTextArea.getText();
-
                     // There are a set of IDs in the IDs box
-                    if (uniprotTextArea.getText().length() > 5) {
-                        String input = uniprotTextArea.getText();
-                        // Strings have to be comma+space delineated ONLY
-                        List<String> ids = Arrays.asList(input.split(",\\s+|\\s+"));
-                        RunSlimprob slimprob = new RunSlimprob(network, null, ids, motif, optionsPanel);
+                } else if (uniprotTextArea.getText().length() > 5) {
+                    String input = uniprotTextArea.getText();
+                    String motif = motifTextArea.getText();
+                    // Strings have to be comma+space delineated ONLY
+                    List<String> ids = Arrays.asList(input.split(",\\s+|\\s+"));
+                    RunSlimprob slimprob = new RunSlimprob(network, null, ids, motif, optionsPanel);
+                    String url = slimprob.getUrl();
+                    String id = CommonMethods.getJobID(url).replaceAll("\\s+", "");
+                    idTextArea.setText(id);
+                    // Make sure the job is ready before analysis starts
+                    int ready = CommonMethods.checkReady(id, openBrowser);
+                    if (ready == 1) {
+                        resultProcessing(id);
+                    }
+                    // Get node IDs from the graph
+                } else {
+                    List<CyNode> selected = new ArrayList<CyNode>();
+                    selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
+                    if (selected.size() > 1) {
+                        String motif = motifTextArea.getText();
+                        RunSlimprob slimprob = new RunSlimprob(network, selected, null, motif, optionsPanel);
                         String url = slimprob.getUrl();
                         String id = CommonMethods.getJobID(url).replaceAll("\\s+", "");
                         idTextArea.setText(id);
@@ -232,23 +245,8 @@ public class SlimprobRunPanel extends JPanel {
                         if (ready == 1) {
                             resultProcessing(id);
                         }
-                        // Get node IDs from the graph
                     } else {
-                        List<CyNode> selected = new ArrayList<CyNode>();
-                        selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
-                        if (selected.size() > 1) {
-                            RunSlimprob slimprob = new RunSlimprob(network, selected, null, motif, optionsPanel);
-                            String url = slimprob.getUrl();
-                            String id = CommonMethods.getJobID(url).replaceAll("\\s+", "");
-                            idTextArea.setText(id);
-                            // Make sure the job is ready before analysis starts
-                            int ready = CommonMethods.checkReady(id, openBrowser);
-                            if (ready == 1) {
-                                resultProcessing(id);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "No nodes selected!");
-                        }
+                        JOptionPane.showMessageDialog(null, "No inputs to analyse!");
                     }
                 }
             }
