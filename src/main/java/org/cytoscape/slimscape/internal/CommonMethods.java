@@ -331,6 +331,8 @@ public class CommonMethods {
                         "To continue using Cytoscape in the meantime," +
                         " press Stop and enter the Job ID in SLiMScape later to check progress or retrieve results.",
                         "Job In Progress", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+
+
                 if (option == JOptionPane.NO_OPTION) {
                     JOptionPane.showMessageDialog(null, "Your run ID is: " + id + ". To look at the status of your run,"
                     + " you can monitor progress on the servers at: "
