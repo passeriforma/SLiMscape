@@ -179,7 +179,7 @@ public class SlimfinderRunPanel extends JPanel {
         gbc_motifLabel.gridy = 1;
         pastRunPanel.add(motifLabel, gbc_motifLabel);
 
-        JButton idCheckButton = new JButton("Check");
+        JButton idCheckButton = new JButton("Retrieve");
         GridBagConstraints gbc_checkLabel = new GridBagConstraints();
         gbc_checkLabel.anchor = GridBagConstraints.EAST;
         gbc_checkLabel.insets = new Insets(0, 0, 0, 5);

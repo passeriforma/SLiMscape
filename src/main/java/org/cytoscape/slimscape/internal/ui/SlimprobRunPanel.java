@@ -197,7 +197,7 @@ public class SlimprobRunPanel extends JPanel {
         gbc1_motifLabel.gridy = 0;
         oldRunPanel.add(idLabel, gbc1_motifLabel);
 
-        JButton idCheckButton = new JButton("Check");
+        JButton idCheckButton = new JButton("Retrieve");
         GridBagConstraints gbc_checkLabel = new GridBagConstraints();
         gbc_checkLabel.anchor = GridBagConstraints.EAST;
         gbc_checkLabel.insets = new Insets(0, 0, 0, 5);
