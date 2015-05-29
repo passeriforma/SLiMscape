@@ -232,13 +232,8 @@ public class SlimprobRunPanel extends JPanel {
         runSlimprobButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CyNetwork network = manager.getCurrentNetwork();
-                // There is a past runs ID in the box
-                if (idTextArea.getText().length() > 6) {
-                    // Send request to the server for that page
-                    String id = idTextArea.getText();
-                    resultProcessing(id);
-                    // There are a set of IDs in the IDs box
-                } else if (uniprotTextArea.getText().length() > 5) {
+                // There are a set of IDs in the IDs box
+                if (uniprotTextArea.getText().length() > 5) {
                     String input = uniprotTextArea.getText();
                     String motif = motifTextArea.getText();
                     // Strings have to be comma+space delineated ONLY

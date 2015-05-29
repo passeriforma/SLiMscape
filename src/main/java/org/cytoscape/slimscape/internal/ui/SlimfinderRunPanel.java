@@ -214,14 +214,8 @@ public class SlimfinderRunPanel extends JPanel {
         runSLiMFinderButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CyNetwork network = manager.getCurrentNetwork();
-                // There is a past runs ID in the box
-                if (idTextArea.getText().length() > 6) {
-                    // Send request to the server for that page
-                    String id = idTextArea.getText();
-                    resultProcessing(id);
-
-                    // There are a set of IDs in the IDs box
-                } else if (uniprotTextArea.getText().length() > 5) {
+                // There are a set of IDs in the IDs box
+                if (uniprotTextArea.getText().length() > 5) {
                     String input = uniprotTextArea.getText();
                     // Strings have to be comma+space delineated ONLY
                     List<String> ids = Arrays.asList(input.split(",\\s+|\\s+"));
@@ -234,7 +228,7 @@ public class SlimfinderRunPanel extends JPanel {
                     if (ready == 1) {
                         resultProcessing(id);
                     }
-                    // Get node IDs from the graph
+                // Get node IDs from the graph
                 } else {
                     List<CyNode> selected = new ArrayList<CyNode>();
                     selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
