@@ -9,12 +9,13 @@ import java.awt.*;
  * @author: Kevin O'Brien
  */
 public class SlimfinderOptionsPanel extends JPanel {
-    private JTextField probabililtyCutoffTextField = null;
+    private JTextField lengthCutoffTextField = null;
     private JCheckBox disorderMakingCheckBox = null;
     private JTextArea customParametersTextArea = null;
-    private JTextField walltimeTextField;
     private JCheckBox conservationMakingCheckBox;
     private JCheckBox featureMaskingCheckBox = null;
+    private JCheckBox ambiguityCheckBox = null;
+    private JTextField wildcardCutoffTextField = null;
 
     public SlimfinderOptionsPanel() {
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -66,7 +67,7 @@ public class SlimfinderOptionsPanel extends JPanel {
         maskingPanel.add(featureMaskingCheckBox, gbc_featureMaskingCheckBox);
 
         JPanel SLiMChance = new JPanel();
-        SLiMChance.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "SLiM Chance",
+        SLiMChance.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "SLiMBuild",
                 TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
         GridBagConstraints gbc_SLiMChance = new GridBagConstraints();
         gbc_SLiMChance.fill = GridBagConstraints.BOTH;
@@ -81,59 +82,52 @@ public class SlimfinderOptionsPanel extends JPanel {
         gbl_SLiMChance.rowWeights = new double[]{0.0, Double.MIN_VALUE};
         SLiMChance.setLayout(gbl_SLiMChance);
 
-        JLabel labelProbabilityCutOff = new JLabel("Probability cut-off:");
-        labelProbabilityCutOff.setHorizontalAlignment(SwingConstants.LEFT);
+        JLabel labelLengthCutoff = new JLabel("Maximum SLiM Length:");
+        labelLengthCutoff.setHorizontalAlignment(SwingConstants.LEFT);
         GridBagConstraints gbc_lblProbabilityCutOff = new GridBagConstraints();
-        gbc_lblProbabilityCutOff.anchor = GridBagConstraints.EAST;
+        gbc_lblProbabilityCutOff.anchor = GridBagConstraints.WEST;
         gbc_lblProbabilityCutOff.insets = new Insets(0, 0, 0, 5);
         gbc_lblProbabilityCutOff.gridx = 0;
         gbc_lblProbabilityCutOff.gridy = 0;
-        SLiMChance.add(labelProbabilityCutOff, gbc_lblProbabilityCutOff);
+        SLiMChance.add(labelLengthCutoff, gbc_lblProbabilityCutOff);
 
-        this.probabililtyCutoffTextField = new JTextField();
-        probabililtyCutoffTextField.setHorizontalAlignment(SwingConstants.LEFT);
-        probabililtyCutoffTextField.setText("0.1");
+        this.lengthCutoffTextField = new JTextField();
+        lengthCutoffTextField.setHorizontalAlignment(SwingConstants.LEFT);
+        lengthCutoffTextField.setText("5");
         GridBagConstraints gbc_txtCons = new GridBagConstraints();
         gbc_txtCons.anchor = GridBagConstraints.WEST;
         gbc_txtCons.gridx = 1;
         gbc_txtCons.gridy = 0;
-        SLiMChance.add(probabililtyCutoffTextField, gbc_txtCons);
-        probabililtyCutoffTextField.setColumns(10);
+        SLiMChance.add(lengthCutoffTextField, gbc_txtCons);
+        lengthCutoffTextField.setColumns(10);
 
-        JPanel MiscellaneousOptionsPanel = new JPanel();
-        MiscellaneousOptionsPanel.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)),
-                "Miscellaneous Options", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-        GridBagConstraints gbc_MiscellaneousOptionsPanel = new GridBagConstraints();
-        gbc_MiscellaneousOptionsPanel.fill = GridBagConstraints.BOTH;
-        gbc_MiscellaneousOptionsPanel.insets = new Insets(0, 0, 5, 0);
-        gbc_MiscellaneousOptionsPanel.gridx = 0;
-        gbc_MiscellaneousOptionsPanel.gridy = 2;
-        add(MiscellaneousOptionsPanel, gbc_MiscellaneousOptionsPanel);
-        GridBagLayout gbl_MiscellaneousOptionsPanel = new GridBagLayout();
-        gbl_MiscellaneousOptionsPanel.columnWidths = new int[]{103, 0, 0};
-        gbl_MiscellaneousOptionsPanel.rowHeights = new int[]{0, 0};
-        gbl_MiscellaneousOptionsPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-        gbl_MiscellaneousOptionsPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-        MiscellaneousOptionsPanel.setLayout(gbl_MiscellaneousOptionsPanel);
+        JLabel labelWildcardCutoff = new JLabel("Max. Consecutive Wildcards:");
+        labelWildcardCutoff.setHorizontalAlignment(SwingConstants.LEFT);
+        GridBagConstraints gbc_lblWildcardCutOff = new GridBagConstraints();
+        gbc_lblWildcardCutOff.anchor = GridBagConstraints.WEST;
+        gbc_lblWildcardCutOff.insets = new Insets(0, 0, 0, 5);
+        gbc_lblWildcardCutOff.gridx = 0;
+        gbc_lblWildcardCutOff.gridy = 1;
+        SLiMChance.add(labelWildcardCutoff, gbc_lblWildcardCutOff);
 
-        JLabel walltimeLabel = new JLabel("Walltime:");
-        walltimeLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        GridBagConstraints gbc_walltimeLabel = new GridBagConstraints();
-        gbc_walltimeLabel.anchor = GridBagConstraints.WEST;
-        gbc_walltimeLabel.insets = new Insets(0, 0, 0, 5);
-        gbc_walltimeLabel.gridx = 0;
-        gbc_walltimeLabel.gridy = 0;
-        MiscellaneousOptionsPanel.add(walltimeLabel, gbc_walltimeLabel);
+        this.wildcardCutoffTextField = new JTextField();
+        wildcardCutoffTextField.setHorizontalAlignment(SwingConstants.LEFT);
+        wildcardCutoffTextField.setText("2");
+        GridBagConstraints gbc_txtWild = new GridBagConstraints();
+        gbc_txtWild.anchor = GridBagConstraints.WEST;
+        gbc_txtWild.gridx = 1;
+        gbc_txtWild.gridy = 1;
+        SLiMChance.add(wildcardCutoffTextField, gbc_txtWild);
+        wildcardCutoffTextField.setColumns(10);
 
-        this.walltimeTextField = new JTextField();
-        walltimeTextField.setText("0");
-        walltimeTextField.setHorizontalAlignment(SwingConstants.LEFT);
-        walltimeTextField.setColumns(10);
-        GridBagConstraints gbc_walltimeTextField = new GridBagConstraints();
-        gbc_walltimeTextField.anchor = GridBagConstraints.WEST;
-        gbc_walltimeTextField.gridx = 1;
-        gbc_walltimeTextField.gridy = 0;
-        MiscellaneousOptionsPanel.add(walltimeTextField, gbc_walltimeTextField);
+        this.ambiguityCheckBox = new JCheckBox("Ambiguous motifs");
+        ambiguityCheckBox.setSelected(false);
+        GridBagConstraints gbc_ambiguousCheckBox = new GridBagConstraints();
+        gbc_ambiguousCheckBox.anchor = GridBagConstraints.WEST;
+        gbc_ambiguousCheckBox.insets = new Insets(0, 0, 0, 5);
+        gbc_ambiguousCheckBox.gridx = 0;
+        gbc_ambiguousCheckBox.gridy = 2;
+        SLiMChance.add(ambiguityCheckBox, gbc_ambiguousCheckBox);
 
         JPanel customPanel = new JPanel();
         customPanel.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Custom Parameters",
@@ -141,7 +135,7 @@ public class SlimfinderOptionsPanel extends JPanel {
         GridBagConstraints gbc_customPanel = new GridBagConstraints();
         gbc_customPanel.fill = GridBagConstraints.BOTH;
         gbc_customPanel.gridx = 0;
-        gbc_customPanel.gridy = 3;
+        gbc_customPanel.gridy = 2;
         add(customPanel, gbc_customPanel);
         GridBagLayout gbl_customPanel = new GridBagLayout();
         gbl_customPanel.columnWidths = new int[]{0, 0};
@@ -164,9 +158,10 @@ public class SlimfinderOptionsPanel extends JPanel {
         slimfinderOptions.setDismask(disorderMakingCheckBox.isSelected());
         slimfinderOptions.setConsmask(conservationMakingCheckBox.isSelected());
         slimfinderOptions.setFeaturemask(featureMaskingCheckBox.isSelected());
-        slimfinderOptions.setCutoff(Double.parseDouble(probabililtyCutoffTextField.getText()));
+        slimfinderOptions.setCutoff(Double.parseDouble(lengthCutoffTextField.getText()));
         slimfinderOptions.setCustomParameters(customParametersTextArea.getText());
-        slimfinderOptions.setWalltime(walltimeTextField.getText());
+        slimfinderOptions.setAmbiguity(ambiguityCheckBox.isSelected());
+        slimfinderOptions.setWidlcard(Integer.parseInt(wildcardCutoffTextField.getText()));
         return slimfinderOptions;
     }
 

@@ -127,7 +127,7 @@ public class QSlimfinderRunPanel extends JPanel{
         gbc_motifLabel.gridy = 1;
         slimSearchOptionsPanel.add(motifLabel, gbc_motifLabel);
 
-        JButton runSLiMFinderButton = new JButton("Run");
+        JButton runSLiMFinderButton = new JButton("Run QSLiMFinder");
         GridBagConstraints gbc_runSLiMFinderButton = new GridBagConstraints();
         gbc_runSLiMFinderButton.anchor = GridBagConstraints.EAST;
         gbc_runSLiMFinderButton.insets = new Insets(0, 0, 5, 0);

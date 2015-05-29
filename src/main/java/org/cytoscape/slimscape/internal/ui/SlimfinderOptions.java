@@ -7,9 +7,11 @@ public class SlimfinderOptions {
 
     private boolean dismask;
     private double cutoff;
-    private String walltime;
+    private String length;
     private boolean consmask;
     boolean featuremask;
+    boolean ambiguity;
+    int wildcard;
 
     private String customParameters = "";
 
@@ -41,20 +43,28 @@ public class SlimfinderOptions {
         return consmask;
     }
 
+    public void setAmbiguity(boolean ambiguity) {
+        this.ambiguity = ambiguity;
+    }
+
+    public boolean getAmbiguity() {
+        return ambiguity;
+    }
+
+    public int getWildcard() {
+        return wildcard;
+    }
+
+    public void setWidlcard(int wildcard) {
+        this.wildcard = wildcard;
+    }
+
     public double getCutoff() {
         return cutoff;
     }
 
     public void setCutoff(double cutoff) {
         this.cutoff = cutoff;
-    }
-
-    public void setWalltime(String walltime) {
-        this.walltime = walltime;
-    }
-
-    public String getWalltime() {
-        return walltime;
     }
 
     public void setCustomParameters(String customParameters) {

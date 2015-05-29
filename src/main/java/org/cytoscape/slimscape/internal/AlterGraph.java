@@ -156,18 +156,39 @@ public class AlterGraph {
                                VisualMappingManager visualMappingManager) {
         CyNetworkView networkView =  manager.getCurrentNetworkView();
 
-        List<CyNode> nodes = new ArrayList<CyNode>();
+        // Get the nodes to be changing, and record how many SLiMs are there
+        Map<CyNode, Integer> slimNodes = new HashMap<CyNode, Integer>();
+        for (String id : occNodes) {
+            if (nodeIds.containsKey(id)) {
+                CyNode node = nodeIds.get(id); // We should have the node here
+                if (slimNodes.containsKey(node)) {
+                    slimNodes.put(node, slimNodes.get(node)+1);
+                } else {
+                    slimNodes.put(node, 1);
+                }
+            }
+        }
+
+/*        List<CyNode> nodes = new ArrayList<CyNode>();
         for (String id : occNodes) {
             if (nodeIds.containsKey(id)) {
                 CyNode node = nodeIds.get(id); // We should have the node here
                 nodes.add(node);
             }
         }
-
-        for (CyNode node : nodes) {
+*/
+        // Alter the nodes accordingly.
+        for (CyNode node : slimNodes.keySet()) {
             View<CyNode> nodeView = networkView.getNodeView(node);
 
-            nodeView.setLockedValue(BasicVisualLexicon.NODE_FILL_COLOR, Color.RED);
+            // The colour of the nodes changes depending on the number of SLiMs present.
+            // More SLiMs means a darker colour
+            if (slimNodes.get(node) == 1) {
+                nodeView.setLockedValue(BasicVisualLexicon.NODE_FILL_COLOR, Color.RED);
+            } else {
+                nodeView.setLockedValue(BasicVisualLexicon.NODE_FILL_COLOR, new Color(180, 0, 0));
+
+            }
             nodeView.setLockedValue(BasicVisualLexicon.NODE_SHAPE, NodeShapeVisualProperty.DIAMOND);
             nodeView.setLockedValue(BasicVisualLexicon.NODE_BORDER_PAINT, Color.BLACK);
             nodeView.setLockedValue(BasicVisualLexicon.NODE_SIZE, 60.0);

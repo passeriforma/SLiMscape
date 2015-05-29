@@ -73,7 +73,7 @@ public class SlimfinderRunPanel extends JPanel {
 
         JPanel sLiMFinderPanel = new JPanel();
         sLiMFinderPanel.setBorder(BorderFactory.createCompoundBorder(
-                new TitledBorder("Run"),
+                new TitledBorder("Run SLiMFinder"),
                 new EmptyBorder(0, 0, 0, 20)));
         GridBagConstraints gbc_sLiMFinderPanel = new GridBagConstraints();
         gbc_sLiMFinderPanel.fill = GridBagConstraints.BOTH;

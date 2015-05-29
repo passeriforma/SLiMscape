@@ -57,9 +57,10 @@ public class RunSlimfinder {
         boolean dismask = options.getDismask();
         boolean conservation = options.getConsmask();
         boolean featuremask = options.getFeaturemask();
-        String walltime = options.getWalltime();
+        boolean ambiguity = options.getAmbiguity();
         double cutoff = options.getCutoff();
         String custom = options.getCustomParameters();
+        int wildcard = options.getWildcard();
 
         StringBuilder stringBuilder = new StringBuilder("http://rest.slimsuite.unsw.edu.au/slimfinder");
 
@@ -85,15 +86,22 @@ public class RunSlimfinder {
             stringBuilder.append(featuremaskS + "F");
         }
 
-        stringBuilder.append("&probcut=" + cutoff);
+        String ambiguityS = "&ambiguity=";
+        if (ambiguity) {
+            stringBuilder.append(ambiguityS + "T");
+        } else {
+            stringBuilder.append(ambiguityS + "F");
+        }
 
-        stringBuilder.append("&walltime=" + walltime);
+        stringBuilder.append("&slimlen=" + cutoff);
 
         if (custom.length() > 0) {
             custom = custom.replace("\n", "&");
             custom = custom.replace(" ", "");
             stringBuilder.append("&" + custom);
         }
+
+        stringBuilder.append("&maxwild=" + wildcard);
 
         String ids = "&uniprotid=";
         for (String id : uniprotIDs) {
