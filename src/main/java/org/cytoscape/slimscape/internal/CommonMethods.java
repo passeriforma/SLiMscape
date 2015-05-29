@@ -322,21 +322,21 @@ public class CommonMethods {
             } else {
                 in.close();
                 String[] options = new String[3];
-                options[0] = "Reload";
+                options[0] = "Check";
                 options[1] = "Monitor";
                 options[2] = "Stop";
                 int option = JOptionPane.showOptionDialog(null, "Your job (ID: " + id + ") is queued or " +
-                        "running on the SLiMSuite server. This may take some time. \nYou can Reload this box to check " +
-                        "for completion, or monitor progress at that REST server:\n" +
-                        "rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id + ".\n" +
+                        "running on the SLiMSuite server. This may take some time. \nYou can Check " +
+                        "for completion, or monitor progress at that REST server: " +
+                        "by clicking Monitor.\n" +
                         "To continue using Cytoscape in the meantime," +
-                        " press Stop and enter the Job ID in \nSLiMScape later to check progress or retrieve results.",
+                        " press Stop and enter the Job ID in SLiMScape \nlater to check progress or retrieve results.",
                         "Job In Progress", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
 
 
                 if (option == JOptionPane.CANCEL_OPTION) { // Stop
                     JOptionPane
-                            .showMessageDialog(null, "Your run ID is: " + id + ". \nTo look at the status of your run,"
+                            .showMessageDialog(null, "Your run ID is: " + id + ". \n\nTo look at the status of your run,"
                                     + " you can monitor progress on the servers at: \n"
                                     + "rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
                     return -1;
