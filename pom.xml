@@ -9,7 +9,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>slimscape</groupId>
 	<artifactId>slimscape-impl</artifactId>
-	<version>1.3</version>
+	<version>1.4.1</version>
 	<name>SLiMScape</name>
 	<packaging>bundle</packaging>
 
