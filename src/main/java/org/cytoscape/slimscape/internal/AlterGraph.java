@@ -99,10 +99,21 @@ public class AlterGraph {
      */
     public void addNodes (List<String> uniprotIDs, Map<String, CyNode> nodeIds, CyNetwork newNetwork,
                           CyNetworkViewManager networkViewManager, CyApplicationManager manager) {
+
+        // Make the node table, and add appropriate columns
+        CyTable table = newNetwork.getDefaultNodeTable();
+        table.createColumn("Gene", String.class, false);
+        table.createColumn("Species", String.class, false);
+        table.createColumn("ID", String.class, false);
+
+        // Add the nodes and their attributes
         for (String id : uniprotIDs) {
             if (!nodeIds.containsKey(id)) {
                 CyNode node = newNetwork.addNode();
-                newNetwork.getDefaultNodeTable().getRow(node.getSUID()).set("name", id.split("_")[3]);
+                table.getRow(node.getSUID()).set("Gene", id.split("_")[0]);
+                table.getRow(node.getSUID()).set("Species", id.split("_")[1]);
+                table.getRow(node.getSUID()).set("ID", id.split("_")[3]);
+                table.getRow(node.getSUID()).set("name", id.split("_")[3]);
                 nodeIds.put(id, node);
             }
         }
