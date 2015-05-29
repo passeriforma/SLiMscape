@@ -309,8 +309,6 @@ public class SlimprobRunPanel extends JPanel {
         // Create button to take users to the full results
         JButton fullResults = new JButton();
         fullResults.setText("Full results");
-        fullResults.setBorderPainted(false);
-        fullResults.setOpaque(false);
         fullResults.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 openBrowser.openURL("http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id);
@@ -320,8 +318,6 @@ public class SlimprobRunPanel extends JPanel {
         // Create button to take users to the help page on github
         JButton help = new JButton();
         help.setText("Help");
-        help.setBorderPainted(false);
-        help.setOpaque(false);
         help.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 openBrowser.openURL("https://github.com/RayneCatseye/SLiMscape/wiki/SLiMProb");

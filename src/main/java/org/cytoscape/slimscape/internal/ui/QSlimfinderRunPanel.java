@@ -305,8 +305,6 @@ public class QSlimfinderRunPanel extends JPanel{
         // Create button to take users to the full results
         JButton fullResults = new JButton();
         fullResults.setText("Full results");
-        fullResults.setBorderPainted(false);
-        fullResults.setOpaque(false);
         fullResults.setBackground(Color.WHITE);
         fullResults.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -317,8 +315,6 @@ public class QSlimfinderRunPanel extends JPanel{
         // Create button to take users to the help page on github
         JButton help = new JButton();
         help.setText("Help");
-        help.setBorderPainted(false);
-        help.setOpaque(false);
         help.setBackground(Color.WHITE);
         help.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

@@ -55,7 +55,7 @@ public class ResultsPanel extends JPanel {
 
         closeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int panelIndex = slimparent.indexOfTab("Run " + id + " Results");
+                int panelIndex = slimparent.indexOfTab(id);
                 slimparent.removeTabAt(panelIndex);
             }
         });
