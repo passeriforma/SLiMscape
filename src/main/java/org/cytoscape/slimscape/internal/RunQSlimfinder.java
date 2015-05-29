@@ -104,7 +104,9 @@ public class RunQSlimfinder {
 
         String ids = "&uniprotid=";
         for (String id : uniprotIDs) {
-            ids = ids + id + ",";
+            if (id != query) {
+                ids = ids + id + ",";
+            }
         }
         ids = ids.substring(0, ids.length() - 1);
         stringBuilder.append(ids);
