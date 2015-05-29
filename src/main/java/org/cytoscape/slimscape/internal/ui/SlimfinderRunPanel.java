@@ -73,7 +73,7 @@ public class SlimfinderRunPanel extends JPanel {
 
         JPanel sLiMFinderPanel = new JPanel();
         sLiMFinderPanel.setBorder(BorderFactory.createCompoundBorder(
-                new TitledBorder("Run SLiMFinder"),
+                new TitledBorder("Run"),
                 new EmptyBorder(0, 0, 0, 20)));
         GridBagConstraints gbc_sLiMFinderPanel = new GridBagConstraints();
         gbc_sLiMFinderPanel.fill = GridBagConstraints.BOTH;
@@ -323,7 +323,7 @@ public class SlimfinderRunPanel extends JPanel {
 
         // Display the results in a panel
         JPanel resultsPane = new ResultsPanel(new JScrollPane(csv), new JScrollPane(occ), fullResults, help, slimfinder, id);
-        slimfinder.add("Run " + id + " Results", resultsPane);
+        slimfinder.add(id, resultsPane);
     }
 
 }

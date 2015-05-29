@@ -134,7 +134,7 @@ public class SlimprobRunPanel extends JPanel {
         gbc_motifLabel.gridy = 1;
         slimprobOptionsPanel.add(motifLabel, gbc_motifLabel);
 
-        JButton runSlimprobButton = new JButton("Run SLiMProb");
+        JButton runSlimprobButton = new JButton("Run");
         GridBagConstraints gbc_runSlimprobButton = new GridBagConstraints();
         gbc_runSlimprobButton.anchor = GridBagConstraints.EAST;
         gbc_runSlimprobButton.insets = new Insets(0, 0, 5, 0);
@@ -345,7 +345,7 @@ public class SlimprobRunPanel extends JPanel {
 
         // Display the results in a panel
         JPanel resultsPane = new ResultsPanel(new JScrollPane(csv), new JScrollPane(occ), fullResults, help, slimprob, id);
-        slimprob.add("Run " + id + " Results", resultsPane);
+        slimprob.add(id, resultsPane);
     }
 
     /**
