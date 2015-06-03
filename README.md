@@ -85,9 +85,6 @@ If the motif is found, the colour and shape of the target node will change.
 - Disorder Masking is used to mask residues which have an IUPred disorder score of less than 0.3
 - Conservation Masking is used to mask residues which have a relative local conservation score of less than X.
 
-**SLiMChance**
-- Probability Cutoff is the cutoff for returned motifs.
-
 **Custom Parameters**
 - Custom parameters can be used to add other command line arguments which can be found <a href="http://rest.slimsuite.unsw.edu.au/slimprob">here</a>.
 
@@ -104,11 +101,12 @@ It has no mandatory inputs other than a selection of graph nodes or a run ID. If
 - Conservation Masking is used to mask residues which have a relative local conservation score of less than X.
 - Feature Masking is used to mask residues which occur in features such as domains or transmembrane regions.
 
-**SLiMChance**
-- Probability Cutoff is the cutoff for returned motifs.
+**SLiMBuild**
+- Maximum SLiM length lets the user set the maximum length of SLiMs to return.
+- Maximum consecutive wildcards allows the user to alter the number of wildcards to return.
+- Ambiguous motifs either allows or disallows the returning of ambiguous motifs.
 
 **Miscellaneous Options**
-- Walltime is the maximum runtime of a single run.
 - Custom parameters is used to add other command line arguments which can be found <a href="http://rest.slimsuite.unsw.edu.au/slimfinder">here</a>.
 
 
@@ -124,9 +122,10 @@ QSLiMFinder requires a "Query" input; the Uniprot ID or Accession Number for the
 - Conservation Masking is used to mask residues which have a relative local conservation score of less than X.
 - Feature Masking is used to mask residues which occur in features such as domains or transmembrane regions.
 
-**SLiMChance**
-- Probability Cutoff is the cutoff for returned motifs.
+**SLiMBuild**
+- Maximum SLiM length lets the user set the maximum length of SLiMs to return.
+- Maximum consecutive wildcards allows the user to alter the number of wildcards to return.
+- Ambiguous motifs either allows or disallows the returning of ambiguous motifs.
 
 **Miscellaneous Options**
-- Walltime is the maximum runtime of a single run.
 - Custom parameters is used to add other command line arguments which can be found <a href="http://rest.slimsuite.unsw.edu.au/qslimfinder">here</a>.
