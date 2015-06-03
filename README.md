@@ -28,6 +28,10 @@ Once a search has been completed, the nodes that contain SLiMs will change from 
 If you want to pre generate a job on the Slimsuite servers, you can do that from <a href="http://rest.slimsuite.unsw.edu.au/">here</a>. If you do this, you can input the generated run ID to Cytoscape, and a graph will be generated for you! It's also handy for larger jobs that may take a while to finish.
 
 ##Results
+A run will produce both graph changes, and a results panel. 
+
+In the graph, nodes possessing SLiMs will become red diamonds; if a node has more than one SLiM it will be a daker shade of red.
+
 Results for SLiMProb are displayed in two panels. 
 
 **Main Results Panel** contains:
