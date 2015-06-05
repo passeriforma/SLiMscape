@@ -30,7 +30,7 @@ If you want to pre generate a job on the Slimsuite servers, you can do that from
 ##Results
 A run will produce both graph changes, and a results panel. 
 
-In the graph, nodes possessing SLiMs will become red diamonds; if a node has more than one SLiM it will be a daker shade of red.
+In the graph, nodes possessing SLiMs will become red diamonds; if a node has more than one SLiM it will be a daker shade of red. Note that *there is not currently a layout set automatically*, and the user will have to go to the layouts tab at the top of the page, and select one from there in order to see all of the nodes.
 
 Results for SLiMProb are displayed in two panels. 
 
