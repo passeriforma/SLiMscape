@@ -49,7 +49,7 @@ public class SlimprobOptionsPanel extends JPanel {
         maskingPanel.add(disorderMakingCheckBox, gbc_disorderMakingCheckBox);
 
         conservationCheckBox = new JCheckBox("Conservation Masking");
-        disorderMakingCheckBox.setSelected(true);
+        disorderMakingCheckBox.setSelected(false);
         GridBagConstraints gbc_conservationCheckBox = new GridBagConstraints();
         gbc_conservationCheckBox.anchor = GridBagConstraints.WEST;
         gbc_conservationCheckBox.insets = new Insets(0, 0, 0, 5);
@@ -82,9 +82,7 @@ public class SlimprobOptionsPanel extends JPanel {
     public SlimprobOptions getSlimprobOptions() {
         SlimprobOptions options = new SlimprobOptions();
         options.setDismask(disorderMakingCheckBox.isSelected());
-        options.setCutoff(Double.parseDouble(probabililtyCutoffTextField.getText()));
         options.setCustomParameters(customParametersTextArea.getText());
-        options.setConsmask(conservationCheckBox.isSelected());
         return options;
     }
 }

@@ -50,7 +50,7 @@ public class SlimfinderOptionsPanel extends JPanel {
         maskingPanel.add(disorderMakingCheckBox, gbc_disorderMakingCheckBox);
 
         this.conservationMakingCheckBox = new JCheckBox("Conservation Masking");
-        conservationMakingCheckBox.setSelected(true);
+        conservationMakingCheckBox.setSelected(false);
         GridBagConstraints gbc_conservationMakingCheckBox = new GridBagConstraints();
         gbc_conservationMakingCheckBox.insets = new Insets(0, 0, 5, 5);
         gbc_conservationMakingCheckBox.gridx = 0;
@@ -121,7 +121,7 @@ public class SlimfinderOptionsPanel extends JPanel {
         wildcardCutoffTextField.setColumns(10);
 
         this.ambiguityCheckBox = new JCheckBox("Ambiguous motifs");
-        ambiguityCheckBox.setSelected(false);
+        ambiguityCheckBox.setSelected(true);
         GridBagConstraints gbc_ambiguousCheckBox = new GridBagConstraints();
         gbc_ambiguousCheckBox.anchor = GridBagConstraints.WEST;
         gbc_ambiguousCheckBox.insets = new Insets(0, 0, 0, 5);
