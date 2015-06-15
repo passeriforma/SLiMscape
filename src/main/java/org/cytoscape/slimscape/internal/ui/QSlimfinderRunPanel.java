@@ -26,6 +26,7 @@ public class QSlimfinderRunPanel extends JPanel{
     JTextArea idTextArea = null;
     JTextArea queryTextArea = null;
     JTextArea uniprotTextArea = null;
+    JButton runSLiMFinderButton;
     CyApplicationManager manager;
     List<String> input;
     CyNetworkFactory networkFactory;
@@ -127,7 +128,7 @@ public class QSlimfinderRunPanel extends JPanel{
         gbc_motifLabel.gridy = 1;
         slimSearchOptionsPanel.add(motifLabel, gbc_motifLabel);
 
-        JButton runSLiMFinderButton = new JButton("Run QSLiMFinder");
+        runSLiMFinderButton = new JButton("Run QSLiMFinder");
         GridBagConstraints gbc_runSLiMFinderButton = new GridBagConstraints();
         gbc_runSLiMFinderButton.anchor = GridBagConstraints.EAST;
         gbc_runSLiMFinderButton.insets = new Insets(0, 0, 5, 0);
@@ -326,8 +327,11 @@ public class QSlimfinderRunPanel extends JPanel{
             occIds.add(string);
         }
 
+        String programName = runSLiMFinderButton.getText().split(" ")[1];
+        programName = programName + ' ' + id;
+
         // Alter the graph
-        new AlterGraph(nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,
+        new AlterGraph(programName, nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,
                 networkViewFactory, networkViewManager, visualMappingManager);
 
         // Display the results in a panel

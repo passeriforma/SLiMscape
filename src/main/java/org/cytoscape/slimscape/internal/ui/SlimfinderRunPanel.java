@@ -305,8 +305,11 @@ public class SlimfinderRunPanel extends JPanel {
             occIds.add(string);
         }
 
+        String programName = runSLiMFinderButton.getText().split(" ")[1];
+        programName = programName + ' ' + id;
+
         // Alter the graph
-        new AlterGraph(nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,
+        new AlterGraph(programName, nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,
                 networkViewFactory, networkViewManager, visualMappingManager);
 
         // Display the results in a panel

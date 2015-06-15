@@ -26,9 +26,10 @@ public class AlterGraph {
     CyNetworkViewFactory networkViewFactory;
     VisualMappingManager visualMappingManager;
 
-    public AlterGraph (List<String> uniprotIDs, List<String> occNodes, List<String> upc, CyApplicationManager manager, CyEventHelper eventHelper,
-                       CyNetworkFactory networkFactory, CyNetworkManager networkManager,
-                       CyNetworkViewFactory networkViewFactory, CyNetworkViewManager networkViewManager, VisualMappingManager visualMappingManager) {
+    public AlterGraph (String networkName, List<String> uniprotIDs, List<String> occNodes, List<String> upc, CyApplicationManager manager,
+                       CyEventHelper eventHelper, CyNetworkFactory networkFactory, CyNetworkManager networkManager,
+                       CyNetworkViewFactory networkViewFactory, CyNetworkViewManager networkViewManager,
+                       VisualMappingManager visualMappingManager) {
         this.uniprotIDs = uniprotIDs;
         this.upc = upc;
         this.manager = manager;
@@ -70,7 +71,7 @@ public class AlterGraph {
 
         } else { // No network, need to make a new one
             CyNetwork newNetwork = networkFactory.createNetwork();
-            newNetwork.getRow(newNetwork).set(CyNetwork.NAME, "SLiMOutput");
+            newNetwork.getRow(newNetwork).set(CyNetwork.NAME, networkName);
             networkManager.addNetwork(newNetwork);
 
             Map<String, CyNode> nodeIds = new HashMap<String, CyNode>();
