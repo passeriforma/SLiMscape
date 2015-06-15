@@ -62,8 +62,8 @@ public class CommonMethods {
                             inBraces = false;
                             builder.append(x);
                         } else if (x == ',' && inBraces) {
-                            builder.append(',');
-                        } else {
+                            builder.append('.');
+                        } else if (x != '"') {
                             builder.append(x);
                         }
                     }
