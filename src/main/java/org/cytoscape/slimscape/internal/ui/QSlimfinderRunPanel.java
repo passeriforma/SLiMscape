@@ -38,7 +38,7 @@ public class QSlimfinderRunPanel extends JPanel{
     JTabbedPane slimfinder;
 
     public QSlimfinderRunPanel(final CyApplicationManager manager, final OpenBrowser openBrowser,
-                              final SlimfinderOptionsPanel optionsPanel, final CyEventHelper eventHelper,
+                              final QSlimfinderOptionsPanel optionsPanel, final CyEventHelper eventHelper,
                               final CyNetworkFactory networkFactory, final CyNetworkManager networkManager,
                               final CyNetworkViewFactory networkViewFactory, final CyNetworkViewManager networkViewManager,
                               final VisualMappingManager visualMappingManager, JTabbedPane slimfinder) {

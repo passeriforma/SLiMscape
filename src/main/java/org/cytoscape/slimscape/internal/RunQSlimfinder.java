@@ -2,8 +2,8 @@ package org.cytoscape.slimscape.internal;
 
 import org.cytoscape.model.CyNetwork;
 import org.cytoscape.model.CyNode;
-import org.cytoscape.slimscape.internal.ui.SlimfinderOptions;
-import org.cytoscape.slimscape.internal.ui.SlimfinderOptionsPanel;
+import org.cytoscape.slimscape.internal.ui.QSlimfinderOptions;
+import org.cytoscape.slimscape.internal.ui.QSlimfinderOptionsPanel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class RunQSlimfinder {
     String url;
     String query;
 
-    public RunQSlimfinder(CyNetwork network, List<CyNode> selected, List<String> uniprotIDs, String query, SlimfinderOptionsPanel optionsPanel) {
+    public RunQSlimfinder(CyNetwork network, List<CyNode> selected, List<String> uniprotIDs, String query, QSlimfinderOptionsPanel optionsPanel) {
         this.network = network;
         this.query = query;
 
@@ -49,9 +49,9 @@ public class RunQSlimfinder {
      * @param uniprotIDs - list containing the Uniprot ids of all selected nodes
      * @return the constructed URL to be passed to the server
      */
-    public String constructUrl(SlimfinderOptionsPanel optionsPanel, List<String> uniprotIDs, String query) {
+    public String constructUrl(QSlimfinderOptionsPanel optionsPanel, List<String> uniprotIDs, String query) {
         // Get state of SlimsearchOptionsPanel
-        SlimfinderOptions options = optionsPanel.getSLiMFinderOptions();
+        QSlimfinderOptions options = optionsPanel.getQSLiMFinderOptions();
         boolean dismask = options.getDismask();
         boolean conservation = options.getConsmask();
         boolean featuremask = options.getFeaturemask();
