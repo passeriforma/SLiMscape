@@ -288,6 +288,9 @@ public class CommonMethods {
         int ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id, id, openBrowser);
         if (ready == -1) { // Pressed the "no" button, do not want to refresh
             return ready;
+        } else if (ready == -2) { // No run of that ID
+            JOptionPane.showMessageDialog(null, "This run does not exist on the servers. Please try again with another run ID.");
+            return ready;
         } else {
             while (ready != 1) {
                 ready = CommonMethods.jobReady("http://rest.slimsuite.unsw.edu.au/check&jobid=" + id, id, openBrowser);
@@ -306,6 +309,7 @@ public class CommonMethods {
      * @return - 1: Job is ready
      *           0: Job is not yet ready
      *           -1: Error/job is cancelled
+     *           -2: Job is missing
      */
     public static int jobReady (String url, String id, final OpenBrowser openBrowser) {
         String lineOne;
@@ -319,6 +323,8 @@ public class CommonMethods {
             if (lineOne.contains("Finished")) {
                 in.close();
                 return 1;
+            } else if(lineOne.contains("Missing")) {
+                return -2;
             } else {
                 in.close();
                 String[] options = new String[3];

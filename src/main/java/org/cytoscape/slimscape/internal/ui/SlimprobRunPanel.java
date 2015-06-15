@@ -221,7 +221,7 @@ public class SlimprobRunPanel extends JPanel {
                     int ready = CommonMethods.checkReady(id, openBrowser);
                     if (ready == 1) { // ready
                         resultProcessing(id);
-                    } else {
+                    } else if (ready != -2) {
                         JOptionPane.showMessageDialog(null, "This ID is still being processed. Please check back later.");
                     }
                 }
