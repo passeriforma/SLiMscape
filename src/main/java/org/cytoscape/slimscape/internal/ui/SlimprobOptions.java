@@ -7,6 +7,7 @@ public class SlimprobOptions {
     private boolean dismask;
     private String customParameters = "";
     private boolean consmask;
+    private boolean featuremask;
 
     public SlimprobOptions() {
         super();
@@ -26,6 +27,14 @@ public class SlimprobOptions {
 
     public void setConsmask(boolean consmask) {
         this.consmask = consmask;
+    }
+
+    public boolean getFeaturemask () {
+        return featuremask;
+    }
+
+    public void setFeaturemask(boolean featuremask) {
+        this.featuremask = featuremask;
     }
 
     public String getCustomParameters() {

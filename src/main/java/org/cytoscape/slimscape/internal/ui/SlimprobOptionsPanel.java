@@ -11,10 +11,10 @@ import java.awt.*;
  */
 public class SlimprobOptionsPanel extends JPanel {
 
-    private JTextField probabililtyCutoffTextField;
     private JCheckBox disorderMakingCheckBox;
     private JTextArea customParametersTextArea;
     private JCheckBox conservationCheckBox;
+    private JCheckBox featureMaskingCheckBox;
 
     public SlimprobOptionsPanel() {
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -52,10 +52,19 @@ public class SlimprobOptionsPanel extends JPanel {
         disorderMakingCheckBox.setSelected(false);
         GridBagConstraints gbc_conservationCheckBox = new GridBagConstraints();
         gbc_conservationCheckBox.anchor = GridBagConstraints.WEST;
-        gbc_conservationCheckBox.insets = new Insets(0, 0, 0, 5);
+        gbc_conservationCheckBox.insets = new Insets(0, 0, 5, 5);
         gbc_conservationCheckBox.gridx = 0;
         gbc_conservationCheckBox.gridy = 1;
         maskingPanel.add(conservationCheckBox, gbc_conservationCheckBox);
+
+        this.featureMaskingCheckBox = new JCheckBox("Feature Masking");
+        featureMaskingCheckBox.setSelected(false);
+        GridBagConstraints gbc_featureMaskingCheckBox = new GridBagConstraints();
+        gbc_featureMaskingCheckBox.anchor = GridBagConstraints.WEST;
+        gbc_featureMaskingCheckBox.insets = new Insets(0, 0, 5, 5);
+        gbc_featureMaskingCheckBox.gridx = 0;
+        gbc_featureMaskingCheckBox.gridy = 2;
+        maskingPanel.add(featureMaskingCheckBox, gbc_featureMaskingCheckBox);
 
         JPanel customPanel = new JPanel();
         customPanel.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Custom Parameters", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
@@ -84,6 +93,7 @@ public class SlimprobOptionsPanel extends JPanel {
         options.setDismask(disorderMakingCheckBox.isSelected());
         options.setConsmask(conservationCheckBox.isSelected());
         options.setCustomParameters(customParametersTextArea.getText());
+        options.setFeaturemask(featureMaskingCheckBox.isSelected());
         return options;
     }
 }
