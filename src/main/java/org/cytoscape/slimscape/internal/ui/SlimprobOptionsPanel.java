@@ -82,6 +82,7 @@ public class SlimprobOptionsPanel extends JPanel {
     public SlimprobOptions getSlimprobOptions() {
         SlimprobOptions options = new SlimprobOptions();
         options.setDismask(disorderMakingCheckBox.isSelected());
+        options.setConsmask(conservationCheckBox.isSelected());
         options.setCustomParameters(customParametersTextArea.getText());
         return options;
     }

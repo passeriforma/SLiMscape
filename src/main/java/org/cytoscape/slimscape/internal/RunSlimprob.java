@@ -55,6 +55,7 @@ public class RunSlimprob {
         // Get state of SlimprobOptionsPanel
         SlimprobOptions options = optionsPanel.getSlimprobOptions();
         boolean dismask = options.getDismask();
+        boolean consmask = options.getConsmask();
         String custom = options.getCustomParameters();
 
         StringBuilder stringBuilder = new StringBuilder("http://rest.slimsuite.unsw.edu.au/slimprob");
@@ -67,6 +68,13 @@ public class RunSlimprob {
             stringBuilder.append(dismaskS + "T");
         } else {
             stringBuilder.append(dismaskS + "F");
+        }
+
+        String consmaskS = "&dismask=";
+        if (consmask) {
+            stringBuilder.append(consmaskS + "T");
+        } else {
+            stringBuilder.append(consmaskS + "F");
         }
 
         if (custom.length() > 0) {
