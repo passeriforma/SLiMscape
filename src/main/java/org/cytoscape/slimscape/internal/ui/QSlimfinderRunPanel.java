@@ -339,11 +339,19 @@ public class QSlimfinderRunPanel extends JPanel{
             }
         }
 
+        // Obtain the patterns found
+        ArrayList<String> patterns = new ArrayList<String>();
+        for (int y=0; y<csv.getRowCount(); y++) {
+            Object pattern = csv.getModel().getValueAt(y, 2);
+            String patternString = String.valueOf(pattern);
+            patterns.add(patternString);
+        }
+
         String programName = runSLiMFinderButton.getText().split(" ")[1];
         programName = programName + ' ' + id;
 
         // Alter the graph
-        new AlterGraph(programName, nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,
+        new AlterGraph(programName, nodeIds, occIds, upc, patterns, manager, eventHelper, networkFactory, networkManager,
                 networkViewFactory, networkViewManager, visualMappingManager, adapter);
 
         // Display the results in a panel

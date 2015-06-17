@@ -343,11 +343,18 @@ public class SlimprobRunPanel extends JPanel {
             }
         }
 
+        // Obtain the patterns found
+        ArrayList<String> patterns = new ArrayList<String>();
+        Object pattern = occ.getModel().getValueAt(0, 0);
+        String patternString = String.valueOf(pattern);
+        patterns.add(patternString);
+        //JOptionPane.showMessageDialog(null, patterns);
+
         String programName = runSlimprobButton.getText().split(" ")[1];
         programName = programName + ' ' + id;
 
         // Alter the graph
-        new AlterGraph(programName, nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,
+        new AlterGraph(programName, nodeIds, occIds, upc, patterns, manager, eventHelper, networkFactory, networkManager,
                 networkViewFactory, networkViewManager, visualMappingManager, adapter);
 
         // Display the results in a panel

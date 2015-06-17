@@ -28,7 +28,8 @@ public class AlterGraph {
     VisualMappingManager visualMappingManager;
     CyAppAdapter adapter;
 
-    public AlterGraph (String networkName, List<String> uniprotIDs, Map<String, ArrayList<String>> occNodes, List<String> upc, CyApplicationManager manager,
+    public AlterGraph (String networkName, List<String> uniprotIDs, Map<String, ArrayList<String>> occNodes, List<String> upc,
+                       ArrayList<String> patterns, CyApplicationManager manager,
                        CyEventHelper eventHelper, CyNetworkFactory networkFactory, CyNetworkManager networkManager,
                        CyNetworkViewFactory networkViewFactory, CyNetworkViewManager networkViewManager,
                        VisualMappingManager visualMappingManager, CyAppAdapter adapter) {
@@ -81,6 +82,7 @@ public class AlterGraph {
 
             try {
                 // Creates the graph
+                addNodeTable(uniprotIDs, nodeIds, occNodes, patterns, newNetwork);
                 addNodes(uniprotIDs, nodeIds, newNetwork, networkViewManager, manager);
                 SLiMNodeStyle(occNodes, nodeIds, manager, visualMappingManager);
                 addUpcConnections(upc, nodeIds, newNetwork);
@@ -99,21 +101,23 @@ public class AlterGraph {
     }
 
     /**
-     * @desc - Adds nodes to the protein network from the information returned by the Slim* run.
+     * @desc - Adds the node table for the protein network about to be input.
      * @param uniprotIDs - list of all Uniprot IDs input to the returned run.
      * @param nodeIds - map linking all selected Uniprot IDs to their CyNodes, for easy access to the network.
      * @param newNetwork - CyNetwork of the network being altered.
-     * @param networkViewManager - NetworkViewManager for the network being altered. Initialised in CyActivator.
-     * @param manager - CyApplicationManager for the network being altered. Initialised in CyActivator.
      */
-    public void addNodes (List<String> uniprotIDs, Map<String, CyNode> nodeIds, CyNetwork newNetwork,
-                          CyNetworkViewManager networkViewManager, CyApplicationManager manager) {
+    public void addNodeTable (List<String> uniprotIDs, Map<String, CyNode> nodeIds, Map<String, ArrayList<String>> occNodes,
+                              ArrayList<String> patterns, CyNetwork newNetwork) {
 
         // Make the node table, and add appropriate columns
         CyTable table = newNetwork.getDefaultNodeTable();
         table.createColumn("Gene", String.class, false);
         table.createColumn("Species", String.class, false);
         table.createColumn("ID", String.class, false);
+
+        for (String pattern : patterns) {
+            table.createColumn(pattern, Integer.class, false);
+        }
 
         // Add the nodes and their attributes
         for (String id : uniprotIDs) {
@@ -123,10 +127,44 @@ public class AlterGraph {
                 table.getRow(node.getSUID()).set("Species", id.split("_")[1]);
                 table.getRow(node.getSUID()).set("ID", id.split("_")[3]);
                 table.getRow(node.getSUID()).set("name", id.split("_")[3]);
+
+                if (occNodes.containsKey(id)) {
+                    ArrayList<String> patt = occNodes.get(id);
+                    HashMap<String, Integer> occurrences = new HashMap<String, Integer>();
+                    for (String pattern : patterns) {
+                        occurrences.put(pattern, 0);
+                    }
+                    for (String pattern : patt) {
+                        occurrences.put(pattern, occurrences.get(pattern)+1);
+                    }
+                    for (String pattern : patterns) {
+                        try {
+                            table.getRow(node.getSUID()).set(pattern, occurrences.get(pattern));
+                        } catch (Exception e) {
+                            table.getRow(node.getSUID()).set(pattern, 0);
+                        }
+                    }
+                } else {
+                    for (String pattern : patterns) {
+                        table.getRow(node.getSUID()).set(pattern, 0);
+                    }
+                }
                 nodeIds.put(id, node);
             }
         }
         eventHelper.flushPayloadEvents();
+    }
+
+    /**
+     * @desc - Adds nodes to the protein network from the information returned by the Slim* run.
+     * @param uniprotIDs - list of all Uniprot IDs input to the returned run.
+     * @param nodeIds - map linking all selected Uniprot IDs to their CyNodes, for easy access to the network.
+     * @param newNetwork - CyNetwork of the network being altered.
+     * @param networkViewManager - NetworkViewManager for the network being altered. Initialised in CyActivator.
+     * @param manager - CyApplicationManager for the network being altered. Initialised in CyActivator.
+     */
+    public void addNodes (List<String> uniprotIDs, Map<String, CyNode> nodeIds, CyNetwork newNetwork,
+                          CyNetworkViewManager networkViewManager, CyApplicationManager manager) {
 
         // Add network view
         final Collection<CyNetworkView> views = networkViewManager.getNetworkViews(newNetwork);
@@ -153,6 +191,7 @@ public class AlterGraph {
             nodeView.setLockedValue(BasicVisualLexicon.NODE_SIZE, 60.0);
         }
     }
+
 
     /**
      * @desc - Alters the visual style of the nodes which are known to contain SLiMs.
@@ -202,6 +241,7 @@ public class AlterGraph {
         style.apply(networkView);
         networkView.updateView();
     }
+
 
     /**
      * @desc - Function to add UPC connections to a Cytoscape network.

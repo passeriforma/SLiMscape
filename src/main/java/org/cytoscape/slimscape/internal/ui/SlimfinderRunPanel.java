@@ -300,6 +300,7 @@ public class SlimfinderRunPanel extends JPanel {
         JTable csv = CommonMethods.createCsvTable(csvResults);
         JTable occ = CommonMethods.createOccTable(occResults);
 
+        // Obtain which nodes have which patterns in them
         Map<String, ArrayList<String>> occIds = new HashMap<String, ArrayList<String>>();
         for (int y=0; y<occ.getRowCount(); y++) {
             Object name = occ.getModel().getValueAt(y, 2);
@@ -317,11 +318,19 @@ public class SlimfinderRunPanel extends JPanel {
             }
         }
 
-        String programName = runSLiMFinderButton.getText().split(" ")[1];
+        // Obtain the patterns found
+        ArrayList<String> patterns = new ArrayList<String>();
+        for (int y=0; y<csv.getRowCount(); y++) {
+            Object pattern = csv.getModel().getValueAt(y, 2);
+            String patternString = String.valueOf(pattern);
+            patterns.add(patternString);
+        }
+
+            String programName = runSLiMFinderButton.getText().split(" ")[1];
         programName = programName + ' ' + id;
 
         // Alter the graph
-        new AlterGraph(programName, nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,
+        new AlterGraph(programName, nodeIds, occIds, upc, patterns, manager, eventHelper, networkFactory, networkManager,
                 networkViewFactory, networkViewManager, visualMappingManager, adapter);
 
         // Display the results in a panel
