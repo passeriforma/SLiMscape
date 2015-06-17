@@ -1,5 +1,7 @@
-#SLiMscape
+#SLiMScape
 SLiMScape, a <a href="http://www.cytoscape.org/">Cytoscape</a> plugin, is a platform for performing short linear motif analyses of protein interaction networks by integrating motif discovery and search tools in a network visualization environment. This aims to aid in the discovery of novel short linear motifs, as well as visualisation of the distribution of known motifs.
+
+This readme gives an overview of the key SLiMScape features. More information can be found at the [SLiMScape GitHub wiki](https://github.com/slimsuite/SLiMScape/wiki) and the [SLiMSuite blog](http://slimsuite.blogspot.com.au/).
 
 ##Installation
 To install, simply navigate to the <a href="http://apps.cytoscape.org/apps/slimscape">Cytoscape App Store</a> and click the install button. This will add the app to your local Cytoscape version.
@@ -22,6 +24,8 @@ An example input with a run ID is:
 <table>
 <tr><td>Run ID:</td><td>15020400003 (SLiMProb run)</td></tr>
 </table>
+
+SLiMProb will also need query motif input in the form of regular expressions (see [FAQs](https://github.com/slimsuite/SLiMScape/wiki/FAQ) for details).
 
 Once a search has been completed, the nodes that contain SLiMs will change from the default blue circles to red diamonds. The rest of the nodes will remain as they were.
 
