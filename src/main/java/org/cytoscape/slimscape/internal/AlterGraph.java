@@ -28,7 +28,7 @@ public class AlterGraph {
     VisualMappingManager visualMappingManager;
     CyAppAdapter adapter;
 
-    public AlterGraph (String networkName, List<String> uniprotIDs, List<String> occNodes, List<String> upc, CyApplicationManager manager,
+    public AlterGraph (String networkName, List<String> uniprotIDs, Map<String, ArrayList<String>> occNodes, List<String> upc, CyApplicationManager manager,
                        CyEventHelper eventHelper, CyNetworkFactory networkFactory, CyNetworkManager networkManager,
                        CyNetworkViewFactory networkViewFactory, CyNetworkViewManager networkViewManager,
                        VisualMappingManager visualMappingManager, CyAppAdapter adapter) {
@@ -64,10 +64,10 @@ public class AlterGraph {
                 }
             }
 
-            List<String> occ = new ArrayList<String>();
-            for (String occNode : occNodes) {
+            Map<String, ArrayList<String>> occ = null;
+            for (String occNode : occNodes.keySet()) {
                 String id = occNode.split("_")[3];
-                occ.add(id);
+                occ.put(id, occNodes.get(id));
             }
 
             SLiMNodeStyle(occ, nodeIds, manager, visualMappingManager);
@@ -161,31 +161,26 @@ public class AlterGraph {
      * @param manager - CyApplicationManager for the network being altered. Initialised in CyActivator.
      * @param visualMappingManager - VisualMappingManager for the network. Initialised in CyActivator.
      */
-    public void SLiMNodeStyle (List<String> occNodes, Map<String, CyNode> nodeIds, CyApplicationManager manager,
+    public void SLiMNodeStyle (Map<String, ArrayList<String>> occNodes, Map<String, CyNode> nodeIds, CyApplicationManager manager,
                                VisualMappingManager visualMappingManager) {
         CyNetworkView networkView =  manager.getCurrentNetworkView();
 
         // Get the nodes to be changing, and record how many SLiMs are there
         Map<CyNode, Integer> slimNodes = new HashMap<CyNode, Integer>();
-        for (String id : occNodes) {
+        for (String id : occNodes.keySet()) {
             if (nodeIds.containsKey(id)) {
                 CyNode node = nodeIds.get(id); // We should have the node here
-                if (slimNodes.containsKey(node)) {
-                    slimNodes.put(node, slimNodes.get(node)+1);
-                } else {
-                    slimNodes.put(node, 1);
+                if (!slimNodes.containsKey(node)) { //TODO: Check this works
+                    ArrayList<String> patterns = occNodes.get(id);
+                    Set<String> noDupl = new HashSet<String>();
+                    noDupl.addAll(patterns);
+                    patterns.clear();
+                    patterns.addAll(noDupl);
+                    slimNodes.put(node, patterns.size());
                 }
             }
         }
 
-/*        List<CyNode> nodes = new ArrayList<CyNode>();
-        for (String id : occNodes) {
-            if (nodeIds.containsKey(id)) {
-                CyNode node = nodeIds.get(id); // We should have the node here
-                nodes.add(node);
-            }
-        }
-*/
         // Alter the nodes accordingly.
         for (CyNode node : slimNodes.keySet()) {
             View<CyNode> nodeView = networkView.getNodeView(node);

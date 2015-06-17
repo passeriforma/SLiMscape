@@ -21,8 +21,7 @@ import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
 
 /*
@@ -327,11 +326,21 @@ public class SlimprobRunPanel extends JPanel {
         JTable csv = slimprobCreateCsvTable(csvResults);
         JTable occ = CommonMethods.createOccTable(occResults);
 
-        List<String> occIds = new ArrayList<String>();
+        Map<String, ArrayList<String>> occIds = new HashMap<String, ArrayList<String>>();
         for (int y=0; y<occ.getRowCount(); y++) {
-            Object current = occ.getModel().getValueAt(y, 1);
-            String string = String.valueOf(current);
-            occIds.add(string);
+            Object name = occ.getModel().getValueAt(y, 1);
+            String nameString = String.valueOf(name);
+            Object pattern = occ.getModel().getValueAt(y, 0);
+            String patternString = String.valueOf(pattern);
+            if (!occIds.containsKey(nameString)) {
+                ArrayList<String> patt = new ArrayList<String>();
+                patt.add(patternString);
+                occIds.put(nameString, patt);
+            } else {
+                ArrayList<String> patt = occIds.get(nameString);
+                patt.add(patternString);
+                occIds.put(nameString, patt);
+            }
         }
 
         String programName = runSlimprobButton.getText().split(" ")[1];
