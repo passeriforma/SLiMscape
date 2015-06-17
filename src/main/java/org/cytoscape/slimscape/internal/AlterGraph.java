@@ -1,5 +1,6 @@
 package org.cytoscape.slimscape.internal;
 
+import org.cytoscape.app.CyAppAdapter;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.event.CyEventHelper;
 import org.cytoscape.model.*;
@@ -25,11 +26,12 @@ public class AlterGraph {
     CyNetworkManager networkManager;
     CyNetworkViewFactory networkViewFactory;
     VisualMappingManager visualMappingManager;
+    CyAppAdapter adapter;
 
     public AlterGraph (String networkName, List<String> uniprotIDs, List<String> occNodes, List<String> upc, CyApplicationManager manager,
                        CyEventHelper eventHelper, CyNetworkFactory networkFactory, CyNetworkManager networkManager,
                        CyNetworkViewFactory networkViewFactory, CyNetworkViewManager networkViewManager,
-                       VisualMappingManager visualMappingManager) {
+                       VisualMappingManager visualMappingManager, CyAppAdapter adapter) {
         this.uniprotIDs = uniprotIDs;
         this.upc = upc;
         this.manager = manager;
@@ -37,6 +39,7 @@ public class AlterGraph {
         this.networkManager = networkManager;
         this.networkViewFactory = networkViewFactory;
         this.visualMappingManager = visualMappingManager;
+        this.adapter = adapter;
 
         int nodeSize = 0;
 
@@ -83,6 +86,11 @@ public class AlterGraph {
                 addUpcConnections(upc, nodeIds, newNetwork);
 
                 networkManager.addNetwork(newNetwork);
+
+
+                //CyLayoutAlgorithmManager alMan = adapter.getCyLayoutAlgorithmManager();
+                //CyLayoutAlgorithm algor = alMan.getDefaultLayout();
+
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex);
             }

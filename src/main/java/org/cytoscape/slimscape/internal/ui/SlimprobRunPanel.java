@@ -1,5 +1,6 @@
 package org.cytoscape.slimscape.internal.ui;
 
+import org.cytoscape.app.CyAppAdapter;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.event.CyEventHelper;
 import org.cytoscape.model.*;
@@ -42,6 +43,7 @@ public class SlimprobRunPanel extends JPanel {
     CyNetworkViewManager networkViewManager;
     VisualMappingManager visualMappingManager;
     JTabbedPane slimprob;
+    CyAppAdapter adapter;
 
 	/**
 	 * Create the panel.
@@ -50,7 +52,7 @@ public class SlimprobRunPanel extends JPanel {
                             final SlimprobOptionsPanel optionsPanel, final CyEventHelper eventHelper,
                             final CyNetworkFactory networkFactory, final CyNetworkManager networkManager,
                             final CyNetworkViewFactory networkViewFactory, final CyNetworkViewManager networkViewManager,
-                            final VisualMappingManager visualMappingManager, final JTabbedPane slimprob) {
+                            final VisualMappingManager visualMappingManager, final CyAppAdapter adapter, JTabbedPane slimprob) {
 
         this.openBrowser = openBrowser;
         this.manager = manager;
@@ -63,6 +65,7 @@ public class SlimprobRunPanel extends JPanel {
         this.eventHelper = eventHelper;
         this.openBrowser = openBrowser;
         this.slimprob = slimprob;
+        this.adapter = adapter;
 
 
         setBackground(new Color(238, 238, 238));
@@ -336,7 +339,7 @@ public class SlimprobRunPanel extends JPanel {
 
         // Alter the graph
         new AlterGraph(programName, nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,
-                networkViewFactory, networkViewManager, visualMappingManager);
+                networkViewFactory, networkViewManager, visualMappingManager, adapter);
 
         // Display the results in a panel
         JPanel resultsPane = new ResultsPanel(new JScrollPane(csv), new JScrollPane(occ), fullResults, help, slimprob, id);

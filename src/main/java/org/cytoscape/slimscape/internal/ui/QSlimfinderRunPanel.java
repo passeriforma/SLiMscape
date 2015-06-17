@@ -1,5 +1,6 @@
 package org.cytoscape.slimscape.internal.ui;
 
+import org.cytoscape.app.CyAppAdapter;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.event.CyEventHelper;
 import org.cytoscape.model.*;
@@ -37,12 +38,13 @@ public class QSlimfinderRunPanel extends JPanel{
     CyEventHelper eventHelper;
     OpenBrowser openBrowser;
     JTabbedPane slimfinder;
+    CyAppAdapter adapter;
 
     public QSlimfinderRunPanel(final CyApplicationManager manager, final OpenBrowser openBrowser,
                               final QSlimfinderOptionsPanel optionsPanel, final CyEventHelper eventHelper,
                               final CyNetworkFactory networkFactory, final CyNetworkManager networkManager,
                               final CyNetworkViewFactory networkViewFactory, final CyNetworkViewManager networkViewManager,
-                              final VisualMappingManager visualMappingManager, JTabbedPane slimfinder) {
+                              final VisualMappingManager visualMappingManager, final CyAppAdapter adapter, JTabbedPane slimfinder) {
         this.networkFactory = networkFactory;
         this.manager = manager;
         this.networkManager = networkManager;
@@ -52,6 +54,7 @@ public class QSlimfinderRunPanel extends JPanel{
         this.eventHelper = eventHelper;
         this.openBrowser = openBrowser;
         this.slimfinder = slimfinder;
+        this.adapter = adapter;
 
         setBackground(new Color(238, 238, 238));
         GridBagLayout gridBagLayout = new GridBagLayout();
@@ -332,7 +335,7 @@ public class QSlimfinderRunPanel extends JPanel{
 
         // Alter the graph
         new AlterGraph(programName, nodeIds, occIds, upc, manager, eventHelper, networkFactory, networkManager,
-                networkViewFactory, networkViewManager, visualMappingManager);
+                networkViewFactory, networkViewManager, visualMappingManager, adapter);
 
         // Display the results in a panel
         JPanel resultsPane = new ResultsPanel(new JScrollPane(csv), new JScrollPane(occ), fullResults, help, slimfinder, id);
