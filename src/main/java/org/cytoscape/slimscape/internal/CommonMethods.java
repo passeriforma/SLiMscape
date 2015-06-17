@@ -191,9 +191,9 @@ public class CommonMethods {
         for (int i = 0; i < abbreviated.size(); i++) {
             column = table.getColumnModel().getColumn(i);
             if (i == 2) {
-                column.setMinWidth(100);
+                column.setMinWidth(30);
             } else {
-                column.setMinWidth(50);
+                column.setMinWidth(30);
             }
         }
         return table;
@@ -235,7 +235,7 @@ public class CommonMethods {
         TableColumn column;
         for (int i = 0; i < abbreviated.size(); i++) {
             column = table.getColumnModel().getColumn(i);
-            column.setMinWidth(100);
+            column.setMinWidth(30);
         }
 
         return table;

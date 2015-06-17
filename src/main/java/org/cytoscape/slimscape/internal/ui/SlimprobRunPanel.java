@@ -389,7 +389,7 @@ public class SlimprobRunPanel extends JPanel {
         TableColumn column;
         for (int i = 0; i < abbreviated.size(); i++) {
             column = table.getColumnModel().getColumn(i);
-            column.setMinWidth(50);
+            column.setMinWidth(30);
         }
         return table;
     }
