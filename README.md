@@ -25,7 +25,7 @@ An example input with a run ID is:
 <tr><td>Run ID:</td><td>15020400003 (SLiMProb run)</td></tr>
 </table>
 
-SLiMProb will also need query motif input in the form of regular expressions.
+SLiMProb will also need query motif input in the form of regular expressions (see [FAQs](https://github.com/slimsuite/SLiMScape/wiki/FAQ) for details).
 
 Once a search has been completed, the nodes that contain SLiMs will change from the default blue circles to red diamonds. The rest of the nodes will remain as they were.
 
