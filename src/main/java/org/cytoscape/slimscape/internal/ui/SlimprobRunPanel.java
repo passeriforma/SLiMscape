@@ -374,9 +374,9 @@ public class SlimprobRunPanel extends JPanel {
         JTable table;
         List<String> names = Arrays.asList(input.get(0).split(","));
             int s = names.size();
-        List<String> abbreviated = new ArrayList<String>(names.subList(s-15, s-11));
-        List<String> abbreviated1 = new ArrayList<String>(names.subList(s-8, s-7));
-        List<String> abbreviated2 = new ArrayList<String>(names.subList(s-4, s));
+        List<String> abbreviated = new ArrayList<String>(names.subList(7, 11));
+        List<String> abbreviated1 = new ArrayList<String>(names.subList(14, 15));
+        List<String> abbreviated2 = new ArrayList<String>(names.subList(18, 22));
         abbreviated.addAll(abbreviated1);
         abbreviated.addAll(abbreviated2);
         Object columnNames[] = new String[abbreviated.size()];
@@ -395,9 +395,9 @@ public class SlimprobRunPanel extends JPanel {
             while (line.size() < names.size()) {
                 line.add(" ");
             }
-            List<String> abbreviate = new ArrayList<String>(line.subList(s-15, s-11));
-            List<String> abbreviate1 = new ArrayList<String>(line.subList(s-8, s-7));
-            List<String> abbreviate2 = new ArrayList<String>(line.subList(s-4, s));
+            List<String> abbreviate = new ArrayList<String>(line.subList(7, 11));
+            List<String> abbreviate1 = new ArrayList<String>(line.subList(14, 15));
+            List<String> abbreviate2 = new ArrayList<String>(line.subList(18, 22));
             abbreviate.addAll(abbreviate1);
             abbreviate.addAll(abbreviate2);
             Object lineObject[] = new String[abbreviate.size()];
