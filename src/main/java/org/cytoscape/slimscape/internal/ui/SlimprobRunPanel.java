@@ -241,7 +241,8 @@ public class SlimprobRunPanel extends JPanel {
                     String motif = motifTextArea.getText();
                     // Strings have to be comma+space delineated ONLY
                     List<String> ids = Arrays.asList(input.split(",\\s+|\\s+"));
-                    RunSlimprob slimprob = new RunSlimprob(network, null, ids, motif, optionsPanel);
+                    List<String> motifs = Arrays.asList(motif.split(",\\s+|\\s+"));
+                    RunSlimprob slimprob = new RunSlimprob(network, null, ids, motifs, optionsPanel);
                     String url = slimprob.getUrl();
                     String id = CommonMethods.getJobID(url).replaceAll("\\s+", "");
                     idTextArea.setText(id);
@@ -256,7 +257,8 @@ public class SlimprobRunPanel extends JPanel {
                     selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
                     if (selected.size() > 1) {
                         String motif = motifTextArea.getText();
-                        RunSlimprob slimprob = new RunSlimprob(network, selected, null, motif, optionsPanel);
+                        List<String> motifs = Arrays.asList(motif.split(",\\s+|\\s+"));
+                        RunSlimprob slimprob = new RunSlimprob(network, selected, null, motifs, optionsPanel);
                         String url = slimprob.getUrl();
                         String id = CommonMethods.getJobID(url).replaceAll("\\s+", "");
                         idTextArea.setText(id);

@@ -12,9 +12,9 @@ public class RunSlimprob {
     CyNetwork network;
     private SlimprobOptionsPanel optionsPanel;
     String url;
-    String motif;
+    List<String> motif;
 
-    public RunSlimprob(CyNetwork network, List<CyNode> selected, List<String> uniprotIDs, String motif, SlimprobOptionsPanel optionsPanel) {
+    public RunSlimprob(CyNetwork network, List<CyNode> selected, List<String> uniprotIDs, List<String> motif, SlimprobOptionsPanel optionsPanel) {
         this.network = network;
         this.optionsPanel = optionsPanel;
         this.motif = motif;
@@ -61,7 +61,12 @@ public class RunSlimprob {
 
         StringBuilder stringBuilder = new StringBuilder("http://rest.slimsuite.unsw.edu.au/slimprob");
 
-        stringBuilder.append("&motif=" + motif);
+        String motifs = "&motifs=";
+        for (String mot : motif) {
+            motifs = motifs + mot + ",";
+        }
+        motifs = motifs.substring(0, motifs.length() - 1);
+        stringBuilder.append(motifs);
 
         // Construct properly formatted string components
         String dismaskS = "&dismask=";
