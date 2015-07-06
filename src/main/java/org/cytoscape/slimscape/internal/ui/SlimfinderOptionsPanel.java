@@ -158,7 +158,7 @@ public class SlimfinderOptionsPanel extends JPanel {
         slimfinderOptions.setDismask(disorderMakingCheckBox.isSelected());
         slimfinderOptions.setConsmask(conservationMakingCheckBox.isSelected());
         slimfinderOptions.setFeaturemask(featureMaskingCheckBox.isSelected());
-        slimfinderOptions.setCutoff(Double.parseDouble(lengthCutoffTextField.getText()));
+        slimfinderOptions.setCutoff(Integer.parseInt(lengthCutoffTextField.getText()));
         slimfinderOptions.setCustomParameters(customParametersTextArea.getText());
         slimfinderOptions.setAmbiguity(ambiguityCheckBox.isSelected());
         slimfinderOptions.setWidlcard(Integer.parseInt(wildcardCutoffTextField.getText()));

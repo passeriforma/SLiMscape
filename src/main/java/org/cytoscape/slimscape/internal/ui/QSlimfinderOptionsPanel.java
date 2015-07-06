@@ -155,7 +155,7 @@ public class QSlimfinderOptionsPanel extends JPanel {
         qslimfinderOptions.setDismask(disorderMakingCheckBox.isSelected());
         qslimfinderOptions.setConsmask(conservationMakingCheckBox.isSelected());
         qslimfinderOptions.setFeaturemask(featureMaskingCheckBox.isSelected());
-        qslimfinderOptions.setCutoff(Double.parseDouble(lengthCutoffTextField.getText()));
+        qslimfinderOptions.setCutoff(Integer.parseInt(lengthCutoffTextField.getText()));
         qslimfinderOptions.setCustomParameters(customParametersTextArea.getText());
         qslimfinderOptions.setAmbiguity(ambiguityCheckBox.isSelected());
         qslimfinderOptions.setWidlcard(Integer.parseInt(wildcardCutoffTextField.getText()));

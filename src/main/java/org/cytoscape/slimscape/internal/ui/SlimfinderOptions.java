@@ -6,7 +6,7 @@ package org.cytoscape.slimscape.internal.ui;
 public class SlimfinderOptions {
 
     private boolean dismask;
-    private double cutoff;
+    private int cutoff;
     private String length;
     private boolean consmask;
     boolean featuremask;
@@ -59,11 +59,11 @@ public class SlimfinderOptions {
         this.wildcard = wildcard;
     }
 
-    public double getCutoff() {
+    public int getCutoff() {
         return cutoff;
     }
 
-    public void setCutoff(double cutoff) {
+    public void setCutoff(int cutoff) {
         this.cutoff = cutoff;
     }
 

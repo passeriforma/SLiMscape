@@ -58,13 +58,20 @@ public class RunSlimfinder {
         boolean conservation = options.getConsmask();
         boolean featuremask = options.getFeaturemask();
         boolean ambiguity = options.getAmbiguity();
-        double cutoff = options.getCutoff();
+        int cutoff = options.getCutoff();
         String custom = options.getCustomParameters();
         int wildcard = options.getWildcard();
 
         StringBuilder stringBuilder = new StringBuilder("http://rest.slimsuite.unsw.edu.au/slimfinder");
 
         // Construct properly formatted string components
+        String ids = "&uniprotid=";
+        for (String id : uniprotIDs) {
+            ids = ids + id + ",";
+        }
+        ids = ids.substring(0, ids.length() - 1);
+        stringBuilder.append(ids);
+
         String dismaskS = "&dismask=";
         if (dismask) {
             stringBuilder.append(dismaskS + "T");
@@ -102,13 +109,12 @@ public class RunSlimfinder {
         }
 
         stringBuilder.append("&maxwild=" + wildcard);
-
-        String ids = "&uniprotid=";
-        for (String id : uniprotIDs) {
-            ids = ids + id + ",";
+        
+        if (custom.length() > 0) {
+            custom = custom.replace("\n", "&");
+            custom = custom.replace(" ", "");
+            stringBuilder.append("&" + custom);
         }
-        ids = ids.substring(0, ids.length() - 1);
-        stringBuilder.append(ids);
 
         // Make the final string
         return (stringBuilder.toString());
