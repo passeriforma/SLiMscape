@@ -363,4 +363,23 @@ public class CommonMethods {
         }
     }
 
+
+    public static boolean checkProgramsMatch (String url, String program, OpenBrowser openBrowser) {
+        try {
+            URL websiteFull = new URL(url + "&rest=full");
+            URLConnection connectionFull = websiteFull.openConnection();
+            BufferedReader inF = new BufferedReader(
+                    new InputStreamReader(
+                            connectionFull.getInputStream()));
+
+            String firstLine = inF.readLine();
+            if (firstLine.contains(program)) { // its a match
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            return false;
+        }
+    }
 }

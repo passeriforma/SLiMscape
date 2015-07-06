@@ -223,8 +223,13 @@ public class SlimprobRunPanel extends JPanel {
                     String id = idTextArea.getText();
                     int ready = CommonMethods.checkReady(id, openBrowser);
                     if (ready == 1) { // ready
-                        resultProcessing(id);
-                    } else if (ready != -2) {
+                        String url = "http://rest.slimsuite.unsw.edu.au/retrieve&jobid=" + id;
+                        if (CommonMethods.checkProgramsMatch(url, "SLiMProb", openBrowser)) {
+                            resultProcessing(id);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "This Run ID was not from SLiMProb.\n" +
+                                    "Please use the original program to import this data.");
+                        }                    } else if (ready != -2) {
                         JOptionPane.showMessageDialog(null, "This ID is still being processed. Please check back later.");
                     }
                 }
