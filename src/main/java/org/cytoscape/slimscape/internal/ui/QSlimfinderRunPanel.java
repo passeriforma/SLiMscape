@@ -326,6 +326,8 @@ public class QSlimfinderRunPanel extends JPanel{
 
         JTable csv = CommonMethods.createCsvTable(csvResults);
         JTable occ = CommonMethods.createOccTable(occResults);
+        csv.setAutoCreateRowSorter(true);
+        occ.setAutoCreateRowSorter(true);
 
         Map<String, ArrayList<String>> occIds = new HashMap<String, ArrayList<String>>();
         for (int y=0; y<occ.getRowCount(); y++) {

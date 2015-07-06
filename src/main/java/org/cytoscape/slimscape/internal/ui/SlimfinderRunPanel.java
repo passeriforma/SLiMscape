@@ -305,6 +305,8 @@ public class SlimfinderRunPanel extends JPanel {
 
         JTable csv = CommonMethods.createCsvTable(csvResults);
         JTable occ = CommonMethods.createOccTable(occResults);
+        csv.setAutoCreateRowSorter(true);
+        occ.setAutoCreateRowSorter(true);
 
         // Obtain which nodes have which patterns in them
         Map<String, ArrayList<String>> occIds = new HashMap<String, ArrayList<String>>();

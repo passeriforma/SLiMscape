@@ -109,7 +109,7 @@ public class RunSlimfinder {
         }
 
         stringBuilder.append("&maxwild=" + wildcard);
-        
+
         if (custom.length() > 0) {
             custom = custom.replace("\n", "&");
             custom = custom.replace(" ", "");

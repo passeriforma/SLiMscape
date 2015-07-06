@@ -332,6 +332,7 @@ public class SlimprobRunPanel extends JPanel {
 
         JTable csv = slimprobCreateCsvTable(csvResults);
         JTable occ = CommonMethods.createOccTable(occResults);
+        csv.setAutoCreateRowSorter(true);
         occ.setAutoCreateRowSorter(true);
 
         Map<String, ArrayList<String>> occIds = new HashMap<String, ArrayList<String>>();
