@@ -253,9 +253,9 @@ public class QSlimfinderRunPanel extends JPanel{
                     }
                     // Get node IDs from the graph
                 } else {
-                    List<CyNode> selected = new ArrayList<CyNode>();
-                    selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
-                    if (selected.size() > 1) {
+                    try {
+                        List<CyNode> selected = new ArrayList<CyNode>();
+                        selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
                         String query = queryTextArea.getText();
                         RunQSlimfinder qslimfinder = new RunQSlimfinder(network, selected, null, query, optionsPanel);
                         String url = qslimfinder.getUrl();
@@ -266,7 +266,7 @@ public class QSlimfinderRunPanel extends JPanel{
                         if (ready == 1) {
                             resultProcessing(id);
                         }
-                    } else {
+                    } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "No inputs to analyse!");
                     }
                 }

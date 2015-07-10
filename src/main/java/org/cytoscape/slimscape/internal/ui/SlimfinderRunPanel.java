@@ -222,6 +222,7 @@ public class SlimfinderRunPanel extends JPanel {
         runSLiMFinderButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CyNetwork network = manager.getCurrentNetwork();
+
                 // There are a set of IDs in the IDs box
                 if (uniprotTextArea.getText().length() > 5) {
                     String input = uniprotTextArea.getText();
@@ -238,9 +239,9 @@ public class SlimfinderRunPanel extends JPanel {
                     }
                 // Get node IDs from the graph
                 } else {
-                    List<CyNode> selected = new ArrayList<CyNode>();
-                    selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
-                    if (selected.size() > 1) {
+                    try {
+                        List<CyNode> selected = new ArrayList<CyNode>();
+                        selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
                         RunSlimfinder slimfinder = new RunSlimfinder(network, selected, null, optionsPanel);
                         String url = slimfinder.getUrl();
                         String id = CommonMethods.getJobID(url).replaceAll("\\s+", "");
@@ -250,7 +251,7 @@ public class SlimfinderRunPanel extends JPanel {
                         if (ready == 1) {
                             resultProcessing(id);
                         }
-                    } else {
+                    } catch (Exception ex){
                         JOptionPane.showMessageDialog(null, "No inputs to analyse!");
                     }
                 }

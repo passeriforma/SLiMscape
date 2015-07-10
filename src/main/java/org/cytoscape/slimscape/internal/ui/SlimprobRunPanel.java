@@ -258,9 +258,9 @@ public class SlimprobRunPanel extends JPanel {
                     }
                     // Get node IDs from the graph
                 } else {
-                    List<CyNode> selected = new ArrayList<CyNode>();
-                    selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
-                    if (selected.size() > 1) {
+                    try {
+                        List<CyNode> selected = new ArrayList<CyNode>();
+                        selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
                         String motif = motifTextArea.getText();
                         List<String> motifs = Arrays.asList(motif.split(",\\s+|\\s+"));
                         RunSlimprob slimprob = new RunSlimprob(network, selected, null, motifs, optionsPanel);
@@ -272,7 +272,7 @@ public class SlimprobRunPanel extends JPanel {
                         if (ready == 1) {
                             resultProcessing(id);
                         }
-                    } else {
+                    } catch (Exception ex){
                         JOptionPane.showMessageDialog(null, "No inputs to analyse!");
                     }
                 }
