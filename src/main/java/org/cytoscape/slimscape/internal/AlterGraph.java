@@ -100,6 +100,45 @@ public class AlterGraph {
         }
     }
 
+
+    /**
+     * @desc - Adds nodes to the protein network from the information returned by the Slim* run.
+     * @param uniprotIDs - list of all Uniprot IDs input to the returned run.
+     * @param nodeIds - map linking all selected Uniprot IDs to their CyNodes, for easy access to the network.
+     * @param newNetwork - CyNetwork of the network being altered.
+     * @param networkViewManager - NetworkViewManager for the network being altered. Initialised in CyActivator.
+     * @param manager - CyApplicationManager for the network being altered. Initialised in CyActivator.
+     */
+    public void addNodes (List<String> uniprotIDs, Map<String, CyNode> nodeIds, CyNetwork newNetwork,
+                          CyNetworkViewManager networkViewManager, CyApplicationManager manager) {
+
+        // Add network view
+        final Collection<CyNetworkView> views = networkViewManager.getNetworkViews(newNetwork);
+        CyNetworkView myView = null;
+        if(views.size() != 0) {
+            myView = views.iterator().next();
+        }
+
+        if (myView == null) {
+            // create a new view for my network
+            myView = networkViewFactory.createNetworkView(newNetwork);
+            networkViewManager.addNetworkView(myView);
+        } else {
+            System.out.println("networkView already existed.");
+        }
+
+        CyNetworkView networkView =  manager.getCurrentNetworkView();
+        for (Object o : nodeIds.entrySet()) {
+            Map.Entry pairs = (Map.Entry) o;
+            CyNode node = (CyNode) pairs.getValue();
+            View<CyNode> nodeView = networkView.getNodeView(node);
+            nodeView.setLockedValue(BasicVisualLexicon.NODE_SHAPE, NodeShapeVisualProperty.ELLIPSE);
+            nodeView.setLockedValue(BasicVisualLexicon.NODE_BORDER_PAINT, Color.BLACK);
+            nodeView.setLockedValue(BasicVisualLexicon.NODE_SIZE, 60.0);
+        }
+    }
+
+
     /**
      * @desc - Adds the node table for the protein network about to be input.
      * @param uniprotIDs - list of all Uniprot IDs input to the returned run.
@@ -153,43 +192,6 @@ public class AlterGraph {
             }
         }
         eventHelper.flushPayloadEvents();
-    }
-
-    /**
-     * @desc - Adds nodes to the protein network from the information returned by the Slim* run.
-     * @param uniprotIDs - list of all Uniprot IDs input to the returned run.
-     * @param nodeIds - map linking all selected Uniprot IDs to their CyNodes, for easy access to the network.
-     * @param newNetwork - CyNetwork of the network being altered.
-     * @param networkViewManager - NetworkViewManager for the network being altered. Initialised in CyActivator.
-     * @param manager - CyApplicationManager for the network being altered. Initialised in CyActivator.
-     */
-    public void addNodes (List<String> uniprotIDs, Map<String, CyNode> nodeIds, CyNetwork newNetwork,
-                          CyNetworkViewManager networkViewManager, CyApplicationManager manager) {
-
-        // Add network view
-        final Collection<CyNetworkView> views = networkViewManager.getNetworkViews(newNetwork);
-        CyNetworkView myView = null;
-        if(views.size() != 0) {
-            myView = views.iterator().next();
-        }
-
-        if (myView == null) {
-            // create a new view for my network
-            myView = networkViewFactory.createNetworkView(newNetwork);
-            networkViewManager.addNetworkView(myView);
-        } else {
-            System.out.println("networkView already existed.");
-        }
-
-        CyNetworkView networkView =  manager.getCurrentNetworkView();
-        for (Object o : nodeIds.entrySet()) {
-            Map.Entry pairs = (Map.Entry) o;
-            CyNode node = (CyNode) pairs.getValue();
-            View<CyNode> nodeView = networkView.getNodeView(node);
-            nodeView.setLockedValue(BasicVisualLexicon.NODE_SHAPE, NodeShapeVisualProperty.ELLIPSE);
-            nodeView.setLockedValue(BasicVisualLexicon.NODE_BORDER_PAINT, Color.BLACK);
-            nodeView.setLockedValue(BasicVisualLexicon.NODE_SIZE, 60.0);
-        }
     }
 
 
@@ -250,6 +252,13 @@ public class AlterGraph {
      * @param newNetwork - CyNetwork of the network being altered.
      */
     public void addUpcConnections (List<String> upc, Map<String, CyNode> nodeIds, CyNetwork newNetwork) {
+        CyTable table = newNetwork.getDefaultEdgeTable();
+        try {
+            table.createColumn("name", String.class, false);
+            table.createColumn("interaction", String.class, false);
+        } catch (Exception ex) {
+
+        }
         for(String line : upc) {
             String[] elements = line.split("\\s");
             for (int a=0; a<elements.length-1; a++) {
@@ -268,7 +277,12 @@ public class AlterGraph {
                             newNetwork.getRow(node).set(CyNetwork.NAME, elements[b]);
                             nodeIds.put(elements[b], node);
                         }
-                        newNetwork.addEdge(node1, node2, true);
+                        CyEdge edge = newNetwork.addEdge(node1, node2, true);
+
+                        String node1name = newNetwork.getRow(node1).get(CyNetwork.NAME, String.class);
+                        String node2name = newNetwork.getRow(node2).get(CyNetwork.NAME, String.class);
+                        table.getRow(edge.getSUID()).set("name", node1name + "->" + node2name);
+                        table.getRow(edge.getSUID()).set("interaction", "UPC");
 
                     }
                 }
