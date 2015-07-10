@@ -242,17 +242,31 @@ public class SlimfinderRunPanel extends JPanel {
                     try {
                         List<CyNode> selected = new ArrayList<CyNode>();
                         selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
-                        RunSlimfinder slimfinder = new RunSlimfinder(network, selected, null, optionsPanel);
-                        String url = slimfinder.getUrl();
-                        String id = CommonMethods.getJobID(url).replaceAll("\\s+", "");
-                        idTextArea.setText(id);
-                        // Make sure the job is ready before analysis starts
-                        int ready = CommonMethods.checkReady(id, openBrowser);
-                        if (ready == 1) {
-                            resultProcessing(id);
+                        if (selected.size() > 1) {
+                            RunSlimfinder slimfinder = new RunSlimfinder(network, selected, null, optionsPanel);
+                            String url = slimfinder.getUrl();
+                            String id = CommonMethods.getJobID(url).replaceAll("\\s+", "");
+                            idTextArea.setText(id);
+                            // Make sure the job is ready before analysis starts
+                            int ready = CommonMethods.checkReady(id, openBrowser);
+                            if (ready == 1) {
+                                resultProcessing(id);
+                            }
+                        } else {
+                            boolean fill = CommonMethods.noInputResponse();
+                            if (fill) {
+                                uniprotTextArea.setText("P32519,P35251,P35869,P51531,P16788,P24385,P29374,P29375,Q98178,"
+                                        + "Q99683,Q99708,Q9R002,Q12931,Q13029,Q13107,Q8UYK9,Q9WKM8,Q9WIJ4,Q9Y6B2,P06847,"
+                                        + "P13889,P14990,P15092,P03129,P03255,P05205,P06726,O39521,O75150,O75884,P03070");
+                            }
                         }
-                    } catch (Exception ex){
-                        JOptionPane.showMessageDialog(null, "No inputs to analyse!");
+                    } catch (Exception ex) {
+                        boolean fill = CommonMethods.noInputResponse();
+                        if (fill) {
+                            uniprotTextArea.setText("P32519,P35251,P35869,P51531,P16788,P24385,P29374,P29375,Q98178,"
+                                    + "Q99683,Q99708,Q9R002,Q12931,Q13029,Q13107,Q8UYK9,Q9WKM8,Q9WIJ4,Q9Y6B2,P06847,"
+                                    + "P13889,P14990,P15092,P03129,P03255,P05205,P06726,O39521,O75150,O75884,P03070");
+                        }
                     }
                 }
             }

@@ -153,7 +153,7 @@ public class SlimprobRunPanel extends JPanel {
         gbc_textArea.gridy = 2;
         slimprobOptionsPanel.add(motifTextArea, gbc_textArea);
 
-        JLabel uniprotLabel = new JLabel("Uniprot IDs:");
+        final JLabel uniprotLabel = new JLabel("Uniprot IDs:");
         GridBagConstraints gbc1_uniprot = new GridBagConstraints();
         gbc1_uniprot.anchor = GridBagConstraints.WEST;
         gbc1_uniprot.insets = new Insets(0, 0, 5, 5);
@@ -261,19 +261,33 @@ public class SlimprobRunPanel extends JPanel {
                     try {
                         List<CyNode> selected = new ArrayList<CyNode>();
                         selected.addAll(CyTableUtil.getNodesInState(network, "selected", true));
-                        String motif = motifTextArea.getText();
-                        List<String> motifs = Arrays.asList(motif.split(",\\s+|\\s+"));
-                        RunSlimprob slimprob = new RunSlimprob(network, selected, null, motifs, optionsPanel);
-                        String url = slimprob.getUrl();
-                        String id = CommonMethods.getJobID(url).replaceAll("\\s+", "");
-                        idTextArea.setText(id);
-                        // Make sure the job is ready before analysis starts
-                        int ready = CommonMethods.checkReady(id, openBrowser);
-                        if (ready == 1) {
-                            resultProcessing(id);
+                        if (selected.size() > 1) {
+                            String motif = motifTextArea.getText();
+                            List<String> motifs = Arrays.asList(motif.split(",\\s+|\\s+"));
+                            RunSlimprob slimprob = new RunSlimprob(network, selected, null, motifs, optionsPanel);
+                            String url = slimprob.getUrl();
+                            String id = CommonMethods.getJobID(url).replaceAll("\\s+", "");
+                            idTextArea.setText(id);
+                            // Make sure the job is ready before analysis starts
+                            int ready = CommonMethods.checkReady(id, openBrowser);
+                            if (ready == 1) {
+                                resultProcessing(id);
+                            }
+                        } else {
+                            boolean fill = CommonMethods.noInputResponse();
+                            if (fill) {
+                                uniprotTextArea.setText("Q8UYK9,Q9WKM8,Q98178,P14990,P06847,P51531,P35251,Q13107,Q12931,"
+                                        + "P03129,P16788,P29375,O75884,O39521,P06726,Q13029,Q9R002,P15092,P29374");
+                                motifTextArea.setText("L.C.E");
+                            }
                         }
                     } catch (Exception ex){
-                        JOptionPane.showMessageDialog(null, "No inputs to analyse!");
+                        boolean fill = CommonMethods.noInputResponse();
+                        if (fill) {
+                            uniprotTextArea.setText("Q8UYK9,Q9WKM8,Q98178,P14990,P06847,P51531,P35251,Q13107,Q12931,"
+                                    + "P03129,P16788,P29375,O75884,O39521,P06726,Q13029,Q9R002,P15092,P29374");
+                            motifTextArea.setText("L.C.E");
+                        }
                     }
                 }
             }

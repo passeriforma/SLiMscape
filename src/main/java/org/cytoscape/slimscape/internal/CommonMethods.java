@@ -382,4 +382,19 @@ public class CommonMethods {
             return false;
         }
     }
+
+
+    public static boolean noInputResponse() {
+
+        String[] options = new String[2];
+        options[0] = "Fill";  // yes
+        options[1] = "Cancel"; // no
+        int option = JOptionPane.showOptionDialog(null, "No inputs to analyse! Press \"Fill\" to autofill input fields with an example.",
+                "No Inputs", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+
+        if (option == JOptionPane.YES_OPTION) {
+            return true;
+        }
+        return false;
+    }
 }
