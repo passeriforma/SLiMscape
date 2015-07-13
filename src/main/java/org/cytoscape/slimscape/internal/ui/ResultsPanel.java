@@ -43,17 +43,23 @@ public class ResultsPanel extends JPanel {
         gbc_results.weightx = 1;
         gbc_results.weighty = 0;
         gbc_results.fill  = GridBagConstraints.BOTH;
+
         JPanel resultsButtonPanel = new JPanel();
+
         resultsButton.setHorizontalAlignment(SwingConstants.LEFT);
         resultsButtonPanel.add(resultsButton);
+
         helpButton.setHorizontalAlignment(SwingConstants.CENTER);
         resultsButtonPanel.add(helpButton);
+
         formatButton.setHorizontalAlignment(SwingConstants.CENTER);
         resultsButtonPanel.add(formatButton);
+
         JButton closeButton = new JButton();
         closeButton.setText("Close (X)");
         closeButton.setHorizontalAlignment(SwingConstants.RIGHT);
         resultsButtonPanel.add(closeButton);
+
         add(resultsButtonPanel, gbc_results);
 
         closeButton.addActionListener(new ActionListener() {

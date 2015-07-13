@@ -41,7 +41,7 @@ public class SlimfinderOptionsPanel extends JPanel {
         maskingPanel.setLayout(gbl_maskingPanel);
 
         this.disorderMakingCheckBox = new JCheckBox("Disorder Masking");
-        this.disorderMakingCheckBox.setSelected(true);
+        disorderMakingCheckBox.setSelected(true);
         GridBagConstraints gbc_disorderMakingCheckBox = new GridBagConstraints();
         gbc_disorderMakingCheckBox.anchor = GridBagConstraints.WEST;
         gbc_disorderMakingCheckBox.insets = new Insets(0, 0, 5, 5);

@@ -78,6 +78,7 @@ public class CommonMethods {
         }
     }
 
+
     /**
      * @desc - Gets the IDs of each node in the slimdb results page.
      * @param url - the URL to search for results in
@@ -110,6 +111,7 @@ public class CommonMethods {
         }
 
     }
+
 
     /**
      * @desc attains and analyses the upc results from the Slimsuite server, so that graph edges can be added later.
@@ -152,6 +154,7 @@ public class CommonMethods {
             return null;
         }
     }
+
 
     /**
      * @desc Creates a csv-specific JTable from an input of comma separated strings.
@@ -199,6 +202,7 @@ public class CommonMethods {
         return table;
     }
 
+
     /**
      * @desc Creates an occ-specific JTable from an input of comma separated strings.
      * @param input - a List<String> consisting of a series of comma-separated lines.
@@ -241,6 +245,7 @@ public class CommonMethods {
         return table;
     }
 
+
     /**
      * @desc - gets the job id from a running SLiMSuite service, for later use.
      * @param url - the URL to search for the ID in.
@@ -276,6 +281,7 @@ public class CommonMethods {
             return null;
         }
     }
+
 
     /**
      * @desc checks if a run is ready on the rest servers
@@ -364,6 +370,15 @@ public class CommonMethods {
     }
 
 
+    /**
+     * @desc - Function to ensure that input Run IDs are being analysed by the correct program in Cytoscape.
+     * @param url - url of the result to be assessed
+     * @param program - program that is calling the function (e.g. SLiMProb)
+     * @param openBrowser - inbuilt function to allow a browser to be opened and content used.
+     * @return - boolean value indicating whether the input ID and input program match or not.
+     *           true - match, proceed with analysis
+     *           false - no match, throw an error
+     */
     public static boolean checkProgramsMatch (String url, String program, OpenBrowser openBrowser) {
         try {
             URL websiteFull = new URL(url + "&rest=full");
@@ -384,6 +399,12 @@ public class CommonMethods {
     }
 
 
+    /**
+     * @desc - Function which allows for graceful failure if no inputs are present.
+     * @return - a boolean indicating what the user has chosen to proceed with
+     *           true - User wants to auto-fill an example
+     *           false - No action needs to be taken
+     */
     public static boolean noInputResponse() {
 
         String[] options = new String[2];

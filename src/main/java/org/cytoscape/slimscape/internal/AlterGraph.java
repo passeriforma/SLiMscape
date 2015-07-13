@@ -262,6 +262,11 @@ public class AlterGraph {
         networkView.updateView();
     }
 
+
+    /**
+     * @desc - Function to remove SLiM formatting from network nodes
+     * @param manager - CyApplicationManager for the network being altered. Initialised in CyActivator.
+     */
     public static void resetNodeStyle(CyApplicationManager manager) {
         CyNetworkView networkView =  manager.getCurrentNetworkView();
         CyNetwork network = manager.getCurrentNetwork();
@@ -281,6 +286,7 @@ public class AlterGraph {
             nodeView.setLockedValue(BasicVisualLexicon.NODE_FILL_COLOR, new Color(0, 120, 220));
         }
     }
+
 
     /**
      * @desc - Function to add UPC connections to a Cytoscape network.
