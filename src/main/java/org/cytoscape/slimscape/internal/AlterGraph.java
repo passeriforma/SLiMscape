@@ -4,6 +4,8 @@ import org.cytoscape.app.CyAppAdapter;
 import org.cytoscape.application.CyApplicationManager;
 import org.cytoscape.event.CyEventHelper;
 import org.cytoscape.model.*;
+import org.cytoscape.view.layout.CyLayoutAlgorithm;
+import org.cytoscape.view.layout.CyLayoutAlgorithmManager;
 import org.cytoscape.view.model.CyNetworkView;
 import org.cytoscape.view.model.CyNetworkViewFactory;
 import org.cytoscape.view.model.CyNetworkViewManager;
@@ -12,6 +14,8 @@ import org.cytoscape.view.presentation.property.BasicVisualLexicon;
 import org.cytoscape.view.presentation.property.NodeShapeVisualProperty;
 import org.cytoscape.view.vizmap.VisualMappingManager;
 import org.cytoscape.view.vizmap.VisualStyle;
+import org.cytoscape.work.SynchronousTaskManager;
+import org.cytoscape.work.TaskIterator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -90,8 +94,22 @@ public class AlterGraph {
                 networkManager.addNetwork(newNetwork);
 
 
-                //CyLayoutAlgorithmManager alMan = adapter.getCyLayoutAlgorithmManager();
-                //CyLayoutAlgorithm algor = alMan.getDefaultLayout();
+                CyLayoutAlgorithmManager alMan = adapter.getCyLayoutAlgorithmManager();
+                CyLayoutAlgorithm algor = alMan.getDefaultLayout();
+
+                // Get network view
+                final Collection<CyNetworkView> views = networkViewManager.getNetworkViews(newNetwork);
+                CyNetworkView myView = null;
+                if(views.size() != 0) {
+                    myView = views.iterator().next();
+                }
+
+                TaskIterator itr = algor.createTaskIterator(myView, algor.createLayoutContext(),
+                        CyLayoutAlgorithm.ALL_NODE_VIEWS, null);
+
+                adapter.getTaskManager().execute(itr);
+                SynchronousTaskManager<?> synTaskMan = adapter.getCyServiceRegistrar().getService(SynchronousTaskManager.class);
+                synTaskMan.execute(itr);
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex);
