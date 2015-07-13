@@ -317,6 +317,14 @@ public class SlimfinderRunPanel extends JPanel {
             }
         });
 
+        // Create button to clear formatting
+        JButton clearFormatting = new JButton();
+        clearFormatting.setText("Clear formatting");
+        clearFormatting.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                AlterGraph.resetNodeStyle(manager);
+            }
+        });
 
         JTable csv = CommonMethods.createCsvTable(csvResults);
         JTable occ = CommonMethods.createOccTable(occResults);
@@ -357,7 +365,8 @@ public class SlimfinderRunPanel extends JPanel {
                 networkViewFactory, networkViewManager, visualMappingManager, adapter);
 
         // Display the results in a panel
-        JPanel resultsPane = new ResultsPanel(new JScrollPane(csv), new JScrollPane(occ), fullResults, help, slimfinder, id);
+        JPanel resultsPane = new ResultsPanel(new JScrollPane(csv), new JScrollPane(occ), fullResults, help,
+                clearFormatting, slimfinder, id);
         slimfinder.add(id, resultsPane);
     }
 

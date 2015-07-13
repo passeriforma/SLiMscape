@@ -262,6 +262,25 @@ public class AlterGraph {
         networkView.updateView();
     }
 
+    public static void resetNodeStyle(CyApplicationManager manager) {
+        CyNetworkView networkView =  manager.getCurrentNetworkView();
+        CyNetwork network = manager.getCurrentNetwork();
+
+        List<CyNode> selectedNodes = CyTableUtil.getNodesInState(network, "selected", true);
+        List<CyNode> unselectedNodes = CyTableUtil.getNodesInState(network, "selected", false);
+
+        for (CyNode node : selectedNodes) {
+            View<CyNode> nodeView = networkView.getNodeView(node);
+            nodeView.setLockedValue(BasicVisualLexicon.NODE_SHAPE, NodeShapeVisualProperty.ELLIPSE);
+            nodeView.setLockedValue(BasicVisualLexicon.NODE_FILL_COLOR, Color.BLUE);
+        }
+
+        for (CyNode node : unselectedNodes) {
+            View<CyNode> nodeView = networkView.getNodeView(node);
+            nodeView.setLockedValue(BasicVisualLexicon.NODE_SHAPE, NodeShapeVisualProperty.ELLIPSE);
+            nodeView.setLockedValue(BasicVisualLexicon.NODE_FILL_COLOR, new Color(0, 120, 220));
+        }
+    }
 
     /**
      * @desc - Function to add UPC connections to a Cytoscape network.

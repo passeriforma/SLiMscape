@@ -8,7 +8,8 @@ import java.awt.event.ActionListener;
 
 public class ResultsPanel extends JPanel {
 
-    public ResultsPanel (JScrollPane csv, JScrollPane occ, JButton resultsButton, JButton helpButton, final JTabbedPane slimparent, final String id) {
+    public ResultsPanel (JScrollPane csv, JScrollPane occ, JButton resultsButton, JButton helpButton, JButton formatButton,
+                         final JTabbedPane slimparent, final String id) {
         csv.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         csv.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
@@ -47,6 +48,8 @@ public class ResultsPanel extends JPanel {
         resultsButtonPanel.add(resultsButton);
         helpButton.setHorizontalAlignment(SwingConstants.CENTER);
         resultsButtonPanel.add(helpButton);
+        formatButton.setHorizontalAlignment(SwingConstants.CENTER);
+        resultsButtonPanel.add(formatButton);
         JButton closeButton = new JButton();
         closeButton.setText("Close (X)");
         closeButton.setHorizontalAlignment(SwingConstants.RIGHT);
