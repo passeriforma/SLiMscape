@@ -313,7 +313,7 @@ public class SlimfinderRunPanel extends JPanel {
         help.setText("Help");
         help.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                openBrowser.openURL("https://github.com/RayneCatseye/SLiMscape/wiki/SLiMFinder");
+                openBrowser.openURL("https://github.com/slimsuite/SLiMScape/wiki/SLiMScape");
             }
         });
 
