@@ -1,12 +1,12 @@
-#SLiMScape
+# SLiMScape
 SLiMScape, a <a href="http://www.cytoscape.org/">Cytoscape</a> plugin, is a platform for performing short linear motif analyses of protein interaction networks by integrating motif discovery and search tools in a network visualization environment. This aims to aid in the discovery of novel short linear motifs, as well as visualisation of the distribution of known motifs.
 
 This readme gives an overview of the key SLiMScape features. More information can be found at the [SLiMScape GitHub wiki](https://github.com/slimsuite/SLiMScape/wiki) and the [SLiMSuite blog](http://slimsuite.blogspot.com.au/).
 
-##Installation
+## Installation
 To install, simply navigate to the <a href="http://apps.cytoscape.org/apps/slimscape">Cytoscape App Store</a> and click the install button. This will add the app to your local Cytoscape version.
 
-##Input
+## Input
 The minimum input for SLiMScape is an interaction network which contains a <a href="http://www.uniprot.org/">Uniprot</a> attribute for each node OR a run ID from the UNSW servers. At the moment, the name of the node needs to be its <a href="http://web.expasy.org/docs/userman.html#ID_line">Uniprot ID</a> or <a href="http://www.uniprot.org/help/accession_numbers">Accession Number</a> for the server to know what to do with it.
 
 An example input with Uniprot IDs is:
