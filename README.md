@@ -31,7 +31,7 @@ Once a search has been completed, the nodes that contain SLiMs will change from 
 
 If you want to pre generate a job on the Slimsuite servers, you can do that from <a href="http://rest.slimsuite.unsw.edu.au/">here</a>. If you do this, you can input the generated run ID to Cytoscape, and a graph will be generated for you! It's also handy for larger jobs that may take a while to finish.
 
-##Results
+## Results
 A run will produce both graph changes, and a results panel. 
 
 In the graph, nodes possessing SLiMs will become red diamonds; if a node has more than one SLiM it will be a daker shade of red. Note that *there is not currently a layout set automatically*, and the user will have to go to the layouts tab at the top of the page, and select one from there in order to see all of the nodes.
@@ -76,14 +76,14 @@ Results for SLiMFinder and QSLiMFinder are displayed identically, also in two pa
 Further results can be obtained on the internet, at the URL: `http://rest.slimsuite.unsw.edu.au/retrieve&jobid={jobid produced when the run is performed}`. Alternatively, there is a button at the bottom of the results panel which will open the above link in your browser.
 
 
-##SLiMProb
+## SLiMProb
 SLiMProb searches the protein sequences of the selected nodes for occurrences of a specified regular expressions; useful for locating new instances of a motif found using SLiMFinder (e.g. R[SFYW].S.P). Conventions as used in the program can be found <a href="http://en.wikipedia.org/wiki/Sequence_motif#Motif_Representation">here</a>.
 
 SLiMProb has one input; a SLiM to be searched for in the nodes selected on the graph. To run SLiMProb you must provide a regular expressions in the motifs box and select one or more nodes. Alternatively, if you know the run ID of a previous search, you can instead input that to the Run ID textbox.
 
 If the motif is found, the colour and shape of the target node will change.
 
-###SLiMProb Options
+### SLiMProb Options
 
 **Masking**
 - Disorder Masking is used to mask residues which have an IUPred disorder score of less than 0.3
@@ -98,7 +98,7 @@ SLiMFinder aims to discover new motifs in the selected protein interaction netwo
 It has no mandatory inputs other than a selection of graph nodes or a run ID. If a motif is found in a node, the node will change colour and shape. The specific motif is presented in an output table, along with the Uniprot ID and other data. 
 
 
-###SLiMFinder Options
+### SLiMFinder Options
 
 **Masking**
 - Disorder Masking is used to mask residues which have an IUPred disorder score of less than 0.3
@@ -114,12 +114,12 @@ It has no mandatory inputs other than a selection of graph nodes or a run ID. If
 - Custom parameters is used to add other command line arguments which can be found <a href="http://rest.slimsuite.unsw.edu.au/slimfinder">here</a>.
 
 
-##QSLiMFinder
+## QSLiMFinder
 QSLiMFinder is a modification of SLiMFinder, aimed at looking for SLiMs shared by a query sequence and one or more additional sequences. SLiMs are drawn from the "Query" sequence, then searched for in the other nodes in the set.
 
 QSLiMFinder requires a "Query" input; the Uniprot ID or Accession Number for the node you'd like to get your SLiMs from. This node does not have to be present in the graph. If a motif is found in a selected node, the node will change colour and shape. The specific motif is presented in an output table, along with the Uniprot ID and other data. 
 
-###QSLiMFinder Options
+### QSLiMFinder Options
 
 **Masking**
 - Disorder Masking is used to mask residues which have an IUPred disorder score of less than 0.3
